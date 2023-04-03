@@ -26,13 +26,36 @@ class MyApp extends StatelessWidget {
         // border themes:::::::::::::::::::::::::::::::::::::
         inputDecorationTheme: InputDecorationTheme(
           labelStyle: Theme.of(context).textTheme.labelSmall,
+          // to deal with all borders
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(2.0),
-            borderSide: const BorderSide(color: Colors.grey),
+            borderSide: const BorderSide(
+              color: Colors.grey,
+            ),
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(2.0),
-            borderSide: const BorderSide(color: Colors.grey),
+            borderSide: const BorderSide(
+              color: Colors.grey,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2.0),
+            borderSide: const BorderSide(
+              color: Colors.grey,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2.0),
+            borderSide: const BorderSide(
+              color: Colors.red,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2.0),
+            borderSide: const BorderSide(
+              color: Colors.red,
+            ),
           ),
         ),
       ),
@@ -44,10 +67,10 @@ class MyApp extends StatelessWidget {
           /// we deal with it on utilities, so we just call method that back our Route
           onGenerate, // we not need any parameter here. we used that come from router
       // use one home or initialRoute, here we better use initialRoute
-      // initialRoute: AppRoutes.loginPageRoute,
+      initialRoute: AppRoutes.loginPageRoute,
       // try land page
       // initialRoute: AppRoutes.landingPageRoute,
-      initialRoute: AppRoutes.registerPageRoute,
+      // initialRoute: AppRoutes.registerPageRoute,
     );
   }
 }

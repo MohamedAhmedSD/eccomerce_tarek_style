@@ -16,23 +16,31 @@ Route<dynamic> onGenerate(RouteSettings settings) {
   // it used switch sentence
   // according to settings.name we choose our route cases
   switch (settings.name) {
-    // if path not take parameters make it const
-    // don't forget send settings
+    //:::::::: we make login and register on one as Auth
     case AppRoutes.loginPageRoute: // in this case
       return CupertinoPageRoute(
         // we back CupertinoPageRoute, need both
         builder: (_) => const LoginPage(), // builder without context_
         settings: settings, // and sette]ings
       );
+
+    // if path not take parameters make it const
+    // don't forget send settings
+    // case AppRoutes.loginPageRoute: // in this case
+    //   return CupertinoPageRoute(
+    //     // we back CupertinoPageRoute, need both
+    //     builder: (_) => const LoginPage(), // builder without context_
+    //     settings: settings, // and sette]ings
+    //   );
     case AppRoutes.landingPageRoute:
       return CupertinoPageRoute(
           builder: (_) => const LandingPage(), settings: settings);
-    case AppRoutes.registerPageRoute: // in this case
-      return CupertinoPageRoute(
-        // we back CupertinoPageRoute, need both
-        builder: (_) => const AuthPage(), // builder without context_
-        settings: settings, // and sette]ings
-      );
+    // case AppRoutes.registerPageRoute: // in this case
+    //   return CupertinoPageRoute(
+    //     // we back CupertinoPageRoute, need both
+    //     builder: (_) => const AuthPage(), // builder without context_
+    //     settings: settings, // and sette]ings
+    //   );
 
     //::::::::::::::::
     case AppRoutes.homePageRoute:
