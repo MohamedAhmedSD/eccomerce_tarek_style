@@ -71,6 +71,7 @@ class MyApp extends StatelessWidget {
       // try land page
       // initialRoute: AppRoutes.landingPageRoute,
       // initialRoute: AppRoutes.registerPageRoute,
+      // initialRoute: AppRoutes.homePageRoute,
     );
   }
 }

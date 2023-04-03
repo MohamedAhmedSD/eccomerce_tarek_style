@@ -1,4 +1,6 @@
 import '../utilities/assets.dart';
+
+// we make class carry our product proberties we need it
 class Product {
   final String id;
   final String title;
@@ -7,19 +9,23 @@ class Product {
   final int? discountValue;
   final String category;
   final double? rate;
-
+  // constructor
   Product({
     required this.id,
     required this.title,
     required this.price,
     required this.imgUrl,
-    this.discountValue,
+    this.discountValue, // optional
     this.category = 'Other', // default
-    this.rate,
+    this.rate, // optional
   });
 }
 
 // list of our proudcts
+// it is a global variables, not good
+// here we make a litlle data to test our app inside
+// a list from Product class object
+
 List<Product> dummyProducts = [
   Product(
     id: '1',

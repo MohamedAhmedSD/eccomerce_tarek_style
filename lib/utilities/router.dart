@@ -20,7 +20,7 @@ Route<dynamic> onGenerate(RouteSettings settings) {
     case AppRoutes.loginPageRoute: // in this case
       return CupertinoPageRoute(
         // we back CupertinoPageRoute, need both
-        builder: (_) => const LoginPage(), // builder without context_
+        builder: (_) => const AuthPage(), // builder without context_
         settings: settings, // and sette]ings
       );
 
