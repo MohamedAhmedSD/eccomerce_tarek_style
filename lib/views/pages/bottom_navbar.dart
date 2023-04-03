@@ -18,6 +18,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   // don't forget screens and items should be same numbers
   // beside same organized
+
   // screens
   // _buildScreens is function to return list of widgets
   List<Widget> _buildScreens() {
@@ -66,6 +67,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     ];
   }
 
+// how it appear
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +86,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
         backgroundColor: Colors.white, // Default is Colors.white.
         handleAndroidBackButtonPress: true, // Default is true.
         resizeToAvoidBottomInset:
-            true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+            true, // This needs to be true if you want to move up the screen
+        // when keyboard appears. Default is true.
         stateManagement: true, // Default is true.
         hideNavigationBarWhenKeyboardShows:
             true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
