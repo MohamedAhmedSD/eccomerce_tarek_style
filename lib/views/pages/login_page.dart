@@ -12,23 +12,24 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  //
+  // to reach by key for your certain form
+  // it deal with => FormState
   final _formKey = GlobalKey<FormState>();
-  // make controllers for TFF
+  // make controllers for fill TFF by user data
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Scaffold => SA => Col
+      // Scaffold => SA => form => Col
       body: SafeArea(
           child: Padding(
         // to make space
         padding: const EdgeInsets.symmetric(vertical: 60.0, horizontal: 32.0),
         child: Form(
           // we wrap col in Form
-          key: _formKey,
+          key: _formKey, // we need make a GlobalKey
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -87,7 +88,6 @@ class _LoginPageState extends State<LoginPage> {
                 height: 16.0,
               ),
 
-
               Align(
                 alignment: Alignment.center,
                 child: InkWell(
@@ -95,6 +95,10 @@ class _LoginPageState extends State<LoginPage> {
                   onTap: () {},
                 ),
               ),
+              // to take available space
+              // it different interact according deal with Row or Column
+              // we can use flex proberties to change default one == 1
+              // here under Column
               const Spacer(),
               Align(
                 alignment: Alignment.center,
@@ -106,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 16.0,
               ),
-
+              // to buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -118,7 +122,9 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.white),
                     child: const Icon(Icons.add),
                   ),
-                  const SizedBox(width: 16.0,),
+                  const SizedBox(
+                    width: 16.0,
+                  ),
                   Container(
                     height: 80,
                     width: 80,

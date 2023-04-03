@@ -1,5 +1,6 @@
 import 'package:day1/utilities/routes.dart';
 import 'package:day1/views/pages/landing_page.dart';
+import 'package:day1/views/pages/login_page.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../views/pages/auth.dart';
@@ -15,10 +16,18 @@ Route<dynamic> onGenerate(RouteSettings settings) {
     case AppRoutes.loginPageRoute: // in this case
       return CupertinoPageRoute(
         // we back CupertinoPageRoute, need both
-        builder: (_) => const AuthPage(), // builder without context_
+        builder: (_) => const LoginPage(), // builder without context_
         settings: settings, // and sette]ings
       );
     case AppRoutes.landingPageRoute:
+      return CupertinoPageRoute(
+          builder: (_) => const LandingPage(), settings: settings);
+    case AppRoutes.registerPageRoute: // in this case
+      return CupertinoPageRoute(
+        // we back CupertinoPageRoute, need both
+        builder: (_) => const AuthPage(), // builder without context_
+        settings: settings, // and sette]ings
+      );
 
     // handle it with default route to catch any errors
     default: // if there any problem

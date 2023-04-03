@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../utilities/enums.dart';
 import '../widgets/main_button.dart';
 
+// same to login put we use our enum
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
 
@@ -14,6 +15,8 @@ class _AuthPageState extends State<AuthPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  // enum
+  // choose our login status when start
   var _authType = AuthFormType.login;
 
   @override
@@ -30,6 +33,7 @@ class _AuthPageState extends State<AuthPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // we make condition to choose our login status
                 Text(
                   _authType == AuthFormType.login ? 'Login' : 'Register',
                   // style: Theme.of(context).textTheme.headline4,
@@ -38,6 +42,9 @@ class _AuthPageState extends State<AuthPage> {
                 const SizedBox(height: 80.0),
                 TextFormField(
                   controller: _emailController,
+                  // add simple validator to ensure field is n't empty
+                  // we need add proberty to accept enter to confirm field
+                  // and go to next one ::::::::::::::::::::::::::::::::::
                   validator: (val) =>
                       val!.isEmpty ? 'Please enter your email!' : null,
                   decoration: const InputDecoration(
@@ -56,6 +63,8 @@ class _AuthPageState extends State<AuthPage> {
                   ),
                 ),
                 const SizedBox(height: 16.0),
+                // if we on login page appear to user certain text
+                // Forgot your password?
                 if (_authType == AuthFormType.login)
                   Align(
                     alignment: Alignment.topRight,
@@ -65,24 +74,31 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                   ),
                 const SizedBox(height: 24.0),
+                // also here about what written on button
                 MainButton(
-                  text: _authType == AuthFormType.login ? 'Login' : 'Register',
+                  text: _authType == AuthFormType.login
+                      ? 'Login'
+                      : 'Register', // login or register
                   onTap: () {},
                 ),
                 const SizedBox(height: 16.0),
                 Align(
                   alignment: Alignment.center,
+                  // also additional text
                   child: InkWell(
                     child: Text(
                       _authType == AuthFormType.login
-                          ? 'Don\'t have an account? Register'
-                          : 'Have an account? Login',
+                          ? 'Don\'t have an account? Register' // login
+                          : 'Have an account? Login', // register
                     ),
                     onTap: () {
+                      // inside setState
+                      //
                       setState(() {
                         if (_authType == AuthFormType.login) {
                           _authType = AuthFormType.register;
                         } else {
+                          // opposite
                           _authType = AuthFormType.login;
                         }
                       });
