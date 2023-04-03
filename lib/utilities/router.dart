@@ -1,6 +1,5 @@
 import '../utilities/routes.dart';
 import '../views/pages/landing_page.dart';
-import '../views/pages/login_page.dart';
 import '../views/pages/bottom_navbar.dart';
 import '../views/pages/home_page.dart';
 

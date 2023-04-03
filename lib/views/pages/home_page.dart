@@ -10,7 +10,8 @@ class HomePage extends StatelessWidget {
   /// we make it here due to we repeat use it here
   /// need refactor later => make class better than pass context
   Widget _buildHeaderOfList(
-    // look we use positionsl parameter wiyh named
+    // look we use positionsl parameter with named
+    // look how we use => BuildContext context, then its constructor
     BuildContext context, {
     required String title,
     VoidCallback? onTap,
@@ -77,7 +78,7 @@ class HomePage extends StatelessWidget {
               //   ),
               // ),
               Image.network(
-                AppAssets.topBannerHomePageAsset,
+                AppAssets.store,
                 width: double.infinity,
                 height: size.height * 0.3,
                 // use fit
@@ -88,7 +89,8 @@ class HomePage extends StatelessWidget {
                 opacity: 0.3,
                 child: Container(
                   width: double.infinity,
-                  height: size.height * 0.3,
+                  height: size.height *
+                      0.3, // same height as image which will be under him
                   color: Colors.black,
                 ),
               ),

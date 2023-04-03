@@ -66,9 +66,10 @@ class _AuthPageState extends State<AuthPage> {
                     // when end use TFF
                     onEditingComplete: () =>
                         // as navigator
-                        // how we go from on node to another
+                        // how we go from one node to another
+                        // our current node request another focuse
                         FocusScope.of(context).requestFocus(_passwordFocusNode),
-                    // to change Done on KB into other word
+                    // to change Done on KB into other word as next
                     textInputAction: TextInputAction.next,
                     //:::::::::::::::::::::::
                     // add simple validator to ensure field is n't empty
@@ -111,6 +112,8 @@ class _AuthPageState extends State<AuthPage> {
                         ? 'Login'
                         : 'Register', // login or register
                     onTap: () {
+                      // we go to bottomNav if user enter valid data
+                      // we write condition => by using formkey && its state
                       if (_formKey.currentState!.validate()) {
                         // how we navigate
                         // read about inherited statements
@@ -133,7 +136,9 @@ class _AuthPageState extends State<AuthPage> {
                         // inside setState
                         //
                         setState(() {
-                          //
+                          // every time you press on this text
+                          // your all date inside form will be deleted
+                          // then go to opposite [login or register]
                           _formKey.currentState!.reset();
                           //
                           if (_authType == AuthFormType.login) {

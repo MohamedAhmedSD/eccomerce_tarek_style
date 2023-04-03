@@ -4,6 +4,7 @@ import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import 'home_page.dart';
 
+// your widget here should be under stf not stl
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
 

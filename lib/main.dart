@@ -3,7 +3,8 @@ import 'package:day1/utilities/routes.dart';
 import 'package:flutter/material.dart';
 
 // we are on day 2
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
