@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// customized btn
+// text && function
 class MainButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;

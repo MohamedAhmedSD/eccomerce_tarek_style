@@ -1,6 +1,7 @@
-/// we make class carry all route name
-/// static const String variable = "/routeName";
-/// east to edit and clean
+/// we make class contain all routes name
+/// static const String variable = "/routeName"; to access to class variable
+/// without need to make an object from it => by static proberties
+/// easyn way to edit and clean
 
 class AppRoutes {
   static const String landingPageRoute = '/';

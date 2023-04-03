@@ -16,13 +16,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ecommerce App',
+      // deal with theme here is not better way
       theme: ThemeData(
         // color of most app
         scaffoldBackgroundColor: const Color(0xFFE5E5E5),
         // COLOR OF BUTTONS
         primaryColor: Colors.red,
         // primarySwatch: Colors.blue,
-        // border themes
+        // border themes:::::::::::::::::::::::::::::::::::::
         inputDecorationTheme: InputDecorationTheme(
           labelStyle: Theme.of(context).textTheme.labelSmall,
           focusedBorder: OutlineInputBorder(
@@ -35,11 +36,15 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
+      // routing :::::::::::::::::::::::::::::::::::::::::::::
       onGenerateRoute:
+
+          /// {Route<dynamic>? Function(RouteSettings)? onGenerateRoute}
+          /// Type: Route<dynamic>? Function(RouteSettings)?
+          /// we deal with it on utilities, so we just call method that back our Route
           onGenerate, // we not need any parameter here. we used that come from router
-      // use one home or initialRoute,
+      // use one home or initialRoute, here we better use initialRoute
       initialRoute: AppRoutes.loginPageRoute,
-      // home: Container(),
     );
   }
 }
