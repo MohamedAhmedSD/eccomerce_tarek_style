@@ -1,6 +1,9 @@
-import 'package:day1/utilities/routes.dart';
-import 'package:day1/views/pages/landing_page.dart';
-import 'package:day1/views/pages/login_page.dart';
+import '../utilities/routes.dart';
+import '../views/pages/landing_page.dart';
+import '../views/pages/login_page.dart';
+import '../views/pages/bottom_navbar.dart';
+import '../views/pages/home_page.dart';
+
 import 'package:flutter/cupertino.dart';
 
 import '../views/pages/auth.dart';
@@ -13,6 +16,8 @@ Route<dynamic> onGenerate(RouteSettings settings) {
   // it used switch sentence
   // according to settings.name we choose our route cases
   switch (settings.name) {
+    // if path not take parameters make it const
+    // don't forget send settings
     case AppRoutes.loginPageRoute: // in this case
       return CupertinoPageRoute(
         // we back CupertinoPageRoute, need both
@@ -27,6 +32,16 @@ Route<dynamic> onGenerate(RouteSettings settings) {
         // we back CupertinoPageRoute, need both
         builder: (_) => const AuthPage(), // builder without context_
         settings: settings, // and sette]ings
+      );
+
+    //::::::::::::::::
+    case AppRoutes.homePageRoute:
+      return CupertinoPageRoute(
+          builder: (_) => const HomePage(), settings: settings);
+    case AppRoutes.bottomNavBarRoute:
+      return CupertinoPageRoute(
+        builder: (_) => const BottomNavbar(),
+        settings: settings,
       );
 
     // handle it with default route to catch any errors
