@@ -2,7 +2,7 @@ import 'package:day1/utilities/router.dart';
 import 'package:day1/utilities/routes.dart';
 import 'package:flutter/material.dart';
 
-// we are on day 1
+// we are on day 2
 void main() {
   runApp(const MyApp());
 }
