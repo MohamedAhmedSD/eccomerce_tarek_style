@@ -88,9 +88,9 @@ class MyApp extends StatelessWidget {
             /// we deal with it on utilities, so we just call method that back our Route
             onGenerate, // we not need any parameter here. we used that come from router
         // use one home or initialRoute, here we better use initialRoute
-        initialRoute: AppRoutes.loginPageRoute,
+        // initialRoute: AppRoutes.loginPageRoute,
         // try land page
-        // initialRoute: AppRoutes.landingPageRoute,
+        initialRoute: AppRoutes.landingPageRoute,
         // initialRoute: AppRoutes.registerPageRoute,
         // initialRoute: AppRoutes.homePageRoute,
       ),

@@ -50,7 +50,7 @@ class Auth implements AuthBase {
   @override
   // User?
   User? get currentUser => _firebaseAuth.currentUser;
-
+  // logout
   @override
   Future<void> logout() async => await _firebaseAuth.signOut();
 }

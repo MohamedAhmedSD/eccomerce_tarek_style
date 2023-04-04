@@ -21,24 +21,32 @@ class AuthController with ChangeNotifier {
   });
 
   // methods
-  // [2] submit => to login or register  through controller
+  // [5] submit => to login or register  through controller
   Future<void> submit() async {
     try {
       if (authFormType == AuthFormType.login) {
+        // call login function
         await auth.loginWithEmailAndPassword(email, password);
       } else {
+        // call register function
         await auth.signUpWithEmailAndPassword(email, password);
       }
+      // handle error
     } catch (e) {
       rethrow;
     }
   }
 
+  // [4] toggle == exchange
   void toggleFormType() {
+    // it mean if your  AuthFormType == login chnge it into register and vers versa
     final formType = authFormType == AuthFormType.login
         ? AuthFormType.register
         : AuthFormType.login;
+    // we need make notifylistener to it by using => copyWith
     copyWith(
+      // we make our email & pw empty when use toggle
+      // by give them => an empty String == ""
       email: '',
       password: '',
       authFormType: formType,
@@ -46,9 +54,9 @@ class AuthController with ChangeNotifier {
   }
 
 // we need controller talk to service
-// [3] change my email by call copyWith to change that on controller
+// [2] change my email by call copyWith to change that on controller
   void updateEmail(String email) => copyWith(email: email);
-// 4] change my pw by call copyWith to change that on controller
+// [3] change my pw by call copyWith to change that on controller
   void updatePassword(String password) => copyWith(password: password);
 
 // [1] update changes
@@ -70,6 +78,8 @@ class AuthController with ChangeNotifier {
     notifyListeners();
   }
 
+  // [6] logout
+  // call it from service to use by controller
   Future<void> logout() async {
     try {
       await auth.logout();
