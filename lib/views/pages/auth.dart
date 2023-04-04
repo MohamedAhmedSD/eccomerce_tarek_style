@@ -40,7 +40,7 @@ class _AuthPageState extends State<AuthPage> {
   Future<void> submit(AuthController model) async {
     try {
       await model.submit();
-      if (!mounted) return;
+      if (!mounted) return; // till us if page disposed under stf widget
       Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
     } catch (e) {
       showDialog(
