@@ -1,4 +1,9 @@
 import '../utilities/assets.dart';
+// MVC
+// models is class contain parameters to deal with data come from outside
+// servise it to communicate with outer
+// controller our statemanagnent we used=> it found in midel between outer data and date used by user
+// views => our presentation data
 
 // we make class carry our product proberties we need it
 class Product {
