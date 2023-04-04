@@ -21,7 +21,7 @@ class AuthController with ChangeNotifier {
   });
 
   // methods
-  // submit
+  // [2] submit => to login or register  through controller
   Future<void> submit() async {
     try {
       if (authFormType == AuthFormType.login) {
@@ -45,11 +45,13 @@ class AuthController with ChangeNotifier {
     );
   }
 
+// we need controller talk to service
+// [3] change my email by call copyWith to change that on controller
   void updateEmail(String email) => copyWith(email: email);
-
+// 4] change my pw by call copyWith to change that on controller
   void updatePassword(String password) => copyWith(password: password);
 
-// update changes
+// [1] update changes
 // dart data class pkugin => ctrl + n => copy
 // make it back void when I want only used inside our class
   void copyWith({
