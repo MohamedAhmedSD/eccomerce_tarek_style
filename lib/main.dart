@@ -1,10 +1,25 @@
 import 'package:day1/utilities/router.dart';
 import 'package:day1/utilities/routes.dart';
 import 'package:flutter/material.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-// we are on day 2
-void main() async {
+// we are on day 3
+// we can change package name with change_app_package_name
+//https://console.firebase.google.com/
+// SHA => we write on our terminal =>
+// keytool -list -v -keystore C:\Users\Toshiba\.android\debug.keystore -storepass android -keypass android
+// download json file <under android_app folder> and follow instructions
+// we can avoid error by use =>
+// FileNotFoundException
+// don't forget we use Future
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    // name: "sheikh-eccomerce",
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -76,6 +91,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 
 /// we use MCV + services & utilities , don't forget use assets

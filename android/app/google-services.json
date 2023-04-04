@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "250748973645",
+    "project_id": "sheikh-eccomerce",
+    "storage_bucket": "sheikh-eccomerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250748973645:android:ba65f419a3ccebbbd16204",
+        "android_client_info": {
+          "package_name": "com.example.day1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "250748973645-srs5eked66cugm9nn7ldc2hfojqcbt28.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.day1",
+            "certificate_hash": "19484cc1c409b5f844d91ca538513622debfb0c6"
+          }
+        },
+        {
+          "client_id": "250748973645-oj2mib1vqs9vab13ofbg94klkpbm6i75.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUP_g-Q2WSKxAP30cxXMqiS7hzgumqs4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "250748973645-oj2mib1vqs9vab13ofbg94klkpbm6i75.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
