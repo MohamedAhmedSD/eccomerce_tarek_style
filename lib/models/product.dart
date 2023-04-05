@@ -25,7 +25,11 @@ class Product {
     this.rate, // optional
   });
 
-  // day 4
+  // day
+  // create toMap && formMap
+  // https://www.educative.io/answers/how-can-we-convert-an-object-to-a-json-string-in-dart
+  // when I need pass data to firestore
+  // convert model into map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -38,6 +42,10 @@ class Product {
     };
   }
 
+  // named constructor
+  // data come from firestore, it come as map
+  // we need access to certain data
+  // I need pass => String documentId, it write with defferent way
   factory Product.fromMap(Map<String, dynamic> map, String documentId) {
     return Product(
       id: documentId,
