@@ -41,7 +41,10 @@ class _AuthPageState extends State<AuthPage> {
     try {
       await model.submit();
       if (!mounted) return; // till us if page disposed under stf widget
-      Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
+      // not need it we call landing as default route
+      // Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
+      // some times we nessd pop this page from here
+      // Navigator.of(context).pop();
     } catch (e) {
       showDialog(
         context: context,
