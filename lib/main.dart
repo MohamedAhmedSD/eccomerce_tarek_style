@@ -7,7 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
-// we are on day 4
+// we are on day 5
 // we can change package name with change_app_package_name
 //https://console.firebase.google.com/
 // SHA => we write on our terminal =>
