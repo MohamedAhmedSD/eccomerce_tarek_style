@@ -22,7 +22,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Scaffold => SA => form => Col
+      //! is it SA => Scafold?
+      //? Scaffold => SA => form => Col
       body: SafeArea(
           child: Padding(
         // to make space

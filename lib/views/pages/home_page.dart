@@ -6,6 +6,7 @@ import '../widgets/list_item_home.dart';
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  //! make a widget by function way
   /// widget contain title and what under it
   /// we make it here due to we repeat use it here
   /// need refactor later => make class better than pass context
@@ -130,6 +131,8 @@ class HomePage extends StatelessWidget {
                   child: ListView(
                     // scrollDirection
                     scrollDirection: Axis.horizontal,
+                    //! how we display list of certain model into certain widget
+                    //? ourList.map((e) => widget display .tiList()),
                     children: dummyProducts
                         .map(
                           // e == element == our product

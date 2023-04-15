@@ -20,7 +20,21 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     // name: "sheikh-eccomerce",
-    options: DefaultFirebaseOptions.currentPlatform,
+    // options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.android,
+//     options: const FirebaseOptions(
+//   apiKey: "AIzaSyC_VV0-LqmJn7xpqzo8vTFzKs5E9u8hCtc",
+//   appId: "app id here",
+//   messagingSenderId: "messaging id",
+//   projectId: "ecommerce-tarek",
+// ),
+//! another way
+// bool needsWeb = Platform.isLinux | Platform.isWindows;
+// await Firebase.initializeApp(
+//   options: needsWeb
+//       ? DefaultFirebaseOptions.web
+//       : DefaultFirebaseOptions.currentPlatform,
+// );
   );
   runApp(const MyApp());
 }
@@ -88,11 +102,8 @@ class MyApp extends StatelessWidget {
             /// we deal with it on utilities, so we just call method that back our Route
             onGenerate, // we not need any parameter here. we used that come from router
         // use one home or initialRoute, here we better use initialRoute
-        // initialRoute: AppRoutes.loginPageRoute,
-        // try land page
+        //! our app start from landingPage
         initialRoute: AppRoutes.landingPageRoute,
-        // initialRoute: AppRoutes.registerPageRoute,
-        // initialRoute: AppRoutes.homePageRoute,
       ),
     );
   }

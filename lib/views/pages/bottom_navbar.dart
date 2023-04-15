@@ -14,6 +14,7 @@ class BottomNavbar extends StatefulWidget {
 
 class _BottomNavbarState extends State<BottomNavbar> {
   // due to controller we need make it under stf
+  //! we use external backage => persistent_bottom_nav_bar_v2
   final _bottomNavbarController = PersistentTabController();
 
   // don't forget screens and items should be same numbers

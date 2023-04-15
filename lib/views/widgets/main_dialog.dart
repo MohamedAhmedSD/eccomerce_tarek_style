@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MainDialog {
@@ -20,17 +19,17 @@ class MainDialog {
         builder: (_) => AlertDialog(
               title: Text(
                 title,
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               content: Text(
                 content,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               actions: (actions != null)
                   ? actions!
                       .map((action) => TextButton(
                             onPressed: action.values.first,
-                            child:  Text(action.keys.first),
+                            child: Text(action.keys.first),
                           ))
                       .toList()
                   : [

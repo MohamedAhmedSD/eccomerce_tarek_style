@@ -12,7 +12,7 @@ class FirestoreDatabase implements Database {
   //
   @override
   // List<>
-  // access collection
+  //! access collection, to bring data inside it as id, name
   Stream<List<Product>> productsStream() => _service.collectionsStream(
         // that of firestore
         path: 'products/',

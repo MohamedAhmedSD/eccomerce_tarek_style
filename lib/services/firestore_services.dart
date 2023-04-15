@@ -1,19 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
-// all basic functions and streams you need to deal with firestore
+//! all basic functions and streams you need to deal with firestore
 
 class FirestoreServices {
-  // singeltoon constructor is privet
-  // hide constructor and give you certain object to access by it from out file
+  //? singeltoon constructor is privet
+  //* hide constructor == privit =>
+  //* and give you certain object to access by it from out file
+  //! so we build object inside firestore services and give you objdct to access into it
   FirestoreServices._();
 
-  // save its constructor as final
+  //? then save its constructor as final
   static final instance = FirestoreServices._();
-  // short your code
+
+  //! short your code => make instance from firestore
   final _fireStore = FirebaseFirestore.instance;
 
-  // [1] set
+  //* [1] set => add and edit certain data
   Future<void> setData({
     required String path, // where we save data
     required Map<String, dynamic> data, // data I want to save it =>
@@ -21,27 +24,28 @@ class FirestoreServices {
   }) async {
     // call FirebaseFirestore
     // we save data under doc
-    // [a] save
+    //? [a] save data, inside doc
     final reference = _fireStore.doc(path);
-    // test
+    //? test
     debugPrint('Request Data: $data'); // data == map , not path
-    // [set it == send]
-    // set here make both add if new data or edit if old data
+    //? [set it == send]
+    //? set here make both add if new data or edit if old data
+    //! we need deal with reference of doc
     await reference.set(data);
   }
 
-  // [2] delete, just need where data saved
+  //* [2] delete, just need where data saved
   Future<void> deleteData({required String path}) async {
     final reference = _fireStore.doc(path); // doc
     debugPrint('Path: $path'); // path not data
     await reference.delete();
   }
 
-  // streams for both doc && collection
-  // [3]
-  // data come from doc make us deal with multiple different data types
-  // <T> == data type according using time, I wait you data type you pass it
-  // not need here deal with query
+  //! streams for both doc && collection
+  // *[3]
+  //? data come from doc make us deal with multiple different data types
+  //* <T> == I await => data type according that send on using time,
+  // !not need here deal with query
   Stream<T> documentsStream<T>({
     // I need bring data
     // [a]so I need path & after reach to its place
@@ -51,34 +55,39 @@ class FirestoreServices {
     // and make builder to make object from it
     // to get data from snapshot when return it
     // this function apply on doc stream
-    // == fromMap
+
+    //! == fromMap ==  T Function
+    //* we make our builder
+    //? don't forget ?
     required T Function(Map<String, dynamic>? data, String documentId) builder,
   }) {
     final reference = _fireStore.doc(path);
     final snapshots =
-        reference.snapshots(); //[b] it brings colection inside docs
+        reference.snapshots(); //*[b] it brings colection inside docs
     // we need back stream
-    // snapshot == DocumentSnapshot<Map<String, dynamic>>
+    //? snapshot == DocumentSnapshot<Map<String, dynamic>>
+    //* we need back snapshot.data( => as data model on stream
     return snapshots.map((snapshot) => builder(snapshot.data(), snapshot.id));
   }
 
-  //[4]
-  // stream of docs inside collections
-  // becarful stream of List<T> not T
+  //* [4]
+  //! stream of docs inside collections
+  //? becarful stream of List<T> not T
   Stream<List<T>> collectionsStream<T>({
     // as docs above + 2 parameters
     // where
     required String path,
-    // fromMap
+    //! fromMap
     required T Function(Map<String, dynamic>? data, String documentId)
-        builder, // function name == builder
-    // may we need sort or filter our query
-    // filter bu Query
+        builder, //? function name == builder
+    //? may we need sort or filter our query
+    //* filter by Query
     Query Function(Query query)? queryBuilder,
-    // sort funstion it back int
+    //? sort funstion it back int
+    //* sort need 2 elements == parameters, to sort according them
     int Function(T lhs, T rhs)? sort, // lhs == left hand side
   }) {
-    // access collection and save it on query
+    //? access collection and save it on query
     // it back data => collectionReference
     // to be able deal with query from user, make it you make filter on it
     Query query = _fireStore.collection(path);
@@ -87,7 +96,7 @@ class FirestoreServices {
       // merge query
       query = queryBuilder(query);
     }
-    // stream of query
+    //! stream of query
     final snapshots = query.snapshots();
     // map them
     // we can access into doc from snapshot also
@@ -106,7 +115,7 @@ class FirestoreServices {
           .where((value) => value != null)
           // convert all into list
           .toList();
-      // sort
+      //! sort
       if (sort != null) {
         result.sort(sort);
       }

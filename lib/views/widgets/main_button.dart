@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class MainButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
+  // final void Function()? onTap;
 
   const MainButton({
     Key? key,

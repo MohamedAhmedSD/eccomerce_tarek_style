@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-// we use abstract class
-// when outer access just by now name and not able to modify this function
+//! this service to talk auth firebase
+//? we use abstract class
+//* when outer prople access just by now name and not able to modify this function
 abstract class AuthBase {
   // User => model from firebase auth
   User? get currentUser;
@@ -29,6 +30,7 @@ class Auth implements AuthBase {
     // UserCredential userAuth
     final userAuth = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
+    // UserCredential userAuth
     return userAuth.user; // User? get user
   }
 
@@ -40,17 +42,18 @@ class Auth implements AuthBase {
     return userAuth.user;
   }
 
-// stream == back realtime data
+//! stream == back realtime data
 // make stream => to back current status of auth
 // authStateChanges() => Stream<User?> Function()
   @override
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
 
-// back current user => not need parameters
+//! back current user => not need parameters
+//? get function
   @override
-  // User?
+  //* 1. User?
   User? get currentUser => _firebaseAuth.currentUser;
-  // logout
+  //* 2. logout
   @override
   Future<void> logout() async => await _firebaseAuth.signOut();
 }

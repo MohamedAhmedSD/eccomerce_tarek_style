@@ -44,41 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCIUgPCQm1IO6NvuJHMWLb8mFb-wlrnxn4',
-    appId: '1:250748973645:web:d6bb108d29da8164d16204',
-    messagingSenderId: '250748973645',
-    projectId: 'sheikh-eccomerce',
-    authDomain: 'sheikh-eccomerce.firebaseapp.com',
-    storageBucket: 'sheikh-eccomerce.appspot.com',
+    apiKey: 'AIzaSyDqMY9b0Vi9ql7fAKHFx9SaqigwWB-BjUk',
+    appId: '1:329558651885:web:a1d85992492a9db40bade4',
+    messagingSenderId: '329558651885',
+    projectId: 'ecommerce-tarek',
+    authDomain: 'ecommerce-tarek.firebaseapp.com',
+    storageBucket: 'ecommerce-tarek.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBUP_g-Q2WSKxAP30cxXMqiS7hzgumqs4s',
-    appId: '1:250748973645:android:ba65f419a3ccebbbd16204',
-    messagingSenderId: '250748973645',
-    projectId: 'sheikh-eccomerce',
-    storageBucket: 'sheikh-eccomerce.appspot.com',
+    apiKey: 'AIzaSyC_VV0-LqmJn7xpqzo8vTFzKs5E9u8hCtc',
+    appId: '1:329558651885:android:154b315b6e2f6baf0bade4',
+    messagingSenderId: '329558651885',
+    projectId: 'ecommerce-tarek',
+    storageBucket: 'ecommerce-tarek.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB_SeZ4eO9Il2L8Hk9NG2wzgIWECStL-Rw',
-    appId: '1:250748973645:ios:1e66592ccce395e3d16204',
-    messagingSenderId: '250748973645',
-    projectId: 'sheikh-eccomerce',
-    storageBucket: 'sheikh-eccomerce.appspot.com',
-    androidClientId: '250748973645-srs5eked66cugm9nn7ldc2hfojqcbt28.apps.googleusercontent.com',
-    iosClientId: '250748973645-j7jge5v5q1pg46qicm0omvoh0pj65953.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAHHoO2O6eX8cOCWJMzY4gfCeN5bE3aaQo',
+    appId: '1:329558651885:ios:6837a334480c51b00bade4',
+    messagingSenderId: '329558651885',
+    projectId: 'ecommerce-tarek',
+    storageBucket: 'ecommerce-tarek.appspot.com',
+    iosClientId: '329558651885-n9onm78vgqf5v2g2dqclln5g15kpfek3.apps.googleusercontent.com',
     iosBundleId: 'com.example.day1',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB_SeZ4eO9Il2L8Hk9NG2wzgIWECStL-Rw',
-    appId: '1:250748973645:ios:1e66592ccce395e3d16204',
-    messagingSenderId: '250748973645',
-    projectId: 'sheikh-eccomerce',
-    storageBucket: 'sheikh-eccomerce.appspot.com',
-    androidClientId: '250748973645-srs5eked66cugm9nn7ldc2hfojqcbt28.apps.googleusercontent.com',
-    iosClientId: '250748973645-j7jge5v5q1pg46qicm0omvoh0pj65953.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAHHoO2O6eX8cOCWJMzY4gfCeN5bE3aaQo',
+    appId: '1:329558651885:ios:6837a334480c51b00bade4',
+    messagingSenderId: '329558651885',
+    projectId: 'ecommerce-tarek',
+    storageBucket: 'ecommerce-tarek.appspot.com',
+    iosClientId: '329558651885-n9onm78vgqf5v2g2dqclln5g15kpfek3.apps.googleusercontent.com',
     iosBundleId: 'com.example.day1',
   );
 }

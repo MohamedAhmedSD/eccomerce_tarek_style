@@ -48,9 +48,10 @@ class ListItemHome extends StatelessWidget {
                           '${product.discountValue}%',
                           // or
                           // product.discountValue.toString(),
-                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                color: Colors.white,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Colors.white,
+                                  ),
                         ),
                       ),
                     ),

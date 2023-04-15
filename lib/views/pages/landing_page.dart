@@ -13,9 +13,11 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // our provider here not need listen all time
+    //? auth reference
+    //! our provider here not need listen all time
     final auth = Provider.of<AuthBase>(context, listen: false);
-    // access stream => StreamBuilder, back User from FireBase auth
+    //* access stream => StreamBuilder, back User from FireBase auth
+    //? authStateChanges => from our abstract class
     return StreamBuilder<User?>(
       stream: auth.authStateChanges(), //call stateChanges
       builder: (context, snapshot) {
@@ -27,17 +29,23 @@ class LandingPage extends StatelessWidget {
           final user = snapshot.data;
           if (user == null) {
             // no user auth => nav to auth page
+            //! we can use this way ***
+            //! to call ChangeNotifierProvider => of auth page here
+            //? and remove it from auth page
+            //* so it can start from Consumer
             return ChangeNotifierProvider<AuthController>(
               create: (_) => AuthController(auth: auth),
               child: const AuthPage(),
             );
           }
-          // user not null => accesss homePage
+          //! user not null => accesss homePage
+          //? if not write this may not work
           return ChangeNotifierProvider<AuthController>(
             create: (_) => AuthController(auth: auth),
             child: const BottomNavbar(),
           );
         }
+        //? loading till now
         // We will refactor this to make one component for loading
         return const Scaffold(
           body: Center(
