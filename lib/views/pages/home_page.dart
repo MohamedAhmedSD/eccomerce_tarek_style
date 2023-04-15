@@ -1,4 +1,6 @@
+import 'package:day1/controllers/database_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../models/product.dart';
 import '../../utilities/assets.dart';
 import '../widgets/list_item_home.dart';
@@ -55,6 +57,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    //* use stream
+    final database = Provider.of<Database>(context);
+
     return SingleChildScrollView(
       // no Scaffold
       child: Column(
@@ -127,24 +132,52 @@ class HomePage extends StatelessWidget {
                 // })),
                 // not good practice column inside list
                 SizedBox(
-                  height: 300,
-                  child: ListView(
-                    // scrollDirection
-                    scrollDirection: Axis.horizontal,
-                    //! how we display list of certain model into certain widget
-                    //? ourList.map((e) => widget display .tiList()),
-                    children: dummyProducts
-                        .map(
-                          // e == element == our product
-                          (e) => Padding(
-                            // make space between images
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListItemHome(product: e),
-                          ),
-                        )
-                        .toList(), // don't forget toList()
-                  ),
-                ),
+                    height: 300,
+                    //! wrap our product list with => StreamBuilder
+                    child: StreamBuilder<List<Product>>(
+                        stream: database.salesProductsStream(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.active) {
+                            // call product from firestore
+                            final products = snapshot.data;
+                            // handle data
+                            if (products == null || products.isEmpty) {
+                              return const Text("No data available");
+                            }
+                            //! ** two ways **
+                            //? [1] ListView
+                            // return ListView(
+                            //   // scrollDirection
+                            //   scrollDirection: Axis.horizontal,
+                            //   //! how we display list of certain model into certain widget
+                            //   //? ourList.map((e) => widget display .toList()),
+                            //   // children: dummyProducts
+
+                            //   children: products
+                            //       .map(
+                            //         // e == element == our product
+                            //         (e) => Padding(
+                            //           // make space between images
+                            //           padding: const EdgeInsets.all(8.0),
+                            //           child: ListItemHome(product: e),
+                            //         ),
+                            //       )
+                            //       .toList(), // don't forget toList()
+                            // );
+                            //? [2] ListView.builder
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: products.length,
+                              itemBuilder: (_, int index) => Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: ListItemHome(product: products[index]),
+                              ),
+                            );
+                          } //! if no data back
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        })),
                 // another list
                 _buildHeaderOfList(
                   context,
@@ -154,17 +187,31 @@ class HomePage extends StatelessWidget {
                 const SizedBox(height: 8.0),
                 SizedBox(
                   height: 300,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: dummyProducts
-                        .map(
-                          (e) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListItemHome(product: e),
-                          ),
-                        )
-                        .toList(),
-                  ),
+                  child: StreamBuilder<List<Product>>(
+                      stream: database.newProductsStream(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.active) {
+                          // call product from firestore
+                          final products = snapshot.data;
+                          // handle data
+                          if (products == null || products.isEmpty) {
+                            return const Center(
+                                child: Text("No data available"));
+                          }
+                          //! use ListView.builder => delete .map().toList()
+                          //* we use list of products that come from stream
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: products.length,
+                            itemBuilder: (_, int index) => Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: ListItemHome(product: products[index]),
+                            ),
+                          );
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      }),
                 ),
               ],
             ),

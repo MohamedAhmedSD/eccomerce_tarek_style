@@ -5,7 +5,8 @@ import '../utilities/assets.dart';
 // controller our statemanagnent we used=> it found in midel between outer data and date used by user
 // views => our presentation data
 
-// we make class carry our product proberties we need it
+//! we make class carry our product proberties we need it
+//? we make same attribute inside products collection on firestore
 class Product {
   final String id;
   final String title;
@@ -13,7 +14,8 @@ class Product {
   final String imgUrl;
   final int? discountValue;
   final String category;
-  final double? rate;
+  // final double? rate; //! if we use double => data not work when bring it from firestore
+  final int? rate;
   // constructor
   Product({
     required this.id,
@@ -42,7 +44,7 @@ class Product {
     };
   }
 
-  // named constructor
+  //! named constructor
   // data come from firestore, it come as map
   // we need access to certain data
   // I need pass => String documentId, it write with defferent way
@@ -54,7 +56,8 @@ class Product {
       imgUrl: map['imgUrl'] as String,
       discountValue: map['discountValue'] as int,
       category: map['category'] as String,
-      rate: map['rate'] as double,
+      // rate: map['rate'] as double,
+      rate: map['rate'] as int,
     );
   }
 }
