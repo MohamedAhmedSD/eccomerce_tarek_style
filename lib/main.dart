@@ -58,6 +58,11 @@ class MyApp extends StatelessWidget {
           // COLOR OF BUTTONS
           primaryColor: Colors.red,
           // primarySwatch: Colors.blue,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.white,
+            elevation: 2,
+            iconTheme: IconThemeData(color: Colors.black),
+          ),
           // border themes:::::::::::::::::::::::::::::::::::::
           inputDecorationTheme: InputDecorationTheme(
             labelStyle: Theme.of(context).textTheme.labelSmall,

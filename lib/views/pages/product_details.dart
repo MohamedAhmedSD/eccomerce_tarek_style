@@ -15,6 +15,7 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  //? deal with favorite => change icon when press beside go to opposite status
   bool isFavorite = false;
 
   @override
@@ -23,10 +24,15 @@ class _ProductDetailsState extends State<ProductDetails> {
 
     return Scaffold(
       appBar: AppBar(
+        //? we can change appBar background && opacity also from here
         title: Text(
-          widget.product.title,
+          //! call arrgs that inject from constructor, from route page
+          widget.product
+              .title, //* when access through stf, you must start with widget.
+          // product.title, //* when access through stl
           style: Theme.of(context).textTheme.titleLarge,
         ),
+        //! we can edit appbar color from here or from main file
         actions: [
           IconButton(
             onPressed: () {},
@@ -54,11 +60,13 @@ class _ProductDetailsState extends State<ProductDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //* use Align
                   Align(
                     alignment: Alignment.centerRight,
                     child: InkWell(
                       onTap: () {
                         setState(() {
+                          //! opposite
                           isFavorite = !isFavorite;
                         });
                       },
@@ -72,6 +80,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
+                            //! choose which icon
                             child: Icon(
                               isFavorite
                                   ? Icons.favorite
@@ -119,6 +128,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   MainButton(
                     text: 'Add to cart',
                     onTap: () {},
+                    //! is it has border or not
                     hasCircularBorder: true,
                   ),
                   const SizedBox(height: 32.0),
