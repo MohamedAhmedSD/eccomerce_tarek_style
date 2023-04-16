@@ -54,9 +54,9 @@ class FirestoreDatabase implements Database {
 
   //? we can add features as add products or delete it
   // void == I am not waiting response
-  Future<void> setProduct(Product product) async =>
-      _service.setData(path: "products/${product.id}", data: product.toMap());
+  // Future<void> setProduct(Product product) async =>
+  //     _service.setData(path: "products/${product.id}", data: product.toMap());
 
-  Future<void> deleteProduct(Product product) async =>
-      _service.deleteData(path: "products/${product.id}");
+  // Future<void> deleteProduct(Product product) async =>
+  //     _service.deleteData(path: "products/${product.id}");
 }

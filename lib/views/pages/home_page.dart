@@ -132,7 +132,7 @@ class HomePage extends StatelessWidget {
                 // })),
                 // not good practice column inside list
                 SizedBox(
-                    height: 300,
+                    height: 350, //300
                     //! wrap our product list with => StreamBuilder
                     child: StreamBuilder<List<Product>>(
                         stream: database.salesProductsStream(),
@@ -189,7 +189,7 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 SizedBox(
-                  height: 300,
+                  height: 350, //300
                   child: StreamBuilder<List<Product>>(
                       stream: database.newProductsStream(),
                       builder: (context, snapshot) {

@@ -72,6 +72,7 @@ class ListItemHome extends StatelessWidget {
               ),
             ],
           ),
+          // TODO: Create one component for the favorite button
           Positioned(
             left: size.width * 0.38,
             bottom: size.height * 0.12,
@@ -107,8 +108,10 @@ class ListItemHome extends StatelessWidget {
               children: [
                 Row(
                   children: [
+                    //! how we use rating bar
                     RatingBarIndicator(
                       itemSize: 25.0,
+                      //! its duble not int
                       rating: product.rate?.toDouble() ?? 4.0,
                       itemBuilder: (context, _) => const Icon(
                         Icons.star,
