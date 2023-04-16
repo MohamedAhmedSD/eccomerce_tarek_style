@@ -1,3 +1,4 @@
+import 'package:day1/views/pages/profle_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
@@ -28,7 +29,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
       Container(),
       Container(),
       Container(),
-      Container(),
+      const ProfilePage(), //! if not call Page not appear
     ];
   }
 

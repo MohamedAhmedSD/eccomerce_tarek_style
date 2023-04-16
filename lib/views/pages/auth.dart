@@ -1,12 +1,13 @@
 import 'package:day1/controllers/auth_controller.dart';
-import 'package:day1/services/auth.dart';
+import 'package:day1/views/widgets/main_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../utilities/assets.dart';
 import '../../utilities/enums.dart';
-import '../../utilities/routes.dart';
 import '../widgets/main_button.dart';
+import '../widgets/social_media_button.dart';
 
 // same to login put we use our enum
 class AuthPage extends StatefulWidget {
@@ -45,29 +46,35 @@ class _AuthPageState extends State<AuthPage> {
       //! till us if page disposed under stf widget
       // not need it we call landing as default route
       // Navigator.of(context).pushNamed(AppRoutes.bottomNavBarRoute);
-      Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
+      //! Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
       // some times we nessd pop this page from here
       // Navigator.of(context).pop();
-    } catch (e) {
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(
-            'Error!',
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          content: Text(
-            e.toString(),
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+    }
+    // catch (e) {
+    //   showDialog(
+    //     context: context,
+    //     builder: (_) => AlertDialog(
+    //       title: Text(
+    //         'Error!',
+    //         style: Theme.of(context).textTheme.titleLarge,
+    //       ),
+    //       content: Text(
+    //         e.toString(),
+    //         style: Theme.of(context).textTheme.titleMedium,
+    //       ),
+    //       actions: [
+    //         TextButton(
+    //           onPressed: () => Navigator.of(context).pop(),
+    //           child: const Text('OK'),
+    //         ),
+    //       ],
+    //     ),
+    //   );
+    // }
+
+    catch (e) {
+      MainDialog(context: context, title: 'Error', content: e.toString())
+          .showAlertDialog();
     }
   }
 
@@ -77,7 +84,7 @@ class _AuthPageState extends State<AuthPage> {
     final size = MediaQuery.of(context).size;
     //! access to our provider
     //? ask parents on widget tree , till find generic class, then assign it to variable => auth
-    final auth = Provider.of<AuthBase>(context);
+    // final auth = Provider.of<AuthBase>(context);
 
 // I need use controller data
 // wrap with =>
@@ -128,6 +135,7 @@ class _AuthPageState extends State<AuthPage> {
                     const SizedBox(height: 80.0),
                     TextFormField(
                       controller: _emailController,
+                      obscureText: false,
                       // to use it later
                       focusNode: _emailFocusNode,
                       // when end use TFF
@@ -164,6 +172,7 @@ class _AuthPageState extends State<AuthPage> {
                           val!.isEmpty ? 'Please enter your password!' : null,
                       // on changed
                       onChanged: model.updatePassword,
+
                       decoration: const InputDecoration(
                         labelText: 'Password',
                         hintText: 'Enter your pasword!',
@@ -216,8 +225,8 @@ class _AuthPageState extends State<AuthPage> {
                           // how we navigate
                           //! [1] not good way
                           // read about inherited statements
-                          Navigator.of(context)
-                              .pushNamed(AppRoutes.bottomNavBarRoute);
+                          //? Navigator.of(context)
+                          //     .pushNamed(AppRoutes.bottomNavBarRoute);
                           //! we need connect our auth with firestore
                         }
                       },
@@ -279,27 +288,43 @@ class _AuthPageState extends State<AuthPage> {
                           style: Theme.of(context).textTheme.labelSmall,
                         )),
                     const SizedBox(height: 16.0),
+                    //?
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Container(
+                    //       height: 80,
+                    //       width: 80,
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(16.0),
+                    //         color: Colors.white,
+                    //       ),
+                    //       child: const Icon(Icons.add),
+                    //     ),
+                    //     const SizedBox(width: 16.0),
+                    //     Container(
+                    //       height: 80,
+                    //       width: 80,
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(16.0),
+                    //         color: Colors.white,
+                    //       ),
+                    //       child: const Icon(Icons.add),
+                    //     ),
+                    //   ],
+                    // ),
+                    //!
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16.0),
-                            color: Colors.white,
-                          ),
-                          child: const Icon(Icons.add),
+                        SocialMediaButton(
+                          iconName: AppAssets.facebookIcon,
+                          onPress: () {},
                         ),
                         const SizedBox(width: 16.0),
-                        Container(
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16.0),
-                            color: Colors.white,
-                          ),
-                          child: const Icon(Icons.add),
+                        SocialMediaButton(
+                          iconName: AppAssets.googleIcon,
+                          onPress: () {},
                         ),
                       ],
                     ),

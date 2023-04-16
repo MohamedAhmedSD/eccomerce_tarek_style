@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/product.dart';
 import '../../utilities/assets.dart';
+import '../widgets/header_of_list.dart';
 import '../widgets/list_item_home.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,47 +13,47 @@ class HomePage extends StatelessWidget {
   /// widget contain title and what under it
   /// we make it here due to we repeat use it here
   /// need refactor later => make class better than pass context
-  Widget _buildHeaderOfList(
-    // look we use positionsl parameter with named
-    // look how we use => BuildContext context, then its constructor
-    BuildContext context, {
-    required String title,
-    VoidCallback? onTap,
-    required String description,
-  }) {
-    // we not use Scaffold => we use it as widget not as full page
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-            ),
-            InkWell(
-              // it need onTap almost to navigate to certain page
-              onTap: onTap,
-              child: Text(
-                'View All',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-            ),
-          ],
-        ),
-        Text(
-          description,
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Colors.grey,
-              ),
-        ),
-      ],
-    );
-  }
+  // Widget _buildHeaderOfList(
+  //   // look we use positionsl parameter with named
+  //   // look how we use => BuildContext context, then its constructor
+  //   BuildContext context, {
+  //   required String title,
+  //   VoidCallback? onTap,
+  //   required String description,
+  // }) {
+  //   // we not use Scaffold => we use it as widget not as full page
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //         children: [
+  //           Text(
+  //             title,
+  //             style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+  //                   fontWeight: FontWeight.bold,
+  //                   color: Colors.black,
+  //                 ),
+  //           ),
+  //           InkWell(
+  //             // it need onTap almost to navigate to certain page
+  //             onTap: onTap,
+  //             child: Text(
+  //               'View All',
+  //               style: Theme.of(context).textTheme.titleMedium,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //       Text(
+  //         description,
+  //         style: Theme.of(context).textTheme.titleMedium!.copyWith(
+  //               color: Colors.grey,
+  //             ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -120,8 +121,13 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
               children: [
-                _buildHeaderOfList(
-                  context,
+                // _buildHeaderOfList(
+                //   context,
+                //   title: 'Sale',
+                //   description: 'Super Summer Sale!!',
+                // ),
+                HeaderOfList(
+                  onTap: () {},
                   title: 'Sale',
                   description: 'Super Summer Sale!!',
                 ),
@@ -132,7 +138,7 @@ class HomePage extends StatelessWidget {
                 // })),
                 // not good practice column inside list
                 SizedBox(
-                    height: 350, //300
+                    height: 330, //300
                     //! wrap our product list with => StreamBuilder
                     child: StreamBuilder<List<Product>>(
                         stream: database.salesProductsStream(),
@@ -182,14 +188,19 @@ class HomePage extends StatelessWidget {
                               child: CircularProgressIndicator());
                         })),
                 // another list
-                _buildHeaderOfList(
-                  context,
+                // _buildHeaderOfList(
+                //   context,
+                //   title: 'New',
+                //   description: 'Super New Products!!',
+                // ),
+                HeaderOfList(
+                  onTap: () {},
                   title: 'New',
                   description: 'Super New Products!!',
                 ),
                 const SizedBox(height: 8.0),
                 SizedBox(
-                  height: 350, //300
+                  height: 330, //300
                   child: StreamBuilder<List<Product>>(
                       stream: database.newProductsStream(),
                       builder: (context, snapshot) {

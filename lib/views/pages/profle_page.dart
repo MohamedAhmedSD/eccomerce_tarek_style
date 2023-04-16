@@ -22,7 +22,7 @@ class ProfilePage extends StatelessWidget {
     return Consumer<AuthController>(
       builder: (_, model, __) => Column(
         children: [
-          // const Spacer(),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
             child: MainButton(
