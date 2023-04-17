@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 
+import '../../controllers/database_controller.dart';
 import '../../models/product.dart';
 import '../../utilities/routes.dart';
 
@@ -21,17 +23,21 @@ class ListItemHome extends StatelessWidget {
   Widget build(BuildContext context) {
     // MQ
     final size = MediaQuery.of(context).size;
+    final database = Provider.of<Database>(context);
+
     // able to click
     return InkWell(
       //! looj at Nav here
       //* rootNavigator, when nav with bottom navBar
       //* we need tell it, Nav here seprated from that on navBar
       //! new page not depend on it
-      onTap: () => Navigator.of(context, rootNavigator: true).pushNamed(
-        AppRoutes.productDetailsRoute,
-        //! we send data when nav, we recive it on route first
-        arguments: product,
-      ),
+      onTap: () => Navigator.of(context, rootNavigator: true)
+          .pushNamed(AppRoutes.productDetailsRoute,
+              //! we send data when nav, we recive it on route first
+              arguments: {
+            'product': product,
+            'database': database,
+          }),
       child: Stack(
         children: [
           Stack(

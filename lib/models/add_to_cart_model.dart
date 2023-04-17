@@ -1,26 +1,27 @@
 class AddToCartModel {
   final String id;
-  final String productId;
+  final String productId; // new
   final String title;
   final int price;
-  final int quantity;
+  final int quantity; // new
   final String imgUrl;
   final int discountValue;
   final String color;
-  final String size;
+  final String size; // new
 
   AddToCartModel({
     required this.id,
     required this.title,
     required this.price,
     required this.productId,
-    this.quantity = 1,
+    this.quantity = 1, // default
     required this.imgUrl,
-    this.discountValue = 0,
-    this.color = 'Black',
+    this.discountValue = 0, // default
+    this.color = 'Black', // default
     required this.size,
   });
 
+  // we deal with firestore so we need toMap & fromMap
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
@@ -39,7 +40,7 @@ class AddToCartModel {
 
   factory AddToCartModel.fromMap(Map<String, dynamic> map, String documentId) {
     return AddToCartModel(
-      id: documentId,
+      id: documentId, //
       title: map['title'] ?? '',
       productId: map['productId'] ?? '',
       price: map['price']?.toInt() ?? 0,

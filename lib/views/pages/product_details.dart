@@ -1,8 +1,13 @@
+import 'package:day1/controllers/database_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/add_to_cart_model.dart';
 import '../../models/product.dart';
+import '../../utilities/constants.dart';
 import '../widgets/drop_down_menu.dart';
 import '../widgets/main_button.dart';
+import '../widgets/main_dialog.dart';
 
 class ProductDetails extends StatefulWidget {
   final Product product;
@@ -20,9 +25,32 @@ class _ProductDetailsState extends State<ProductDetails> {
   bool isFavorite = false;
   late String dropdownValue;
 
+  //! function of add to cart => future
+  Future<void> _addToCart(Database database) async {
+    try {
+      //* it use model to access data then add them to firestore
+      final addToCartProduct = AddToCartModel(
+        id: documentIdFromLocalData(),
+        title: widget.product.title,
+        price: widget.product.price,
+        productId: widget.product.id,
+        imgUrl: widget.product.imgUrl,
+        size: dropdownValue,
+      );
+      await database.addToCart(addToCartProduct);
+    } catch (e) {
+      return MainDialog(
+        context: context,
+        title: 'Error',
+        content: 'Couldn\'t adding to the cart, please try again!',
+      ).showAlertDialog();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final Database database = Provider.of<Database>(context); // accsess db
 
     return Scaffold(
       appBar: AppBar(
@@ -149,7 +177,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                   const SizedBox(height: 24.0),
                   MainButton(
                     text: 'Add to cart',
-                    onTap: () {},
+                    //!
+                    onTap: () => _addToCart(database),
                     hasCircularBorder: true,
                   ),
                   const SizedBox(height: 32.0),

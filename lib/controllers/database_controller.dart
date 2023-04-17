@@ -1,6 +1,7 @@
 import 'package:day1/models/user_data.dart';
 import 'package:day1/utilities/api_path.dart';
 
+import '../models/add_to_cart_model.dart';
 import '../models/product.dart';
 import '../services/firestore_services.dart';
 
@@ -10,6 +11,11 @@ abstract class Database {
   Stream<List<Product>> newProductsStream();
   // function to deal with user data on firestore by using model
   Future<void> setUserData(UserData userData); // pass model
+  // function of addtocart
+  Future<void> addToCart(
+      AddToCartModel product); //product model with extra proberties
+  //list of products == order
+  Stream<List<AddToCartModel>> myProductsCart();
 }
 
 class FirestoreDatabase implements Database {
@@ -66,4 +72,19 @@ class FirestoreDatabase implements Database {
 
   // Future<void> deleteProduct(Product product) async =>
   //     _service.deleteData(path: "products/${product.id}");
+
+  // add to cart
+
+  @override
+  Future<void> addToCart(AddToCartModel product) async => _service.setData(
+        path: ApiPath.addToCart(uid, product.id),
+        data: product.toMap(),
+      );
+
+  @override
+  Stream<List<AddToCartModel>> myProductsCart() => _service.collectionsStream(
+        path: ApiPath.myProductsCart(uid),
+        builder: (data, documentId) =>
+            AddToCartModel.fromMap(data!, documentId),
+      );
 }

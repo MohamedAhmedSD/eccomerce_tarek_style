@@ -1,4 +1,6 @@
-import '../models/product.dart';
+import 'package:provider/provider.dart';
+
+import '../controllers/database_controller.dart';
 import '../utilities/routes.dart';
 import '../views/pages/landing_page.dart';
 import '../views/pages/bottom_navbar.dart';
@@ -76,12 +78,24 @@ Route<dynamic> onGenerate(RouteSettings settings) {
         settings: settings,
       );
     //! how we recive arrguments from navigation == constructor injection
+    // case AppRoutes.productDetailsRoute:
+    //   //* access to arrgs and assign it with allile
+    //   final product = settings.arguments as Product;
+    //   return CupertinoPageRoute(
+    //     //! when we use builder, back our arrgs
+    //     builder: (_) => ProductDetails(product: product),
+    //     settings: settings,
+    //   );
+    // to solve provider error with add to cart
     case AppRoutes.productDetailsRoute:
-      //* access to arrgs and assign it with allile
-      final product = settings.arguments as Product;
+      final args = settings.arguments as Map<String, dynamic>;
+      final product = args['product'];
+      final database = args['database'];
       return CupertinoPageRoute(
-        //! when we use builder, back our arrgs
-        builder: (_) => ProductDetails(product: product),
+        builder: (_) => Provider<Database>.value(
+          value: database,
+          child: ProductDetails(product: product),
+        ),
         settings: settings,
       );
     case AppRoutes.landingPageRoute:

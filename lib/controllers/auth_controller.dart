@@ -84,11 +84,18 @@ class AuthController with ChangeNotifier {
         await auth.loginWithEmailAndPassword(email, password);
       } else {
         // call register function
-        await auth.signUpWithEmailAndPassword(email, password);
+        final user = await auth.signUpWithEmailAndPassword(email, password);
         //! when sign up we need set userdata on fire store
         //* we create collection on firestore
-        await database.setUserData(
-            UserData(uid: documentIdFromLocalData(), email: email));
+        // await database.setUserData(
+        //     UserData(uid: documentIdFromLocalData(), email: email));
+        //! we need connect uid with cart
+        await database.setUserData(UserData(
+          uid: user?.uid ?? documentIdFromLocalData(),
+          email: email,
+        ));
+        //! we delete auth && users collection on firestore
+        //? then restart app
       }
       // handle error
     } catch (e) {
