@@ -1,3 +1,4 @@
+import 'package:day1/models/user_data.dart';
 import 'package:day1/utilities/api_path.dart';
 
 import '../models/product.dart';
@@ -7,6 +8,8 @@ import '../services/firestore_services.dart';
 abstract class Database {
   Stream<List<Product>> salesProductsStream();
   Stream<List<Product>> newProductsStream();
+  // function to deal with user data on firestore by using model
+  Future<void> setUserData(UserData userData); // pass model
 }
 
 class FirestoreDatabase implements Database {
@@ -51,6 +54,10 @@ class FirestoreDatabase implements Database {
         //* fromMap function on Product class
         builder: (data, documentId) => Product.fromMap(data!, documentId),
       );
+
+  @override
+  Future<void> setUserData(UserData userData) async =>
+      await _service.setData(path: ApiPath.user(uid), data: userData.toMap());
 
   //? we can add features as add products or delete it
   // void == I am not waiting response

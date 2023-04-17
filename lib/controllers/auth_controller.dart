@@ -1,3 +1,6 @@
+import 'package:day1/controllers/database_controller.dart';
+import 'package:day1/models/user_data.dart';
+import 'package:day1/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import '../services/auth.dart';
 import '../utilities/enums.dart';
@@ -12,6 +15,8 @@ class AuthController with ChangeNotifier {
   String email; //! if final I can't change them from inner copyWith()
   String password;
   AuthFormType authFormType;
+  //! for test purpose && not good practise
+  final Database database = FirestoreDatabase("123"); // call from abstract
 
   AuthController({
     required this.auth,
@@ -80,6 +85,10 @@ class AuthController with ChangeNotifier {
       } else {
         // call register function
         await auth.signUpWithEmailAndPassword(email, password);
+        //! when sign up we need set userdata on fire store
+        //* we create collection on firestore
+        await database.setUserData(
+            UserData(uid: documentIdFromLocalData(), email: email));
       }
       // handle error
     } catch (e) {
