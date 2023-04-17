@@ -81,6 +81,8 @@ class FirestoreDatabase implements Database {
         data: product.toMap(),
       );
 
+  //! stream to add data to ui of cart
+  //? becarfull with nullable
   @override
   Stream<List<AddToCartModel>> myProductsCart() => _service.collectionsStream(
         path: ApiPath.myProductsCart(uid),
