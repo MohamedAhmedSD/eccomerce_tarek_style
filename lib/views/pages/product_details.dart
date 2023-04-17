@@ -50,8 +50,9 @@ class _ProductDetailsState extends State<ProductDetails> {
             Image.network(
               widget.product.imgUrl,
               width: double.infinity,
-              height: size.height * 0.55,
+              height: size.height * 0.8, // 0.55
               fit: BoxFit.cover,
+              // fit: BoxFit.fill,
             ),
             const SizedBox(height: 8.0),
             Padding(
