@@ -1,13 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-// customized btn
-// text && function
+//? customized btn
+//* text && function
+//! with choice to add border or not to it
 class MainButton extends StatelessWidget {
   final String text;
   final bool hasCircularBorder;
-  final VoidCallback onTap;
-  // final void Function()? onTap;
+  final VoidCallback onTap; //? or use => final void Function()? onTap;
 
   const MainButton({
     Key? key,
@@ -18,8 +17,9 @@ class MainButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // use SizedBox is better with size than Container
+    //* use SizedBox is better with size than Container
     return SizedBox(
+      //* always width take size as possible but height should be determain
       width: double.infinity,
       height: 50,
       child: ElevatedButton(
@@ -27,6 +27,8 @@ class MainButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).primaryColor,
           // foregroundColor: Theme.of(context).primaryColor,
+          //! how we add border or not
+          //? we need add border to btn on =>
           shape: hasCircularBorder
               ? RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(24.0),

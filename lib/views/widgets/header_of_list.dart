@@ -10,7 +10,8 @@ class HeaderOfList extends StatelessWidget {
     required this.description,
     this.onTap,
   }) : super(key: key);
-
+  //! T-shirt             view all
+  //! it ........................
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,6 +36,7 @@ class HeaderOfList extends StatelessWidget {
             ),
           ],
         ),
+        //! description out from Row
         Text(
           description,
           style: Theme.of(context).textTheme.titleMedium!.copyWith(

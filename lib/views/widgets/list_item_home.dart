@@ -10,8 +10,9 @@ class ListItemHome extends StatelessWidget {
   final Product product;
   final bool isNew;
   final VoidCallback? addToFavorites;
-  bool isFavorite;
-  ListItemHome({
+  final bool isFavorite; //? I make it final
+  const ListItemHome({
+    //? I make it const
     Key? key,
     required this.product,
     required this.isNew,
@@ -78,7 +79,7 @@ class ListItemHome extends StatelessWidget {
               ),
             ],
           ),
-          // TODO: Create one component for the favorite button
+          //
           Positioned(
             left: size.width * 0.30, // 38
             bottom: size.height * 0.18, //12

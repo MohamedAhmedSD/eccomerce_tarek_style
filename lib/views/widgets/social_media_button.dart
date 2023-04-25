@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+//! make Svg image clickable
 class SocialMediaButton extends StatelessWidget {
   const SocialMediaButton({
     Key? key,
@@ -14,6 +15,7 @@ class SocialMediaButton extends StatelessWidget {
     return InkWell(
       onTap: onPress,
       child: Container(
+        //* container = Svg.P * 2
         height: 80,
         width: 80,
         decoration: BoxDecoration(

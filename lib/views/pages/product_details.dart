@@ -109,7 +109,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         ),
                       ),
                       const Spacer(),
-                      // TODO: Create one component for the favorite button
+                      // 
                       InkWell(
                         onTap: () {
                           setState(() {
