@@ -10,7 +10,7 @@ class HeaderOfList extends StatelessWidget {
     required this.description,
     this.onTap,
   }) : super(key: key);
-  //! T-shirt             view all
+  //! T-shirt             view all[on tap text]
   //! it ........................
   @override
   Widget build(BuildContext context) {

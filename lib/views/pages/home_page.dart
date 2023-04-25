@@ -10,50 +10,6 @@ class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   //! make a widget by function way
-  /// widget contain title and what under it
-  /// we make it here due to we repeat use it here
-  /// need refactor later => make class better than pass context
-  // Widget _buildHeaderOfList(
-  //   // look we use positionsl parameter with named
-  //   // look how we use => BuildContext context, then its constructor
-  //   BuildContext context, {
-  //   required String title,
-  //   VoidCallback? onTap,
-  //   required String description,
-  // }) {
-  //   // we not use Scaffold => we use it as widget not as full page
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //         children: [
-  //           Text(
-  //             title,
-  //             style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-  //                   fontWeight: FontWeight.bold,
-  //                   color: Colors.black,
-  //                 ),
-  //           ),
-  //           InkWell(
-  //             // it need onTap almost to navigate to certain page
-  //             onTap: onTap,
-  //             child: Text(
-  //               'View All',
-  //               style: Theme.of(context).textTheme.titleMedium,
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //       Text(
-  //         description,
-  //         style: Theme.of(context).textTheme.titleMedium!.copyWith(
-  //               color: Colors.grey,
-  //             ),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +22,13 @@ class HomePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          //? ============= Store image ==========================
           // element above another
           Stack(
             alignment:
                 Alignment.bottomLeft, // not good for more than 2 elements
             children: [
-              // when we plan we can use Placeholder with Text
+              //! when we plan we can use Placeholder with Text
               // Placeholder(
               //   fallbackWidth: double.infinity,
               //   fallbackHeight: size.height * 0.3,
@@ -91,7 +48,7 @@ class HomePage extends StatelessWidget {
                 // use fit
                 fit: BoxFit.cover,
               ),
-              // opacity to better image overlay make better contrast with Text
+              //* opacity to better image overlay make better contrast with Text
               Opacity(
                 opacity: 0.3,
                 child: Container(
@@ -116,7 +73,8 @@ class HomePage extends StatelessWidget {
           ),
           const SizedBox(height: 24.0),
           // we make padding under Stack
-          // avoid listTile and extra size problems
+          //* avoid listTile and extra size problems
+          //? ============ headers ===============================
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
@@ -127,16 +85,18 @@ class HomePage extends StatelessWidget {
                 //   description: 'Super Summer Sale!!',
                 // ),
                 HeaderOfList(
+                  //! it have View all as on tap Text
                   onTap: () {},
                   title: 'Sale',
                   description: 'Super Summer Sale!!',
                 ),
                 const SizedBox(height: 8.0),
+                //? ================ List  ======================
                 // if we use ListView.builder
                 // it need context => we not need it _, and index
                 // ListView.builder(itemBuilder: (_, int index {
                 // })),
-                // not good practice column inside list
+                //* not good practice column inside list
                 SizedBox(
                     height: 330, //300
                     //! wrap our product list with => StreamBuilder
@@ -193,12 +153,14 @@ class HomePage extends StatelessWidget {
                 //   title: 'New',
                 //   description: 'Super New Products!!',
                 // ),
+                //? ==== headers ====================================
                 HeaderOfList(
                   onTap: () {},
                   title: 'New',
                   description: 'Super New Products!!',
                 ),
                 const SizedBox(height: 8.0),
+                //? ==== list ====================================
                 SizedBox(
                   height: 330, //300
                   child: StreamBuilder<List<Product>>(

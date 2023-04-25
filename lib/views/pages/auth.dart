@@ -6,10 +6,12 @@ import 'package:provider/provider.dart';
 
 import '../../utilities/assets.dart';
 import '../../utilities/enums.dart';
+import '../../utilities/routes.dart';
 import '../widgets/main_button.dart';
 import '../widgets/social_media_button.dart';
 
-// same to login put we use our enum
+//? same to login page => put we use our enum to use one page for both =>
+//* Login && redister
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
 
@@ -21,16 +23,21 @@ class _AuthPageState extends State<AuthPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  // enum
-  // choose our login status when start
-  // we use AuthFormType, from our model
-  // var _authType = AuthFormType.login;
 
-  // to go to next TFF when press on its button
+  //! to go to next TFF when press on its button
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
 
-  // use dispose to close controller after finsh from them
+  //![1] >>>>>>>>>>>> dose btn take FocusNode or recive FN from TFF >>>>>>>>>>>>
+
+  // @override
+  // void initState() {
+  //   _emailController;
+  //   _passwordController;
+  //   super.initState();
+  // }
+
+  //* use dispose to close controller after finish from them
   @override
   void dispose() {
     _emailController.dispose();
@@ -38,76 +45,57 @@ class _AuthPageState extends State<AuthPage> {
     super.dispose();
   }
 
+  void clearTFF() {
+    _emailController.clear();
+    _passwordController.clear();
+  }
+
+  void clearTFFSecondWay() {
+    _emailController.text = "";
+    _passwordController.text = "";
+  }
+
 //
   Future<void> _submit(AuthController model) async {
     try {
+      clearTFF(); //! I add it to clear fields after submit
       await model.submit();
-      if (!mounted) return;
-      //! till us if page disposed under stf widget
-      // not need it we call landing as default route
-      // Navigator.of(context).pushNamed(AppRoutes.bottomNavBarRoute);
-      //! Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
-      // some times we nessd pop this page from here
-      // Navigator.of(context).pop();
-    }
-    // catch (e) {
-    //   showDialog(
-    //     context: context,
-    //     builder: (_) => AlertDialog(
-    //       title: Text(
-    //         'Error!',
-    //         style: Theme.of(context).textTheme.titleLarge,
-    //       ),
-    //       content: Text(
-    //         e.toString(),
-    //         style: Theme.of(context).textTheme.titleMedium,
-    //       ),
-    //       actions: [
-    //         TextButton(
-    //           onPressed: () => Navigator.of(context).pop(),
-    //           child: const Text('OK'),
-    //         ),
-    //       ],
-    //     ),
-    //   );
-    // }
 
+      //* if we need nav to page we need mount them first
+      //* to avoid context problem with build
+
+      if (!mounted) return;
+      Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
+    }
+    //! I use catched error as my content
     catch (e) {
-      MainDialog(context: context, title: 'Error', content: e.toString())
-          .showAlertDialog();
+      MainDialog(
+        context: context,
+        title: 'Error',
+        // content: e.toString(),
+        content: "Please reenter a correct data ",
+      ).showAlertDialog();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // use MQ
+    //* use MQ is difficult on big apps
+    //* May use dimensions class that you make with get.
+    //![2] >>>>>>>>>> how we make dimensions by provider >>>>>>>>>>>>
+
     final size = MediaQuery.of(context).size;
     //! access to our provider
     //? ask parents on widget tree , till find generic class, then assign it to variable => auth
-    // final auth = Provider.of<AuthBase>(context);
-
-// I need use controller data
-// wrap with =>
-    // return ChangeNotifierProvider(
-    //   // create take object from controller
-    //   create: (_) => AuthController(auth: auth),
-    //   child:
-
-    //or use it with consumer
-
+    // final auth = Provider.of<AuthBase>(context);  //? it able edit UI
+    //* on main page we assign Provider to Material root so we able to Use => Consumer here
     //! base of tree
-    return
-        // ChangeNotifierProvider<AuthController>(
-        //   // create take object from controller
-        //   create: (_) => AuthController(auth: auth),
-        //   // then call consumer
-        //   //? where we apply it by consumer
-        //   //*   required Widget Function(BuildContext, AuthController, Widget?) builder,
-        //   child:
-        Consumer<AuthController>(builder: (_, model, __) {
+    //? where we apply it by consumer
+    //* required Widget Function(BuildContext, AuthController, Widget?) builder,
+    return Consumer<AuthController>(builder: (_, model, __) {
       // consumer return widget to listen changes on it
       return Scaffold(
-        // try to avoid KB problem, when keyboard open on phone
+        //! try to avoid KB problem, when keyboard open on phone
         resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: Padding(
@@ -124,35 +112,41 @@ class _AuthPageState extends State<AuthPage> {
                   children: [
                     // we make condition to choose our login status
                     Text(
-                      // _authType == AuthFormType.login ? 'Login' : 'Register',
                       // use from model not from local variable
                       model.authFormType == AuthFormType.login
                           ? 'Login'
                           : 'Register',
-                      // style: Theme.of(context).textTheme.headline4,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const SizedBox(height: 80.0),
                     TextFormField(
                       controller: _emailController,
                       obscureText: false,
-                      // to use it later
+                      //* to use it later
                       focusNode: _emailFocusNode,
-                      // when end use TFF
+                      //* when end use TFF
                       onEditingComplete: () =>
-                          // as navigator
+                          //? as navigator
                           // how we go from one node to another
                           // our current node request another focuse
                           FocusScope.of(context)
                               .requestFocus(_passwordFocusNode),
-                      // to change Done on KB into other word as next
+                      //* to change Done on KB into other word as next
                       textInputAction: TextInputAction.next,
                       //:::::::::::::::::::::::
                       // add simple validator to ensure field is n't empty
                       // we need add proberty to accept enter to confirm field
                       // and go to next one ::::::::::::::::::::::::::::::::::
-                      validator: (val) =>
-                          val!.isEmpty ? 'Please enter your email!' : null,
+                      // validator: (val) =>
+                      //     val!.isEmpty ? 'Please enter your email!' : null,
+
+                      validator: (value) {
+                        if (value!.isNotEmpty && value.length > 7) {
+                          return null;
+                        } else {
+                          return 'Please enter your email!, It should be more than 7';
+                        }
+                      },
                       //:::::::::::::::::::::::::: use on changed
                       // it give us update to happen
                       // access method => model == AuthController model
@@ -167,9 +161,17 @@ class _AuthPageState extends State<AuthPage> {
                       obscureText: true,
                       controller: _passwordController,
                       focusNode: _passwordFocusNode,
-                      // not add => onEditingComplete, textInputAction
-                      validator: (val) =>
-                          val!.isEmpty ? 'Please enter your password!' : null,
+                      //! not add => onEditingComplete, textInputAction
+                      // validator: (val) =>
+                      //     val!.isEmpty ? 'Please enter your password!' : null,
+
+                      validator: (value) {
+                        if (value!.isNotEmpty && value.length > 7) {
+                          return null;
+                        } else {
+                          return 'Passwordshould be more than 7';
+                        }
+                      },
                       // on changed
                       onChanged: model.updatePassword,
 
@@ -179,7 +181,7 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                     ),
                     const SizedBox(height: 16.0),
-                    // if we on login page appear to user certain text
+                    //* if we on login page appear to user certain text
                     // Forgot your password?
                     // if (_authType == AuthFormType.login)
                     // use from model not from local variable
@@ -188,7 +190,9 @@ class _AuthPageState extends State<AuthPage> {
                         alignment: Alignment.topRight,
                         child: InkWell(
                           child: const Text('Forgot your password?'),
-                          onTap: () {},
+                          onTap: () {
+                            //! not add yet
+                          },
                         ),
                       ),
                     const SizedBox(height: 24.0),
@@ -243,39 +247,26 @@ class _AuthPageState extends State<AuthPage> {
                               : 'Have an account? Login', // register
                         ),
                         onTap: () {
-                          // inside setState
-                          //
-                          // setState(() {
-                          // every time you press on this text
+                          //* every time you press on this text
                           // your all date inside form will be deleted
                           // then go to opposite [login or register]
-                          _formKey.currentState!.reset();
-                          //
-                          // if (_authType == AuthFormType.login) {
-                          //   _authType = AuthFormType.register;
-                          // } else {
-                          //   // opposite
-                          //   _authType = AuthFormType.login;
-                          // }
 
-                          //::::::::
-                          // if (model.authFormType == AuthFormType.login) {
-                          //   model.authFormType = AuthFormType.register;
-                          // } else {
-                          //   // opposite
-                          //   model.authFormType = AuthFormType.login;
-                          // }
+                          //! by using key not work
 
-                          //::::::::: toggle == exchange ::::::::::::
+                          //* [A] it work
+                          clearTFF();
+                          //* [B] it work
+                          // clearTFFSecondWay();
 
-                          // });
+                          //*::::::::: toggle == exchange ::::::::::::
+
                           //! just call our toggle
                           model.toggleFormType();
                         },
                       ),
                     ),
                     // const Spacer(),
-                    // we use MQ instead of spacer, less problems
+                    //* we use MQ instead of spacer, less problems
                     SizedBox(height: size.height * 0.09),
                     Align(
                         alignment: Alignment.center,

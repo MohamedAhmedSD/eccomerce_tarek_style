@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 //? we use abstract class
 //* when outer prople access just by now name and not able to modify this function
 abstract class AuthBase {
-  // User => model from firebase auth
+  //* User => model from firebase auth
   User? get currentUser;
 
   Stream<User?> authStateChanges();

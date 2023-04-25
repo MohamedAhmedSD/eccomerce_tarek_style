@@ -41,6 +41,8 @@ class MainDialog {
 
               //? if list not empty make btns that display
               //? its keys as text, and values as (F) on => onPressed part
+
+              //! actions is a list of TextButton
               actions: (actions != null)
                   ? actions!
                       .map((action) => TextButton(
