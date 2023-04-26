@@ -14,11 +14,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     //* use stream
     final database = Provider.of<Database>(context);
 
     return SingleChildScrollView(
-      // no Scaffold
+      //! no Scaffold _________________________________________________________
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -29,6 +30,8 @@ class HomePage extends StatelessWidget {
                 Alignment.bottomLeft, // not good for more than 2 elements
             children: [
               //! when we plan we can use Placeholder with Text
+
+              //? ============= placeholder ==========================
               // Placeholder(
               //   fallbackWidth: double.infinity,
               //   fallbackHeight: size.height * 0.3,
@@ -41,6 +44,7 @@ class HomePage extends StatelessWidget {
               //     style: Theme.of(context).textTheme.headline4,
               //   ),
               // ),
+              //? ============= Store image with opacity ==========================
               Image.network(
                 AppAssets.store,
                 width: double.infinity,
@@ -79,19 +83,14 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
               children: [
-                // _buildHeaderOfList(
-                //   context,
-                //   title: 'Sale',
-                //   description: 'Super Summer Sale!!',
-                // ),
                 HeaderOfList(
-                  //! it have View all as on tap Text
+                  //! it have View all as on tap Text ===========
                   onTap: () {},
                   title: 'Sale',
                   description: 'Super Summer Sale!!',
                 ),
                 const SizedBox(height: 8.0),
-                //? ================ List  ======================
+                //? ================ first List  ======================
                 // if we use ListView.builder
                 // it need context => we not need it _, and index
                 // ListView.builder(itemBuilder: (_, int index {
@@ -131,6 +130,7 @@ class HomePage extends StatelessWidget {
                             //       )
                             //       .toList(), // don't forget toList()
                             // );
+                            //? ============= use ListItemHome ================
                             //? [2] ListView.builder
                             return ListView.builder(
                               scrollDirection: Axis.horizontal,
@@ -143,7 +143,7 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                             );
-                          } //! if no data back
+                          } //! if no data back ===========================
                           return const Center(
                               child: CircularProgressIndicator());
                         })),
@@ -153,6 +153,8 @@ class HomePage extends StatelessWidget {
                 //   title: 'New',
                 //   description: 'Super New Products!!',
                 // ),
+
+                //? ==== Second list ====================================
                 //? ==== headers ====================================
                 HeaderOfList(
                   onTap: () {},

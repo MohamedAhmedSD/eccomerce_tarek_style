@@ -26,6 +26,9 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   flutter_svg: ^2.0.5
 
+  # validators pw && email => by amir bayat
+  flutter_pw_validator: 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

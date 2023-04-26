@@ -26,12 +26,15 @@ class ListItemHome extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final database = Provider.of<Database>(context);
 
-    // able to click
+    //* able to click
+    //? InkWell => Stack =>
     return InkWell(
-      //! looj at Nav here
+      //? =========== rootVavigator =====================================
+      //! look at Nav here
       //* rootNavigator, when nav with bottom navBar
       //* we need tell it, Nav here seprated from that on navBar
-      //! new page not depend on it
+      //? new page not depend on it
+
       onTap: () => Navigator.of(context, rootNavigator: true)
           .pushNamed(AppRoutes.productDetailsRoute,
               //! we send data when nav, we recive it on route first
@@ -39,10 +42,15 @@ class ListItemHome extends StatelessWidget {
             'product': product,
             'database': database,
           }),
+      //? =========== stack =====================================
+      //! look at Nav here
       child: Stack(
         children: [
+          //? =========== stack =====================================
           Stack(
             children: [
+              //? =========== build card of project ======================
+              //* =========== Imagw =====================================
               ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
                 child: Image.network(
@@ -66,6 +74,7 @@ class ListItemHome extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: Center(
                         child: Text(
+                          //* ========== New or have discount ================
                           isNew ? 'NEW' : '${product.discountValue}%',
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -79,7 +88,7 @@ class ListItemHome extends StatelessWidget {
               ),
             ],
           ),
-          //
+          //? =========== add to favorite =====================================
           Positioned(
             left: size.width * 0.30, // 38
             bottom: size.height * 0.18, //12
@@ -109,6 +118,7 @@ class ListItemHome extends StatelessWidget {
               ),
             ),
           ),
+          //? =========== rating =====================================
           Positioned(
             bottom: 5,
             child: Column(
@@ -116,6 +126,7 @@ class ListItemHome extends StatelessWidget {
               children: [
                 Row(
                   children: [
+                    //? =========== rating, price & details ===================
                     //! how we use rating bar
                     RatingBarIndicator(
                       itemSize: 25.0,

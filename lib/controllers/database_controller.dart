@@ -6,28 +6,42 @@ import '../models/product.dart';
 import '../services/firestore_services.dart';
 
 //! to change name on all level => ctrl + f2
+
 abstract class Database {
+  //? ========== streams 3 lists ================
+  //* to make data that we see it on UI, by get them from FS
+  //* by using them we makeour products & cart lists
+
   Stream<List<Product>> salesProductsStream();
   Stream<List<Product>> newProductsStream();
+  //list of products == order
+  Stream<List<AddToCartModel>> myProductsCart();
   // function to deal with user data on firestore by using model
+
+  //? ========== functions deal with our models ================
   Future<void> setUserData(UserData userData); // pass model
   // function of addtocart
   Future<void> addToCart(
-      AddToCartModel product); //product model with extra proberties
-  //list of products == order
-  Stream<List<AddToCartModel>> myProductsCart();
+      AddToCartModel product); //*product model with extra proberties
 }
 
 class FirestoreDatabase implements Database {
-  // call from singeltoon
+  //? ========== Services ================
+  //* call from singeltoon
   final _service = FirestoreServices.instance;
-  // to know every user and its certain data
+
+  //* to know every user and its certain data
   final String uid;
 
+  //* constructor
   FirestoreDatabase(this.uid);
+
+  //? ========== override methods by services ================
 
   //! call certain data
   @override
+  //? ========== streams ================
+
   // List<>
   //! access collection, to bring data inside it as id, name
   Stream<List<Product>> salesProductsStream() => _service.collectionsStream(
@@ -48,6 +62,8 @@ class FirestoreDatabase implements Database {
         // Object? isEqualTo,
       );
 
+  //? ========== streams ================
+
 //! to call all products
   @override
   Stream<List<Product>> newProductsStream() => _service.collectionsStream(
@@ -61,6 +77,8 @@ class FirestoreDatabase implements Database {
         builder: (data, documentId) => Product.fromMap(data!, documentId),
       );
 
+  //? ========== streams ================
+
   @override
   Future<void> setUserData(UserData userData) async =>
       await _service.setData(path: ApiPath.user(uid), data: userData.toMap());
@@ -73,6 +91,8 @@ class FirestoreDatabase implements Database {
   // Future<void> deleteProduct(Product product) async =>
   //     _service.deleteData(path: "products/${product.id}");
 
+  //? ========== streams ================
+
   // add to cart
 
   @override
@@ -80,6 +100,8 @@ class FirestoreDatabase implements Database {
         path: ApiPath.addToCart(uid, product.id),
         data: product.toMap(),
       );
+
+  //? ========== streams ================
 
   //! stream to add data to ui of cart
   //? becarfull with nullable

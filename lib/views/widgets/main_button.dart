@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //? customized btn
 //* text && function
-//! with choice to add border or not to it
+//! with choice to add border or not to it ================================
 class MainButton extends StatelessWidget {
   final String text;
   final bool hasCircularBorder;

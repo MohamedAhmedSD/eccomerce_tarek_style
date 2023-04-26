@@ -8,6 +8,8 @@ import '../widgets/main_button.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
+  //? ========== logout ============================
+  //* == use contexy as parameter ==================
   Future<void> _logout(AuthController model, context) async {
     try {
       await model.logout();
@@ -19,6 +21,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //* ===== Consumer ===========
     return Consumer<AuthController>(
       builder: (_, model, __) => Column(
         children: [

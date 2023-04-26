@@ -11,7 +11,8 @@ import '../widgets/main_button.dart';
 import '../widgets/social_media_button.dart';
 
 //? same to login page => put we use our enum to use one page for both =>
-//* Login && redister
+//* Login && register
+
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
 
@@ -20,22 +21,25 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  //? ============ formKey & TEC =====================
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  //? ============focusNode =====================
   //! to go to next TFF when press on its button
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
 
   //![1] >>>>>>>>>>>> dose btn take FocusNode or recive FN from TFF >>>>>>>>>>>>
 
-  // @override
-  // void initState() {
-  //   _emailController;
-  //   _passwordController;
-  //   super.initState();
-  // }
+  //? ============ init & dispose TEC =====================
+  @override
+  void initState() {
+    _emailController;
+    _passwordController;
+    super.initState();
+  }
 
   //* use dispose to close controller after finish from them
   @override
@@ -45,6 +49,7 @@ class _AuthPageState extends State<AuthPage> {
     super.dispose();
   }
 
+  //? ============ reset & submit =====================
   void clearTFF() {
     _emailController.clear();
     _passwordController.clear();
@@ -55,7 +60,6 @@ class _AuthPageState extends State<AuthPage> {
     _passwordController.text = "";
   }
 
-//
   Future<void> _submit(AuthController model) async {
     try {
       clearTFF(); //! I add it to clear fields after submit
@@ -66,6 +70,7 @@ class _AuthPageState extends State<AuthPage> {
 
       if (!mounted) return;
       Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
+      //? on it we deal with date to make our choice
     }
     //! I use catched error as my content
     catch (e) {
@@ -73,11 +78,12 @@ class _AuthPageState extends State<AuthPage> {
         context: context,
         title: 'Error',
         // content: e.toString(),
-        content: "Please reenter a correct data ",
+        content: "Please Re Enter a Correct Data ",
       ).showAlertDialog();
     }
   }
 
+  //? ============ UI =====================
   @override
   Widget build(BuildContext context) {
     //* use MQ is difficult on big apps
@@ -92,6 +98,8 @@ class _AuthPageState extends State<AuthPage> {
     //! base of tree
     //? where we apply it by consumer
     //* required Widget Function(BuildContext, AuthController, Widget?) builder,
+
+    //? ============ Consumer & form =====================
     return Consumer<AuthController>(builder: (_, model, __) {
       // consumer return widget to listen changes on it
       return Scaffold(
@@ -119,6 +127,7 @@ class _AuthPageState extends State<AuthPage> {
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const SizedBox(height: 80.0),
+                    //? ============ email =====================
                     TextFormField(
                       controller: _emailController,
                       obscureText: false,
@@ -157,6 +166,7 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                     ),
                     const SizedBox(height: 24.0),
+                    //? ============ pw =====================
                     TextFormField(
                       obscureText: true,
                       controller: _passwordController,
@@ -185,6 +195,7 @@ class _AuthPageState extends State<AuthPage> {
                     // Forgot your password?
                     // if (_authType == AuthFormType.login)
                     // use from model not from local variable
+                    //? ============ forget pw =====================
                     if (model.authFormType == AuthFormType.login)
                       Align(
                         alignment: Alignment.topRight,
@@ -197,6 +208,7 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                     const SizedBox(height: 24.0),
                     // also here about what written on button
+                    //? ============ login or register  =====================
                     MainButton(
                       // text: _authType == AuthFormType.login
                       text: model.authFormType == AuthFormType.login
@@ -224,6 +236,8 @@ class _AuthPageState extends State<AuthPage> {
 
                           //* we call function from above this page
                           //! and pass model as its parameter
+
+                          //? ============ submit =====================
                           _submit(model);
 
                           // how we navigate
@@ -236,6 +250,7 @@ class _AuthPageState extends State<AuthPage> {
                       },
                     ),
                     const SizedBox(height: 16.0),
+                    //? ============ toggle =====================
                     Align(
                       alignment: Alignment.center,
                       // also additional text
@@ -279,32 +294,7 @@ class _AuthPageState extends State<AuthPage> {
                           style: Theme.of(context).textTheme.labelSmall,
                         )),
                     const SizedBox(height: 16.0),
-                    //?
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Container(
-                    //       height: 80,
-                    //       width: 80,
-                    //       decoration: BoxDecoration(
-                    //         borderRadius: BorderRadius.circular(16.0),
-                    //         color: Colors.white,
-                    //       ),
-                    //       child: const Icon(Icons.add),
-                    //     ),
-                    //     const SizedBox(width: 16.0),
-                    //     Container(
-                    //       height: 80,
-                    //       width: 80,
-                    //       decoration: BoxDecoration(
-                    //         borderRadius: BorderRadius.circular(16.0),
-                    //         color: Colors.white,
-                    //       ),
-                    //       child: const Icon(Icons.add),
-                    //     ),
-                    //   ],
-                    // ),
-                    //!
+                    //? ============ docial icons =====================
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

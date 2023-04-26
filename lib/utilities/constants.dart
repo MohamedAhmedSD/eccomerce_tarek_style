@@ -4,8 +4,10 @@
 //* to give us a code => where use it and why?
 //!!!!!!!!!!!!!!!!!!! [back here] !!!!!!!!!!!!!!!!!!!!!
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+//* change time to encrypt code
 String documentIdFromLocalData() => DateTime.now().toIso8601String();
 
 class AppColors {
@@ -15,4 +17,7 @@ class AppColors {
   static const Color appBarTheme = Colors.white;
   static const Color icontheme = Colors.black;
   static const Color borderTheme = Colors.grey;
+  //? ========= PersistentBottomNavBarItem =============
+  static const Color activeColorPrimary = CupertinoColors.activeBlue;
+  static const Color inactiveColorPrimary = CupertinoColors.systemGrey;
 }

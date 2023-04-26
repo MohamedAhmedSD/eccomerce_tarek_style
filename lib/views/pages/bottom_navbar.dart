@@ -1,3 +1,4 @@
+import 'package:day1/utilities/constants.dart';
 import 'package:day1/views/pages/profle_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,8 @@ import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'cart_page.dart';
 import 'home_page.dart';
 
-// your widget here should be under stf not stl
+//* your widget here should be under stf not stl
+
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
 
@@ -15,93 +17,103 @@ class BottomNavbar extends StatefulWidget {
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
-  // due to controller we need make it under stf
+  //*ue to controller and rebuild Ui we need make it under stf
+
   //! we use external backage => persistent_bottom_nav_bar_v2
+
+  //? should make controller to this BNB
   final _bottomNavbarController = PersistentTabController();
 
-  // don't forget screens and items should be same numbers
-  // beside same organized
+  //* don't forget screens and items should be same numbers
+  //* beside same order
 
-  // screens
-  // _buildScreens is function to return list of widgets
+  //? ======= screens ================
+  //* _buildScreens is function to return list of widgets
+
   List<Widget> _buildScreens() {
     return [
       const HomePage(),
       Container(),
       const CartPage(),
       Container(),
-      const ProfilePage(), //! if not call Page not appear
+      const ProfilePage(), //! if not call Page not appear UI
     ];
   }
 
-  // navBarsItems, it is function return list of PersistentBottomNavBarItem
+  //? ======= navBarsItems ================
+  //* navBarsItems, it is function return list of PersistentBottomNavBarItem
+
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.home),
         title: ("Home"),
-        activeColorPrimary: CupertinoColors.activeBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: AppColors.activeColorPrimary,
+        inactiveColorPrimary: AppColors.inactiveColorPrimary,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.bag),
         title: ("Shop"),
-        activeColorPrimary: CupertinoColors.activeBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: AppColors.activeColorPrimary,
+        inactiveColorPrimary: AppColors.inactiveColorPrimary,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.shopping_cart),
         title: ("Cart"),
-        activeColorPrimary: CupertinoColors.activeBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: AppColors.activeColorPrimary,
+        inactiveColorPrimary: AppColors.inactiveColorPrimary,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.favorite_border),
         title: ("Favorites"),
-        activeColorPrimary: CupertinoColors.activeBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: AppColors.activeColorPrimary,
+        inactiveColorPrimary: AppColors.inactiveColorPrimary,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.profile_circled),
         title: ("Profile"),
-        activeColorPrimary: CupertinoColors.activeBlue,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: AppColors.activeColorPrimary,
+        inactiveColorPrimary: AppColors.inactiveColorPrimary,
       ),
     ];
   }
 
-// how it appear
+//* how it appear
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PersistentTabView(
-        // it need
-        context, // which come from built-in widget
-        controller: _bottomNavbarController, // PersistentTabController();
-        // List<Widget>
-        // what widget appear on every element on navbar
-        // every element doing when press on it
+        //? ===== context =========
+        //! it required context
+        context, //* which come from built-in widget
+
+        //? ===== controller, list of [screens, items] ===========
+        controller: _bottomNavbarController, //* PersistentTabController();
         screens: _buildScreens(),
-        // every element show what, or build how
-        // List<PersistentBottomNavBarItem>?
         items: _navBarsItems(),
-        confineInSafeArea: true,
+
+        //? ===== style && other proberties ===========
+        confineInSafeArea:
+            true, // Will confine the NavBar's items in the safe area defined by the device.
         backgroundColor: Colors.white, // Default is Colors.white.
         handleAndroidBackButtonPress: true, // Default is true.
         resizeToAvoidBottomInset:
-            true, // This needs to be true if you want to move up the screen
-        // when keyboard appears. Default is true.
+            true, //* This needs to be true if you want to move up the screen
+        //* when keyboard appears. Default is true.
         stateManagement: true, // Default is true.
         hideNavigationBarWhenKeyboardShows:
-            true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+            true, //* Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+
+        //? ======== decoration =============
         decoration: NavBarDecoration(
           borderRadius: BorderRadius.circular(10.0),
           colorBehindNavBar: Colors.white,
         ),
-        popAllScreensOnTapOfSelectedTab: true,
+        popAllScreensOnTapOfSelectedTab:
+            true, //* Creates a fullscreen container with a navigation bar at the bottom.
         popActionScreens: PopActionScreensType.all,
 
-        // animation
+        //? ============ animation ===============
         itemAnimationProperties: const ItemAnimationProperties(
           // Navigation Bar's items animation properties.
           duration: Duration(milliseconds: 200),
@@ -113,7 +125,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),
         ),
-        // change style 1 - 18
+        //? ================== change style 1 - 18 ===================
         navBarStyle:
             NavBarStyle.style1, // Choose the nav bar style with this property.
       ),

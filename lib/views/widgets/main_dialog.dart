@@ -19,7 +19,7 @@ class MainDialog {
     this.actions,
   });
 
-  //* how it build? => [ F -> F -> W ]
+  //* how it build? => [ Func -> Func -> W ] ========================
   showAlertDialog() {
     //! our function call built-in function => showDialog
     showDialog(

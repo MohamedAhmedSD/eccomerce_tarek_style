@@ -25,6 +25,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   bool isFavorite = false;
   late String dropdownValue;
 
+  //? =========== _addToCart method =======================
   //! function of add to cart => future
   Future<void> _addToCart(Database database) async {
     try {
@@ -37,6 +38,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         imgUrl: widget.product.imgUrl,
         size: dropdownValue,
       );
+      //* pass it to FS ===============================
       await database.addToCart(addToCartProduct);
     } catch (e) {
       return MainDialog(
@@ -49,9 +51,11 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
+    //?============= provider && MQ ============================
     final size = MediaQuery.of(context).size;
     final Database database = Provider.of<Database>(context); // accsess db
 
+    //?============= provider && MQ && appBar ============================
     return Scaffold(
       appBar: AppBar(
         //? we can change appBar background && opacity also from here
@@ -72,6 +76,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           ),
         ],
       ),
+      //?============= image ============================
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -88,12 +93,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                 horizontal: 16.0,
                 vertical: 8.0,
               ),
+              //?============= sizes , favorite btn ============================
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      //*============= sizes ============================
                       Expanded(
                         child: SizedBox(
                           height: 60,
@@ -109,11 +116,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                         ),
                       ),
                       const Spacer(),
-                      // 
+                      //*============= favorie btn ============================
                       InkWell(
                         onTap: () {
                           setState(() {
-                            //! opposite
+                            //! opposite=======
                             isFavorite = !isFavorite;
                           });
                         },
@@ -143,6 +150,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ],
                   ),
                   const SizedBox(height: 24.0),
+                  //?============= title && price ============================
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -163,6 +171,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ],
                   ),
                   const SizedBox(height: 8.0),
+                  //?============= category && details ============================
                   Text(
                     widget.product.category,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -175,9 +184,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 24.0),
+                  //?============= add btn ============================
                   MainButton(
                     text: 'Add to cart',
-                    //!
+                    //! pass our chooce into DB
                     onTap: () => _addToCart(database),
                     hasCircularBorder: true,
                   ),
