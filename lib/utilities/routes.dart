@@ -1,11 +1,11 @@
-/// we make class contain all routes name
+///* we make class contain all routes name
 ///? static const String variable = "/routeName"; || "routeName";
-///! to access to class variable
-///? without need to make an object from it => by static proberty
+///! use this [ static ] => to access to class variable
+///? without need to make an object from it
 ///* easy way to edit and clean
 
 class AppRoutes {
-  static const String landingPageRoute = '/'; //! initial automatically
+  static const String landingPageRoute = '/'; //! initial automatically == /
   static const String loginPageRoute = '/login';
   static const String registerPageRoute = '/register';
   static const String bottomNavBarRoute = '/navbar';

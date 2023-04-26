@@ -1,4 +1,5 @@
 import 'package:day1/services/auth.dart';
+import 'package:day1/utilities/constants.dart';
 import 'package:day1/utilities/router.dart';
 import 'package:day1/utilities/routes.dart';
 import 'package:flutter/material.dart';
@@ -7,14 +8,28 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 //? we are on day 9
+
+//? ======== some general information ==========================
+//* [change app name]
 //! we can change package name with change_app_package_name
+//* flutter pub run change_app_package_name:main com.new.package.name
+//* com.shikh.Store => com.domain.app
+//? flutter pub run change_app_package_name:main com.shikh.Store
+//* when change it not affect firebase
+
+//* [SHA]
 //https://console.firebase.google.com/
 //? SHA => we write on our terminal =>
 //* keytool -list -v -keystore C:\Users\Toshiba\.android\debug.keystore -storepass android -keypass android
 // download json file <under android_app folder> and follow instructions
-//? we can avoid error by use =>
+
+//* [Gradle]
+//? we can avoid error on build.gdarle by use =>
 //* 1. remove new or 2.FileNotFoundException
 //? don't forget we use Future, due to deal with data
+
+//? =========== connect with FB ==================================================
+//* [access Firebase]
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -22,12 +37,14 @@ Future<void> main() async {
     //* a. options: DefaultFirebaseOptions.currentPlatform,
     options: DefaultFirebaseOptions.android,
 //* c. options: const FirebaseOptions(
+//? from where we get these information => FB => project overview => project setteings => look at web
 //   apiKey: "AIzaSyC_VV0-LqmJn7xpqzo8vTFzKs5E9u8hCtc",
 //   appId: "app id here",
 //   messagingSenderId: "messaging id",
 //   projectId: "ecommerce-tarek",
-// ), //? from where we get information above
-//! another way, handle by certain device
+// )
+
+//! another way, handle by certain device, using bool with ? :
 // bool needsWeb = Platform.isLinux | Platform.isWindows;
 // await Firebase.initializeApp(
 //   options: needsWeb
@@ -41,30 +58,36 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+//? ============== wrap under Provider ==========================
 //! when use Provider, we reach data without modify UI, not as CNP
   @override
   Widget build(BuildContext context) {
     //? wrap under provider <our services>
-    //* how we call model Auth from its Abstract class
+    //* how we call model Auth from its Abstract class == AuthBase
     return Provider<AuthBase>(
-      //! abstract class
       create: (_) => Auth(), //! model implement from abstract
+      //* we note that : T == Services & Model is controller
+      //* so we use services with controller as logic and minumum use logic on view
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Ecommerce App',
-        //? deal with theme here is not better way
+        title:
+            'Sheikh Alarab Store', //* it what apper on our browser or status bar
+
+        //?============ themes ===========================================
+        //! deal with theme here is not better way
         theme: ThemeData(
           //* color of most app
-          scaffoldBackgroundColor: const Color(0xFFE5E5E5),
+          scaffoldBackgroundColor: AppColors.scaffoldBG,
           //* COLOR OF BUTTONS
-          primaryColor: Colors.red,
+          primaryColor: AppColors.primeryColor,
           // primarySwatch: Colors.blue,
           appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.appBarTheme,
             elevation: 2,
-            iconTheme: IconThemeData(color: Colors.black),
+            iconTheme: IconThemeData(color: AppColors.icontheme),
           ),
           //? border themes:::::::::::::::::::::::::::::::::::::
+          //* group [A] ==== [grey] ==============================
           inputDecorationTheme: InputDecorationTheme(
             labelStyle: Theme.of(context).textTheme.labelSmall,
             //* to deal with all borders
@@ -87,6 +110,7 @@ class MyApp extends StatelessWidget {
                 color: Colors.grey,
               ),
             ),
+            //* group [B] =======[red]==============================
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(2.0),
               borderSide: const BorderSide(
@@ -101,15 +125,14 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        //? routing :::::::::::::::::::::::::::::::::::::::::::::
-        onGenerateRoute:
-
-            ///* {Route<dynamic>? Function(RouteSettings)? onGenerateRoute}
-            ///* Type: Route<dynamic>? Function(RouteSettings)?
-            ///* we deal with it on utilities, so we just call method that back our Route
-            onGenerate, //! we not need any parameter here. we used that come from router
-        //* use only one home or initialRoute, here we better use initialRoute
-        //! our app start from landingPage
+        //? ==== routing :::::::::::::::::::::::::::::::::::::::::::::
+        onGenerateRoute: onGenerate, //! it is a method
+        ///* {Route<dynamic>? Function(RouteSettings)? onGenerateRoute}
+        ///* Type: Route<dynamic>? Function(RouteSettings)?
+        ///? we deal with it on utilities, so we just call method that back our Route
+        //* we not need any parameter here. we used that come from router
+        //*! use only one home or initialRoute, here we better use initialRoute
+        //* our app start from landingPage
         initialRoute: AppRoutes.landingPageRoute,
       ),
     );

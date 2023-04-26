@@ -1,4 +1,4 @@
-package com.example.day1
+package com.shikh.Store
 
 import io.flutter.embedding.android.FlutterActivity
 
