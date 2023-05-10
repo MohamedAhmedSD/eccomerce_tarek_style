@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'utilities/theme.dart';
+import 'views/pages/login_page.dart';
 
 //? we are on day 9
 
@@ -134,7 +135,8 @@ class MyApp extends StatelessWidget {
         //* we not need any parameter here. we used that come from router
         //*! use only one home or initialRoute, here we better use initialRoute
         //* our app start from landingPage
-        initialRoute: AppRoutes.landingPageRoute,
+        // initialRoute: AppRoutes.landingPageRoute,
+        home: const LoginPage(),
       ),
     );
   }

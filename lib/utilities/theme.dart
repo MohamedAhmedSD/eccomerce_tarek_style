@@ -14,39 +14,47 @@ class AppTheme {
       elevation: 2,
       iconTheme: IconThemeData(color: AppColors.icontheme),
     ),
-    //? border themes:::::::::::::::::::::::::::::::::::::
-    //* group [A] ==== [grey] ==============================
+    //! I use text theme here instead that inside labelStyle [*]
+    textTheme: const TextTheme(labelSmall: TextStyle()),
+
     inputDecorationTheme: InputDecorationTheme(
+      fillColor: Colors.white,
+      filled: true,
+      //! ======[ how fix label text inside TFF ]============
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+      //![*]
       // labelStyle: Theme.of(_).textTheme.labelSmall,
+      //? border themes:::::::::::::::::::::::::::::::::::::
+      //* group [A] ==== [grey] ==============================
       //* to deal with all borders
       //* all same prpberties and errors different on only them color
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
         borderSide: const BorderSide(
           color: Colors.grey,
         ),
       ),
       disabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
         borderSide: const BorderSide(
           color: Colors.grey,
         ),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
         borderSide: const BorderSide(
           color: Colors.grey,
         ),
       ),
       //* group [B] =======[red]==============================
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
         borderSide: const BorderSide(
           color: Colors.red,
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
         borderSide: const BorderSide(
           color: Colors.red,
         ),

@@ -8,6 +8,12 @@
 - Routes => we use onGenerateRoute , but we can use Go route [??]
 - how we use translation with provider [??]
 - UI
+    - login page
+    - how we make it resposive UI [??]
+    - modify validator function, for auth [??]
+    //! ======[ how fix label text inside TFF ]===========
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+
 [2]
 ======================================================================
 

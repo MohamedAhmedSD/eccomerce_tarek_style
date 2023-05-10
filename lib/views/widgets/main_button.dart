@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //? customized btn
 //* text && function
 //! with choice to add border or not to it ================================
+
 class MainButton extends StatelessWidget {
   final String text;
   final bool hasCircularBorder;
@@ -17,11 +18,12 @@ class MainButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //* use SizedBox is better with size than Container
+    //* use SizedBox is better with size [H && W] more than Container
     return SizedBox(
       //* always width take size as possible but height should be determain
       width: double.infinity,
-      height: 50,
+      // height: 50,
+      height: 40,
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
@@ -37,6 +39,7 @@ class MainButton extends StatelessWidget {
         ),
         child: Text(
           text,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
     );
