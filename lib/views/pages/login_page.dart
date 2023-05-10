@@ -24,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       //! is it SA => Scafold?
       //? Scaffold => SA => form => Col
+      //* why we use SafeArea ?? to make space from status bar for widget under it
       body: SafeArea(
           child: Padding(
         // to make space

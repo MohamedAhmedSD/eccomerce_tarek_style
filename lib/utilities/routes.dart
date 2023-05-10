@@ -5,7 +5,9 @@
 ///* easy way to edit and clean
 
 class AppRoutes {
-  static const String landingPageRoute = '/'; //! initial automatically == /
+  //! initial automatically == [/]
+  //? landing determain that we go to login our home page
+  static const String landingPageRoute = '/'; 
   static const String loginPageRoute = '/login';
   static const String registerPageRoute = '/register';
   static const String bottomNavBarRoute = '/navbar';

@@ -1,11 +1,11 @@
 import 'package:day1/services/auth.dart';
-import 'package:day1/utilities/constants.dart';
 import 'package:day1/utilities/router.dart';
 import 'package:day1/utilities/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
+import 'utilities/theme.dart';
 
 //? we are on day 9
 
@@ -74,57 +74,58 @@ class MyApp extends StatelessWidget {
             'Sheikh Alarab Store', //* it what apper on our browser or status bar
 
         //?============ themes ===========================================
+        theme: AppTheme.appTheme,
         //! deal with theme here is not better way
-        theme: ThemeData(
-          //* color of most app
-          scaffoldBackgroundColor: AppColors.scaffoldBG,
-          //* COLOR OF BUTTONS
-          primaryColor: AppColors.primeryColor,
-          // primarySwatch: Colors.blue,
-          appBarTheme: const AppBarTheme(
-            backgroundColor: AppColors.appBarTheme,
-            elevation: 2,
-            iconTheme: IconThemeData(color: AppColors.icontheme),
-          ),
-          //? border themes:::::::::::::::::::::::::::::::::::::
-          //* group [A] ==== [grey] ==============================
-          inputDecorationTheme: InputDecorationTheme(
-            labelStyle: Theme.of(context).textTheme.labelSmall,
-            //* to deal with all borders
-            //* all same prpberties and errors different on only them color
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(2.0),
-              borderSide: const BorderSide(
-                color: Colors.grey,
-              ),
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(2.0),
-              borderSide: const BorderSide(
-                color: Colors.grey,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(2.0),
-              borderSide: const BorderSide(
-                color: Colors.grey,
-              ),
-            ),
-            //* group [B] =======[red]==============================
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(2.0),
-              borderSide: const BorderSide(
-                color: Colors.red,
-              ),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(2.0),
-              borderSide: const BorderSide(
-                color: Colors.red,
-              ),
-            ),
-          ),
-        ),
+        // theme: ThemeData(
+        //   //* color of most app
+        //   scaffoldBackgroundColor: AppColors.scaffoldBG,
+        //   //* COLOR OF BUTTONS
+        //   primaryColor: AppColors.primeryColor,
+        //   // primarySwatch: Colors.blue,
+        //   appBarTheme: const AppBarTheme(
+        //     backgroundColor: AppColors.appBarTheme,
+        //     elevation: 2,
+        //     iconTheme: IconThemeData(color: AppColors.icontheme),
+        //   ),
+        //   //? border themes:::::::::::::::::::::::::::::::::::::
+        //   //* group [A] ==== [grey] ==============================
+        //   inputDecorationTheme: InputDecorationTheme(
+        //     labelStyle: Theme.of(context).textTheme.labelSmall,
+        //     //* to deal with all borders
+        //     //* all same prpberties and errors different on only them color
+        //     focusedBorder: OutlineInputBorder(
+        //       borderRadius: BorderRadius.circular(2.0),
+        //       borderSide: const BorderSide(
+        //         color: Colors.grey,
+        //       ),
+        //     ),
+        //     disabledBorder: OutlineInputBorder(
+        //       borderRadius: BorderRadius.circular(2.0),
+        //       borderSide: const BorderSide(
+        //         color: Colors.grey,
+        //       ),
+        //     ),
+        //     enabledBorder: OutlineInputBorder(
+        //       borderRadius: BorderRadius.circular(2.0),
+        //       borderSide: const BorderSide(
+        //         color: Colors.grey,
+        //       ),
+        //     ),
+        //     //* group [B] =======[red]==============================
+        //     errorBorder: OutlineInputBorder(
+        //       borderRadius: BorderRadius.circular(2.0),
+        //       borderSide: const BorderSide(
+        //         color: Colors.red,
+        //       ),
+        //     ),
+        //     focusedErrorBorder: OutlineInputBorder(
+        //       borderRadius: BorderRadius.circular(2.0),
+        //       borderSide: const BorderSide(
+        //         color: Colors.red,
+        //       ),
+        //     ),
+        //   ),
+        // ),
         //? ==== routing :::::::::::::::::::::::::::::::::::::::::::::
         onGenerateRoute: onGenerate, //! it is a method
         ///* {Route<dynamic>? Function(RouteSettings)? onGenerateRoute}

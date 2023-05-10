@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../controllers/database_controller.dart';
@@ -5,16 +6,15 @@ import '../utilities/routes.dart';
 import '../views/pages/landing_page.dart';
 import '../views/pages/bottom_navbar.dart';
 
-import 'package:flutter/cupertino.dart';
-
 import '../views/pages/auth.dart';
 import '../views/pages/product_details.dart';
 
 //! read => https://dev.to/geekpius/how-to-use-on-generate-route-in-flutter-4kml
 
 ///! we make function back Route <is abstract class> by pass its settings as parameter
-///? and inside it we use switch with settings.name to access
-///* every variable from it for every case
+///? and inside it we use switch with settings.name to access certain route name
+///* for every case
+///? it use CupertinoPageRoute, I changed them into MaterialPageRoute
 
 Route<dynamic> onGenerate(RouteSettings settings) {
   //* it used switch sentence
@@ -22,16 +22,16 @@ Route<dynamic> onGenerate(RouteSettings settings) {
   switch (settings.name) {
     //?:::::::: we make login and register on one as Auth
     case AppRoutes.loginPageRoute:
-      //? we back CupertinoPageRoute, need both builder && settings
+      //? we back MaterialPageRoute, need both builder && settings
       //! if path not take parameters make it const
       //* don't forget send settings
-      return CupertinoPageRoute(
+      return MaterialPageRoute(
         builder: (_) =>
             const AuthPage(), //! not take any parameters so but it const
         settings: settings,
       );
     case AppRoutes.bottomNavBarRoute:
-      return CupertinoPageRoute(
+      return MaterialPageRoute(
         builder: (_) => const BottomNavbar(),
         settings: settings,
       );
@@ -40,7 +40,7 @@ Route<dynamic> onGenerate(RouteSettings settings) {
     // case AppRoutes.productDetailsRoute:
     //* access to arrgs through seetings, and assign it with allile
     //*   final product = settings.arguments as Product;
-    //   return CupertinoPageRoute(
+    //   return MaterialPageRoute(
     //! when we use builder, back our arrgs
     //     builder: (_) => ProductDetails(product: product),
     //     settings: settings,
@@ -53,7 +53,7 @@ Route<dynamic> onGenerate(RouteSettings settings) {
       final args = settings.arguments as Map<String, dynamic>;
       final product = args['product'];
       final database = args['database'];
-      return CupertinoPageRoute(
+      return MaterialPageRoute(
         builder: (_) => Provider<Database>.value(
           value: database,
           child: ProductDetails(product: product),
@@ -65,7 +65,7 @@ Route<dynamic> onGenerate(RouteSettings settings) {
 
     //? handle it with default route to catch any errors
     default: //* if there any problem
-      return CupertinoPageRoute(
+      return MaterialPageRoute(
         builder: (_) => const LandingPage(),
         settings: settings,
       );
