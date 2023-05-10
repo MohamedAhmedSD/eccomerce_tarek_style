@@ -24,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   //! [ use function to back bool not simple trur or false]
   // Define a boolean flag to keep track of password validity
   bool _isPasswordValid = false;
+  bool _isEmailValid = false;
 
   // Define a boolean flag to indicate password visibility
   bool _isPasswordVisible = false;
@@ -32,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     _passwordController.addListener(_validatePassword);
+    _emailController.addListener(_validateEmail);
   }
 
   @override
@@ -48,6 +50,17 @@ class _LoginPageState extends State<LoginPage> {
     bool isValid = regex.hasMatch(_passwordController.text);
     setState(() {
       _isPasswordValid = isValid;
+    });
+  }
+
+  // Method to validate password based on certain criteria
+  void _validateEmail() {
+    // Check if password is at least 8 characters long
+    // and contains at least one uppercase, lowercase, and numeric character
+    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    bool isValid = regex.hasMatch(_emailController.text);
+    setState(() {
+      _isEmailValid = isValid;
     });
   }
 
@@ -95,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               //? ========== [ email ] ====================
               SizedBox(
-                height: 50,
+                height: 70,
                 child: TextFormField(
                   //* val => what I received
                   validator: (val) =>
@@ -116,8 +129,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               //? ========== [ password ] ====================
 
-              Container(
-                height: 50,
+              SizedBox(
+                height: 70,
                 child: TextFormField(
                   controller: _passwordController,
                   obscureText: !_isPasswordVisible,

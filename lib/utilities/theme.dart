@@ -31,19 +31,19 @@ class AppTheme {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4.0),
         borderSide: const BorderSide(
-          color: Colors.grey,
+          color: Colors.transparent,
         ),
       ),
       disabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4.0),
         borderSide: const BorderSide(
-          color: Colors.grey,
+          color: Colors.transparent,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4.0),
         borderSide: const BorderSide(
-          color: Colors.grey,
+          color: Colors.transparent,
         ),
       ),
       //* group [B] =======[red]==============================
@@ -51,12 +51,14 @@ class AppTheme {
         borderRadius: BorderRadius.circular(4.0),
         borderSide: const BorderSide(
           color: Colors.red,
+          // strokeAlign: -1,
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4.0),
         borderSide: const BorderSide(
           color: Colors.red,
+          // strokeAlign: -1,
         ),
       ),
     ),
