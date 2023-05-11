@@ -62,7 +62,7 @@ class ListItemHome extends StatelessWidget {
                   width: AppMediaQuery.getWidth(context, 140),
                   height: AppMediaQuery.getHeight(context, 160),
                   fit: BoxFit.cover,
-                  color: Colors.grey,
+                  // color: Colors.grey,
                 ),
               ),
               Padding(
@@ -140,10 +140,15 @@ class ListItemHome extends StatelessWidget {
                     //! how we use rating bar
                     RatingBarIndicator(
                       itemSize: AppMediaQuery.getHeight(context, 14),
-                      //! its duble not int
-                      rating: product.rate?.toDouble() ?? 4.0,
+                      //! its double not int
+                      // rating: product.rate?.toDouble() ?? 4.0,
+                      itemCount: 5, //* it default 5
+                      rating: 4.0,
+                      //! we cann't change icon color if not choose unrated color
+                      unratedColor: Colors.grey,
                       itemBuilder: (context, _) => const Icon(
                         Icons.star,
+                        //* first use unrated color to apply changes to icon color
                         color: Colors.amber,
                       ),
                       direction: Axis.horizontal,

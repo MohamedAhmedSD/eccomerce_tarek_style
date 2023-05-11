@@ -192,7 +192,9 @@ class HomePage extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             itemCount: products.length,
                             itemBuilder: (_, int index) => Padding(
-                              padding: const EdgeInsets.only(left: 8, right: 8),
+                              padding: EdgeInsets.only(
+                                  left: AppMediaQuery.getWidth(context, 2),
+                                  right: AppMediaQuery.getWidth(context, 10)),
                               child: ListItemHome(
                                 product: products[index],
                                 isNew: true,
