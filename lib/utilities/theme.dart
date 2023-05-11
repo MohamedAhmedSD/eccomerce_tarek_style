@@ -8,7 +8,8 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.scaffoldBG,
     //* COLOR OF BUTTONS
     primaryColor: AppColors.primeryColor,
-    // primarySwatch: Colors.blue,
+    //* to change the color of Icons
+    primarySwatch: Colors.red,
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.appBarTheme,
       elevation: 2,
