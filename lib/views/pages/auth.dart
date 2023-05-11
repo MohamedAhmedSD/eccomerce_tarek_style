@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../controllers/auth_controller.dart';
 import '../../utilities/assets.dart';
+import '../../utilities/dimenssions.dart';
 import '../../utilities/enums.dart';
 import '../../utilities/routes.dart';
 import '../widgets/main_button.dart';
@@ -178,11 +179,11 @@ class _AuthPageState extends State<AuthPage> {
         resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              // vertical: 60.0,
-              // horizontal: 32.0,
-              vertical: 32.0,
-              horizontal: 16.0,
+            padding: EdgeInsets.symmetric(
+              // vertical: 32.0,
+              // horizontal: 16.0,
+              vertical: AppMediaQuery.getHeight(context, 32),
+              horizontal: AppMediaQuery.getWidth(context, 16.0),
             ),
             child: Form(
               key: _formKey,
@@ -207,8 +208,8 @@ class _AuthPageState extends State<AuthPage> {
                               color: Colors.black,
                               fontSize: 32),
                     ),
-                    // const SizedBox(height: 80.0),
-                    const SizedBox(height: 50.0),
+                    // const SizedBox(height: 50.0),
+                    SizedBox(height: AppMediaQuery.getHeight(context, 50)),
                     //? ============ email =====================
                     TextFormField(
                       controller: _emailController,
@@ -264,7 +265,8 @@ class _AuthPageState extends State<AuthPage> {
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                       ),
                     ),
-                    const SizedBox(height: 24.0),
+                    // const SizedBox(height: 24.0),
+                    SizedBox(height: AppMediaQuery.getHeight(context, 24.0)),
                     //? ============ pw =====================
                     TextFormField(
                       obscureText: !_isPasswordVisible,
@@ -313,8 +315,8 @@ class _AuthPageState extends State<AuthPage> {
                           onPressed: _togglePasswordVisibility,
                         ),
                         suffix: SizedBox(
-                          width: 24.0,
-                          height: 24.0,
+                          width: AppMediaQuery.getWidth(context, 24.0),
+                          height: AppMediaQuery.getHeight(context, 24.0),
                           child: _isPasswordValid
                               ? const Icon(
                                   Icons.check,
@@ -324,7 +326,7 @@ class _AuthPageState extends State<AuthPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16.0),
+                    SizedBox(height: AppMediaQuery.getHeight(context, 16.0)),
                     //* if we on login page appear to user certain text
                     // Forgot your password?
                     // if (_authType == AuthFormType.login)
@@ -340,7 +342,7 @@ class _AuthPageState extends State<AuthPage> {
                           },
                         ),
                       ),
-                    const SizedBox(height: 24.0),
+                    SizedBox(height: AppMediaQuery.getHeight(context, 24.0)),
                     // also here about what written on button
                     //? ============ login or register  =====================
                     MainButton(
@@ -428,7 +430,7 @@ class _AuthPageState extends State<AuthPage> {
                           // style: Theme.of(context).textTheme.subtitle1,
                           style: Theme.of(context).textTheme.labelSmall,
                         )),
-                    const SizedBox(height: 16.0),
+                    SizedBox(height: AppMediaQuery.getHeight(context, 16.0)),
                     //? ============ social icons =====================
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -437,7 +439,7 @@ class _AuthPageState extends State<AuthPage> {
                           iconName: AppAssets.googleIcon,
                           onPress: () {},
                         ),
-                        const SizedBox(width: 16.0),
+                        SizedBox(width: AppMediaQuery.getWidth(context, 16.0)),
                         SocialMediaButton(
                           iconName: AppAssets.facebookIcon,
                           onPress: () {},

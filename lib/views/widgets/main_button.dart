@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utilities/dimenssions.dart';
+
 //? customized btn
 //* text && function
 //! with choice to add border or not to it ================================
@@ -22,8 +24,7 @@ class MainButton extends StatelessWidget {
     return SizedBox(
       //* always width take size as possible but height should be determain
       width: double.infinity,
-      // height: 50,
-      height: 40,
+      height: AppMediaQuery.getHeight(context, 40.0),
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
