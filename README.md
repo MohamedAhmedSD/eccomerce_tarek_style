@@ -13,6 +13,9 @@
     - modify validator function, for auth [??]
     //! ======[ how fix label text inside TFF ]===========
     floatingLabelBehavior: FloatingLabelBehavior.never,
+- validate function:
+    - we can use regexp
+    - packages as => email_validator, flutter_pw_validator
 
 [2]
 ======================================================================

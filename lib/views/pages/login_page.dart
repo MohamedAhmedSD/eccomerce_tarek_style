@@ -39,6 +39,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     _passwordController.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 
@@ -57,7 +58,8 @@ class _LoginPageState extends State<LoginPage> {
   void _validateEmail() {
     // Check if password is at least 8 characters long
     // and contains at least one uppercase, lowercase, and numeric character
-    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    // RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    RegExp regex = RegExp(r'^(?=.*?[.])(?=.*?[a-z])(?=.*?[@]).{8,}$');
     bool isValid = regex.hasMatch(_emailController.text);
     setState(() {
       _isEmailValid = isValid;
@@ -111,9 +113,15 @@ class _LoginPageState extends State<LoginPage> {
                 height: 70,
                 child: TextFormField(
                   //* val => what I received
-                  validator: (val) =>
-                      val!.isEmpty ? "Please enter your email" : null,
-
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter an Email address';
+                    } else if (!_isEmailValid) {
+                      return 'Please enter a valid email';
+                    }
+                    return null;
+                  },
+                  onChanged: (_) => _formKey.currentState!.validate(),
                   controller: _emailController,
                   decoration: const InputDecoration(
                     labelText: "Email",
