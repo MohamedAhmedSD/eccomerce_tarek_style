@@ -6,6 +6,7 @@ import 'services/auth.dart';
 import 'utilities/router.dart';
 import 'utilities/routes.dart';
 import 'utilities/theme.dart';
+import 'views/pages/authold.dart';
 
 //? we are on day 9
 
@@ -135,7 +136,7 @@ class MyApp extends StatelessWidget {
         //*! use only one home or initialRoute, here we better use initialRoute
         //* our app start from landingPage
         initialRoute: AppRoutes.landingPageRoute,
-        // home: const LoginPage(),
+        // home: const AuthPage(),
       ),
     );
   }
