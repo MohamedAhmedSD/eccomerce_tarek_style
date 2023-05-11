@@ -47,7 +47,8 @@ class _LoginPageState extends State<LoginPage> {
   void _validatePassword() {
     // Check if password is at least 8 characters long
     // and contains at least one uppercase, lowercase, and numeric character
-    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    // RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    RegExp regex = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
     bool isValid = regex.hasMatch(_passwordController.text);
     setState(() {
       _isPasswordValid = isValid;
