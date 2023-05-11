@@ -1,12 +1,11 @@
-import 'package:day1/services/auth.dart';
-import 'package:day1/utilities/router.dart';
-import 'package:day1/utilities/routes.dart';
+import 'package:day1/views/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
+import 'services/auth.dart';
+import 'utilities/router.dart';
 import 'utilities/theme.dart';
-import 'views/pages/login_page.dart';
 
 //? we are on day 9
 

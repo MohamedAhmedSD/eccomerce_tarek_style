@@ -7,10 +7,10 @@
 class AppRoutes {
   //! initial automatically == [/]
   //? landing determain that we go to login our home page
-  static const String landingPageRoute = '/'; 
-  static const String loginPageRoute = '/login';
-  static const String registerPageRoute = '/register';
-  static const String bottomNavBarRoute = '/navbar';
+  static const String landingPageRoute = '/';
   // static const String homePageRoute = "/home";
+  static const String loginPageRoute = '/login';
+  // static const String registerPageRoute = '/register';
+  static const String bottomNavBarRoute = '/navbar';
   static const String productDetailsRoute = "/product-details";
 }

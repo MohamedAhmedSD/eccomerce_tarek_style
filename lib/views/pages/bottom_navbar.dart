@@ -7,8 +7,6 @@ import 'cart_page.dart';
 import 'home_page.dart';
 import 'profle_page.dart';
 
-//* your widget here should be under stf not stl
-
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
 
@@ -17,17 +15,21 @@ class BottomNavbar extends StatefulWidget {
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
-  //*ue to controller and rebuild Ui we need make it under stf
+  //*we need used controller and rebuild Ui so =>  make it under stf
 
-  //! we use external backage => persistent_bottom_nav_bar_v2
+  //! we use external package => persistent_bottom_nav_bar_v2
 
-  //? should make controller to this BNB
+  //?====================================
+  //? [1] should make controller to this BNB
+  //?====================================
   final _bottomNavbarController = PersistentTabController();
 
   //* don't forget screens and items should be same numbers
   //* beside same order
 
-  //? ======= screens ================
+  //?====================================
+  //? [2] screens
+  //?====================================
   //* _buildScreens is function to return list of widgets
 
   List<Widget> _buildScreens() {
@@ -36,11 +38,13 @@ class _BottomNavbarState extends State<BottomNavbar> {
       Container(),
       const CartPage(),
       Container(),
-      const ProfilePage(), //! if not call Page not appear UI
+      const ProfilePage(), //! if not call Page not appear UI == empty Container
     ];
   }
 
-  //? ======= navBarsItems ================
+  //?====================================
+  //? [3] navBarsItems
+  //?====================================
   //* navBarsItems, it is function return list of PersistentBottomNavBarItem
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
@@ -94,9 +98,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
         //? ===== style && other proberties ===========
         confineInSafeArea:
-            true, // Will confine the NavBar's items in the safe area defined by the device.
-        backgroundColor: Colors.white, // Default is Colors.white.
-        handleAndroidBackButtonPress: true, // Default is true.
+            true, //* Will confine the NavBar's items in the safe area defined by the device.
+        backgroundColor: Colors.white, //* Default is Colors.white.
+        handleAndroidBackButtonPress: true, //* Default is true.
         resizeToAvoidBottomInset:
             true, //* This needs to be true if you want to move up the screen
         //* when keyboard appears. Default is true.
@@ -108,6 +112,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
         decoration: NavBarDecoration(
           borderRadius: BorderRadius.circular(10.0),
           colorBehindNavBar: Colors.white,
+
         ),
         popAllScreensOnTapOfSelectedTab:
             true, //* Creates a fullscreen container with a navigation bar at the bottom.
@@ -126,8 +131,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
           duration: Duration(milliseconds: 200),
         ),
         //? ================== change style 1 - 18 ===================
+        //? try 6v- 13
         navBarStyle:
-            NavBarStyle.style1, // Choose the nav bar style with this property.
+            NavBarStyle.neumorphic, // Choose the nav bar style with this property.
       ),
     );
   }

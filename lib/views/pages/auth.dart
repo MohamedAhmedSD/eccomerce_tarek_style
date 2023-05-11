@@ -142,8 +142,8 @@ class _AuthPageState extends State<AuthPage> {
       MainDialog(
         context: context,
         title: 'Error',
-        // content: e.toString(),
-        content: "Please Re Enter a Correct Data ",
+        content: e.toString(),
+        // content: "Please Re Enter a Correct Data ",
       ).showAlertDialog();
     }
   }
@@ -250,8 +250,14 @@ class _AuthPageState extends State<AuthPage> {
                         return null;
                       },
                       //? back and read controller for it use ================
+                      //* we need use it to send the email into FB========
                       // onChanged: model.updateEmail,
-                      onChanged: (_) => _formKey.currentState!.validate(),
+                      // onChanged: (_) => _formKey.currentState!.validate(),
+                      //* try use both function inside onChange==========
+                      onChanged: (_) {
+                        // _formKey.currentState!.validate();
+                        model.updateEmail;
+                      },
                       decoration: const InputDecoration(
                         labelText: "Email",
                         hintText: "Enter your email",
@@ -282,8 +288,14 @@ class _AuthPageState extends State<AuthPage> {
                         return null;
                       },
                       //? back and read controller for it use ================
+                      //* we need use it to send the password into FB========
                       // onChanged: model.updatePassword,
-                      onChanged: (_) => _formKey.currentState!.validate(),
+                      // onChanged: (_) => _formKey.currentState!.validate(),
+                      //* try use both function inside onChange==========
+                      onChanged: (_) {
+                        // _formKey.currentState!.validate();
+                        model.updatePassword;
+                      },
                       decoration: InputDecoration(
                         labelText: 'Password',
                         suffixIcon: IconButton(

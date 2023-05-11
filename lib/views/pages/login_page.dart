@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../utilities/assets.dart';
 import '../widgets/main_button.dart';
+import 'bottom_navbar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -194,7 +195,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
               MainButton(
                 text: "Login",
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (c) => const BottomNavbar()));
+                },
                 hasCircularBorder: true,
               ),
               const SizedBox(

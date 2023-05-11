@@ -9,28 +9,33 @@ import '../utilities/enums.dart';
 //* ChangeNotifier => mixins, make it easy use multible inheritence
 
 class AuthController with ChangeNotifier {
-  //* use controller to :-
-  // what things I need control on them
-  // also we need move busisnece logic
+// class AuthController extends ChangeNotifier {
 
-  //? ========= variables of your Model =========================
+  //! use controller to :-
+  //* 1. what things I need control on them
+  //* 2. also we need move busisnece logic
 
-  final AuthBase auth; //* make an object from service => AuthBase
-  String email; //! if final I can't change them from inner copyWith()
+  //? ========= [A] variables of your Model =========================
+  //* make an object from service => AuthBase
+  final AuthBase auth;
+
+  //! if variables was final, I can't change them from inner copyWith()
+  String email;
   String password;
   AuthFormType authFormType;
+
   //! for test purpose && not good practise, set value FSDB == 123
   final Database database = FirestoreDatabase("123"); //? call from abstract
 
   //? our constructor
   AuthController({
     required this.auth,
-    this.email = '', // default value or initilized a value
+    this.email = '', //* default value or initilized a value
     this.password = '',
     this.authFormType = AuthFormType.login,
   });
 
-  //? ========= functions of your Model =========================
+  //? ========= [B] functions of your Model =========================
   //? ========= copyWith && use it to update email & PW =========
 //* [1] update changes
 //? dart data class plugin => ctrl + n => copy
@@ -59,7 +64,10 @@ class AuthController with ChangeNotifier {
     notifyListeners();
   }
 
-//? we need controller talk to service
+//? we need controller talk to service ==
+//?======================================
+
+//? we need both [2 + 3] to send our entry to firebase
 //* [2] change my email only by call copyWith to change that on controller
   void updateEmail(String email) => copyWith(email: email);
 
@@ -90,6 +98,8 @@ class AuthController with ChangeNotifier {
   }
 
   //* [5] submit => to login or register  through controller
+  //! it look to email && password from [2 + 3] =============
+
   Future<void> submit() async {
     try {
       if (authFormType == AuthFormType.login) {

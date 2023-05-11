@@ -24,7 +24,7 @@ Route<dynamic> onGenerate(RouteSettings settings) {
     case AppRoutes.loginPageRoute:
       //? we back MaterialPageRoute, need both builder && settings
       //! if path not take parameters make it const
-      //* don't forget send settings
+      //* ====== don't forget send settings on end of route ==========
       return MaterialPageRoute(
         builder: (_) =>
             const AuthPage(), //! not take any parameters so but it const
