@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
@@ -50,31 +49,36 @@ class _BottomNavbarState extends State<BottomNavbar> {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.home),
+        // icon: const Icon(CupertinoIcons.home),
+        icon: const Icon(Icons.home_rounded),
         title: ("Home"),
         activeColorPrimary: AppColors.activeColorPrimary,
         inactiveColorPrimary: AppColors.inactiveColorPrimary,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.bag),
+        // icon: const Icon(CupertinoIcons.bag),
+        icon: const Icon(Icons.shopify_rounded),
         title: ("Shop"),
         activeColorPrimary: AppColors.activeColorPrimary,
         inactiveColorPrimary: AppColors.inactiveColorPrimary,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.shopping_cart),
+        // icon: const Icon(CupertinoIcons.shopping_cart),
+        icon: const Icon(Icons.shopping_cart_rounded),
         title: ("Cart"),
         activeColorPrimary: AppColors.activeColorPrimary,
         inactiveColorPrimary: AppColors.inactiveColorPrimary,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.favorite_border),
+        // icon: const Icon(Icons.favorite_border),
+        icon: const Icon(Icons.favorite),
         title: ("Favorites"),
         activeColorPrimary: AppColors.activeColorPrimary,
         inactiveColorPrimary: AppColors.inactiveColorPrimary,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.profile_circled),
+        // icon: const Icon(CupertinoIcons.profile_circled),
+        icon: const Icon(Icons.person_pin),
         title: ("Profile"),
         activeColorPrimary: AppColors.activeColorPrimary,
         inactiveColorPrimary: AppColors.inactiveColorPrimary,
@@ -112,7 +116,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
         decoration: NavBarDecoration(
           borderRadius: BorderRadius.circular(10.0),
           colorBehindNavBar: Colors.white,
-
         ),
         popAllScreensOnTapOfSelectedTab:
             true, //* Creates a fullscreen container with a navigation bar at the bottom.
@@ -133,7 +136,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
         //? ================== change style 1 - 18 ===================
         //? try 6v- 13
         navBarStyle:
-            NavBarStyle.neumorphic, // Choose the nav bar style with this property.
+            NavBarStyle.style6, // Choose the nav bar style with this property.
       ),
     );
   }

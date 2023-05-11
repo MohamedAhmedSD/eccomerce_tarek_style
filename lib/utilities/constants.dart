@@ -18,6 +18,7 @@ class AppColors {
   static const Color icontheme = Colors.black;
   static const Color borderTheme = Colors.grey;
   //? ========= PersistentBottomNavBarItem =============
-  static const Color activeColorPrimary = CupertinoColors.activeBlue;
+  // static const Color activeColorPrimary = CupertinoColors.activeBlue;
+  static const Color activeColorPrimary = Colors.red;
   static const Color inactiveColorPrimary = CupertinoColors.systemGrey;
 }

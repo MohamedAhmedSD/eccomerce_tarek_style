@@ -1,19 +1,15 @@
+import 'package:day1/controllers/auth_controller.dart';
+import 'package:day1/views/widgets/main_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/auth_controller.dart';
 import '../../utilities/assets.dart';
-import '../../utilities/dimenssions.dart';
 import '../../utilities/enums.dart';
-import '../../utilities/routes.dart';
 import '../widgets/main_button.dart';
-import '../widgets/main_dialog.dart';
 import '../widgets/social_media_button.dart';
 
-//? same to login page => put we use our enum to use one page for both =>
-//* Login && register
-
+// same to login put we use our enum
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
 
@@ -22,173 +18,102 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  //? ============ formKey & TEC =====================
-  //* we use global key form state later to check if fields are valid
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  // enum
+  // choose our login status when start
+  // we use AuthFormType, from our model
+  // var _authType = AuthFormType.login;
 
-  //? ============focusNode =====================
-  //! to go to next TFF(focusNode) when press (enter) on TFF
+  // to go to next TFF when press on its button
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
 
-  //![1] >>>>>>>>>>>> dose btn take FocusNode or recive FN from TFF >>>>>>>>>>>>
-  //?=========================================================
-  //* by using onFieldSubmitted with unfocus for both email && password
-  //* we connect btn method with password onFieldSubmitted after finish to
-  //* call that method
-  //?=============== validate functions ================
-  //* [1] Define a boolean flags to keep track of email & password validity
-  bool _isPasswordValid = false;
-  bool _isEmailValid = false;
-
-  //* [2] Define a boolean flag to indicate password visibility
-  bool _isPasswordVisible = false;
-
-  //! read about regular expression in dart
-
-  //* [3] Method to validate email based on certain criteria
-  void _validateEmail() {
-    //! RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    // Check if email is at least 8 characters long
-    // and contains at least one uppercase, lowercase, and numeric character
-
-    //? custom email =>
-    //! use any lower case our upper case letters => [a-zA-Z]
-    RegExp regex = RegExp(r'^(?=.*?[@])(?=.*?[.])(?=.*?[a-zA-Z]).{10,}$');
-
-    bool isValid = regex.hasMatch(_emailController.text);
-    setState(() {
-      _isEmailValid = isValid;
-    });
-  }
-
-  //* [4] Method to validate password based on certain criteria
-  void _validatePassword() {
-    //? custom password => height level
-    //! RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
-    // Check if password is at least 8 characters long
-    // and contains at least one uppercase, lowercase, and numeric character
-
-    //? custom password => weak level
-    RegExp regex = RegExp(r'^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$');
-    bool isValid = regex.hasMatch(_passwordController.text);
-    setState(() {
-      _isPasswordValid = isValid;
-    });
-  }
-
-  //* [5] Method to toggle password visibility
-  void _togglePasswordVisibility() {
-    setState(() {
-      _isPasswordVisible = !_isPasswordVisible;
-    });
-  }
-
-  //? ============ init & dispose TEC =====================
-  @override
-  void initState() {
-    _passwordController.addListener(_validatePassword);
-    _emailController.addListener(_validateEmail);
-    super.initState();
-  }
-
-  //* use dispose to close controller after finish from them
+  // use dispose to close controller after finsh from them
   @override
   void dispose() {
-    //?===[ controller] =====
     _emailController.dispose();
     _passwordController.dispose();
-    //?===[ focus node] =====
-    _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
     super.dispose();
   }
 
-  //? ============ reset =====================
-  //* [1] clear
-  void clearTFF() {
-    _emailController.clear();
-    _passwordController.clear();
-  }
-
-  //* [2] assign to empty String
-  void clearTFFSecondWay() {
-    _emailController.text = "";
-    _passwordController.text = "";
-  }
-
-  //*[3] try make reset through currentformstate
-
-  //? ============  submit =====================
-
-  Future<void> _submitAuth(AuthController model) async {
+//
+  Future<void> _submit(AuthController model) async {
     try {
-      //! I add it to clear fields after submit
-      clearTFF();
       await model.submit();
-      //*================================================================
-      //* if we need nav to page we need to mount them first
-      //* to avoid context problem with build =>  if (!mounted) return;
-      //*================================================================
-
       if (!mounted) return;
-      Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
-      //? on it we deal with date to make our choice
+      //! till us if page disposed under stf widget
+      // not need it we call landing as default route
+      // Navigator.of(context).pushNamed(AppRoutes.bottomNavBarRoute);
+      //! Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
+      // some times we nessd pop this page from here
+      // Navigator.of(context).pop();
     }
-    //! I use catched error as my content
+    // catch (e) {
+    //   showDialog(
+    //     context: context,
+    //     builder: (_) => AlertDialog(
+    //       title: Text(
+    //         'Error!',
+    //         style: Theme.of(context).textTheme.titleLarge,
+    //       ),
+    //       content: Text(
+    //         e.toString(),
+    //         style: Theme.of(context).textTheme.titleMedium,
+    //       ),
+    //       actions: [
+    //         TextButton(
+    //           onPressed: () => Navigator.of(context).pop(),
+    //           child: const Text('OK'),
+    //         ),
+    //       ],
+    //     ),
+    //   );
+    // }
+
     catch (e) {
-      MainDialog(
-        context: context,
-        title: 'Error',
-        content: e.toString(),
-        // content: "Please Re Enter a Correct Data ",
-      ).showAlertDialog();
+      MainDialog(context: context, title: 'Error', content: e.toString())
+          .showAlertDialog();
     }
   }
 
-  //? ============ UI =====================
   @override
   Widget build(BuildContext context) {
-    //* what is myscreen size by MQ
-    var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
-    if (kDebugMode) {
-      print(
-          "My current device height ${h.toString()} and width is ${w.toString()}");
-    }
-    //! === [My current device height 640.0 and width is 360.0]
-    //? ==========================================
-    //* use MQ is difficult on big apps
-    //* May use dimensions class that you make with get.
-    //![2] >>>>>>>>>> how we make dimensions by provider >>>>>>>>>>>>
-
+    // use MQ
     final size = MediaQuery.of(context).size;
-
     //! access to our provider
     //? ask parents on widget tree , till find generic class, then assign it to variable => auth
-    // final auth = Provider.of<AuthBase>(context);  //? it able edit UI
-    //* on main page we assign Provider to Material root so we able to Use => Consumer here
-    //! base of tree
-    //? where we apply it by consumer
-    //* required Widget Function(BuildContext, AuthController, Widget?) builder,
+    // final auth = Provider.of<AuthBase>(context);
 
-    //? ============ Consumer & form =====================
-    return Consumer<AuthController>(builder: (_, model, __) {
+// I need use controller data
+// wrap with =>
+    // return ChangeNotifierProvider(
+    //   // create take object from controller
+    //   create: (_) => AuthController(auth: auth),
+    //   child:
+
+    //or use it with consumer
+
+    //! base of tree
+    return
+        // ChangeNotifierProvider<AuthController>(
+        //   // create take object from controller
+        //   create: (_) => AuthController(auth: auth),
+        //   // then call consumer
+        //   //? where we apply it by consumer
+        //   //*   required Widget Function(BuildContext, AuthController, Widget?) builder,
+        //   child:
+        Consumer<AuthController>(builder: (_, model, __) {
       // consumer return widget to listen changes on it
       return Scaffold(
-        //*====================================================
-        //! try to avoid KB problem, when keyboard open on phone
+        // try to avoid KB problem, when keyboard open on phone
         resizeToAvoidBottomInset: true,
-        //*====================================================
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(
-              // vertical: 32.0,
-              // horizontal: 16.0,
-              vertical: AppMediaQuery.getHeight(context, 32),
-              horizontal: AppMediaQuery.getWidth(context, 16.0),
+            padding: const EdgeInsets.symmetric(
+              vertical: 60.0,
+              horizontal: 32.0,
             ),
             child: Form(
               key: _formKey,
@@ -199,148 +124,76 @@ class _AuthPageState extends State<AuthPage> {
                   children: [
                     // we make condition to choose our login status
                     Text(
+                      // _authType == AuthFormType.login ? 'Login' : 'Register',
                       // use from model not from local variable
                       model.authFormType == AuthFormType.login
                           ? 'Login'
                           : 'Register',
-
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          //! == [we use .copyWith to change them style] ===
-                          .copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 32),
+                      // style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                    // const SizedBox(height: 50.0),
-                    SizedBox(height: AppMediaQuery.getHeight(context, 50)),
-                    //? ============ email =====================
+                    const SizedBox(height: 80.0),
                     TextFormField(
                       controller: _emailController,
                       obscureText: false,
-                      //* to use it later
+                      // to use it later
                       focusNode: _emailFocusNode,
-                      onFieldSubmitted: (_) {
-                        //* when [ submit == press enter ] no need focus
-                        _emailFocusNode.unfocus();
-                        FocusScope.of(context).requestFocus(_passwordFocusNode);
-                      },
-                      //* when end use TFF
-                      //! it same job as onFieldSubmitted =====================
-                      // onEditingComplete: () =>
-                      //     //? as navigator
-                      //     // how we go from one node to another
-                      //     // our current node request another focuse
-                      //     FocusScope.of(context)
-                      //         .requestFocus(_passwordFocusNode),
-                      //! ======================================-==============
-                      //* to change Done on KB into other word as next
+                      // when end use TFF
+                      onEditingComplete: () =>
+                          // as navigator
+                          // how we go from one node to another
+                          // our current node request another focuse
+                          FocusScope.of(context)
+                              .requestFocus(_passwordFocusNode),
+                      // to change Done on KB into other word as next
                       textInputAction: TextInputAction.next,
-
-                      //?:::::::::::::::::::::::::::::::::::::::::::::::::::::
-                      //* value => what I received on from TFF
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter an Email address';
-                        } else if (!_isEmailValid) {
-                          return 'Please enter a valid email';
-                        }
-                        //? when enter a valid email, no error message
-                        return null;
-                      },
-                      //? back and read controller for it use ================
-                      //* we need use it to send the email into FB========
-                      // onChanged: model.updateEmail,
-                      // onChanged: (_) => _formKey.currentState!.validate(),
-                      //* try use both function inside onChange==========
-                      onChanged: (_) {
-                        // _formKey.currentState!.validate();
-                        model.updateEmail;
-                      },
+                      //:::::::::::::::::::::::
+                      // add simple validator to ensure field is n't empty
+                      // we need add proberty to accept enter to confirm field
+                      // and go to next one ::::::::::::::::::::::::::::::::::
+                      validator: (val) =>
+                          val!.isEmpty ? 'Please enter your email!' : null,
+                      //:::::::::::::::::::::::::: use on changed
+                      // it give us update to happen
+                      // access method => model == AuthController model
+                      onChanged: model.updateEmail,
                       decoration: const InputDecoration(
-                        labelText: "Email",
-                        hintText: "Enter your email",
-                        //! ======[ how fix label text inside TFF ]============
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        labelText: 'Email',
+                        hintText: 'Enter your email!',
                       ),
                     ),
-                    // const SizedBox(height: 24.0),
-                    SizedBox(height: AppMediaQuery.getHeight(context, 24.0)),
-                    //? ============ pw =====================
+                    const SizedBox(height: 24.0),
                     TextFormField(
-                      obscureText: !_isPasswordVisible,
+                      obscureText: true,
                       controller: _passwordController,
                       focusNode: _passwordFocusNode,
-                      onFieldSubmitted: (_) {
-                        _passwordFocusNode.unfocus();
-                        //* call function that used by auth/btn == _submitAuth();
-                        _submitAuth(model);
-                      },
-                      //! not add => onEditingComplete, textInputAction
+                      // not add => onEditingComplete, textInputAction
+                      validator: (val) =>
+                          val!.isEmpty ? 'Please enter your password!' : null,
+                      // on changed
+                      onChanged: model.updatePassword,
 
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter a password';
-                        } else if (!_isPasswordValid) {
-                          return 'Please enter a valid password';
-                        }
-                        return null;
-                      },
-                      //? back and read controller for it use ================
-                      //* we need use it to send the password into FB========
-                      // onChanged: model.updatePassword,
-                      // onChanged: (_) => _formKey.currentState!.validate(),
-                      //* try use both function inside onChange==========
-                      onChanged: (_) {
-                        // _formKey.currentState!.validate();
-                        model.updatePassword;
-                      },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Password',
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isPasswordVisible
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                          ),
-                          onPressed: _togglePasswordVisibility,
-                        ),
-                        suffix: SizedBox(
-                          width: AppMediaQuery.getWidth(context, 24.0),
-                          height: AppMediaQuery.getHeight(context, 24.0),
-                          child: _isPasswordValid
-                              ? const Icon(
-                                  Icons.check,
-                                  color: Colors.green,
-                                )
-                              : null,
-                        ),
+                        hintText: 'Enter your pasword!',
                       ),
                     ),
-                    SizedBox(height: AppMediaQuery.getHeight(context, 16.0)),
-                    //? ============ forget pw =====================
-                    //* if we on login page appear to user certain text
-                    //* Forgot your password?
-                    //? if (_authType == AuthFormType.login)
-                    //* we use from model not from local variable
-
-                    //! == [ apear only when auth == login ]==
+                    const SizedBox(height: 16.0),
+                    // if we on login page appear to user certain text
+                    // Forgot your password?
+                    // if (_authType == AuthFormType.login)
+                    // use from model not from local variable
                     if (model.authFormType == AuthFormType.login)
                       Align(
                         alignment: Alignment.topRight,
                         child: InkWell(
                           child: const Text('Forgot your password?'),
-                          onTap: () {
-                            //! not add nav yet
-                          },
+                          onTap: () {},
                         ),
                       ),
-                    SizedBox(height: AppMediaQuery.getHeight(context, 24.0)),
+                    const SizedBox(height: 24.0),
                     // also here about what written on button
-                    //? ============ login or register  =====================
                     MainButton(
-                      hasCircularBorder: true,
                       // text: _authType == AuthFormType.login
                       text: model.authFormType == AuthFormType.login
                           ? 'Login'
@@ -361,15 +214,13 @@ class _AuthPageState extends State<AuthPage> {
                           }
 
                           //! use model by this way not login
-                          //? difference between submit && _submitAuth
+                          //? difference between submit && _submit
 
                           // model.submit();
 
                           //* we call function from above this page
                           //! and pass model as its parameter
-
-                          //? ============ submit =====================
-                          _submitAuth(model);
+                          _submit(model);
 
                           // how we navigate
                           //! [1] not good way
@@ -381,38 +232,50 @@ class _AuthPageState extends State<AuthPage> {
                       },
                     ),
                     const SizedBox(height: 16.0),
-                    //? ============ toggle =====================
                     Align(
                       alignment: Alignment.center,
+                      // also additional text
                       child: InkWell(
                         child: Text(
+                          // _authType == AuthFormType.login
                           model.authFormType == AuthFormType.login
-                              ? 'Don\'t have an account? Register' //! login
-                              : 'Have an account? Login', //! register
+                              ? 'Don\'t have an account? Register' // login
+                              : 'Have an account? Login', // register
                         ),
                         onTap: () {
-                          //* every time you press on this text
-                          //! your all date inside form will be deleted
-                          // ?then go to opposite [login or register] page
-                          //*===========================================
+                          // inside setState
+                          //
+                          // setState(() {
+                          // every time you press on this text
+                          // your all date inside form will be deleted
+                          // then go to opposite [login or register]
+                          _formKey.currentState!.reset();
+                          //
+                          // if (_authType == AuthFormType.login) {
+                          //   _authType = AuthFormType.register;
+                          // } else {
+                          //   // opposite
+                          //   _authType = AuthFormType.login;
+                          // }
 
-                          //* [A] by using key not work
-                          // _formKey.currentState!.reset();
+                          //::::::::
+                          // if (model.authFormType == AuthFormType.login) {
+                          //   model.authFormType = AuthFormType.register;
+                          // } else {
+                          //   // opposite
+                          //   model.authFormType = AuthFormType.login;
+                          // }
 
-                          //* [B] it work
-                          clearTFF();
-                          //* [C] it work
-                          // clearTFFSecondWay();
+                          //::::::::: toggle == exchange ::::::::::::
 
-                          //*::::::::: toggle == exchange ::::::::::::
-
+                          // });
                           //! just call our toggle
                           model.toggleFormType();
                         },
                       ),
                     ),
                     // const Spacer(),
-                    //* === we use MQ instead of spacer, less problems =======
+                    // we use MQ instead of spacer, less problems
                     SizedBox(height: size.height * 0.09),
                     Align(
                         alignment: Alignment.center,
@@ -424,18 +287,43 @@ class _AuthPageState extends State<AuthPage> {
                           // style: Theme.of(context).textTheme.subtitle1,
                           style: Theme.of(context).textTheme.labelSmall,
                         )),
-                    SizedBox(height: AppMediaQuery.getHeight(context, 16.0)),
-                    //? ============ social icons =====================
+                    const SizedBox(height: 16.0),
+                    //?
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Container(
+                    //       height: 80,
+                    //       width: 80,
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(16.0),
+                    //         color: Colors.white,
+                    //       ),
+                    //       child: const Icon(Icons.add),
+                    //     ),
+                    //     const SizedBox(width: 16.0),
+                    //     Container(
+                    //       height: 80,
+                    //       width: 80,
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(16.0),
+                    //         color: Colors.white,
+                    //       ),
+                    //       child: const Icon(Icons.add),
+                    //     ),
+                    //   ],
+                    // ),
+                    //!
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SocialMediaButton(
-                          iconName: AppAssets.googleIcon,
+                          iconName: AppAssets.facebookIcon,
                           onPress: () {},
                         ),
-                        SizedBox(width: AppMediaQuery.getWidth(context, 16.0)),
+                        const SizedBox(width: 16.0),
                         SocialMediaButton(
-                          iconName: AppAssets.facebookIcon,
+                          iconName: AppAssets.googleIcon,
                           onPress: () {},
                         ),
                       ],

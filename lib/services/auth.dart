@@ -59,10 +59,9 @@ class Auth implements AuthBase {
   //? =========== login =====================
   @override
   Future<User?> loginWithEmailAndPassword(String email, String password) async {
+    //* Attempts to sign in a user with the given email address and password.
     final userAuth = await _firebaseAuth.signInWithEmailAndPassword(
-        //* Attempts to sign in a user with the given email address and password.
-        email: email,
-        password: password);
+        email: email, password: password);
     //* UserCredential userAuth
     return userAuth.user; //! User? get user
   }
@@ -72,10 +71,9 @@ class Auth implements AuthBase {
   @override
   Future<User?> signUpWithEmailAndPassword(
       String email, String password) async {
+    //* Tries to create a new user account with the given email address and password.
     final userAuth = await _firebaseAuth.createUserWithEmailAndPassword(
-        //* Tries to create a new user account with the given email address and password.
-        email: email,
-        password: password);
+        email: email, password: password);
     return userAuth.user; //! User? get user
   }
 
@@ -101,6 +99,5 @@ class Auth implements AuthBase {
   //* 2. logout
   @override
   //* Signs out the current user.
-  Future<void> logout() async =>
-      await _firebaseAuth.signOut(); 
+  Future<void> logout() async => await _firebaseAuth.signOut();
 }
