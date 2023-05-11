@@ -1,11 +1,11 @@
-import 'package:day1/utilities/constants.dart';
-import 'package:day1/views/pages/profle_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
+import '../../utilities/constants.dart';
 import 'cart_page.dart';
 import 'home_page.dart';
+import 'profle_page.dart';
 
 //* your widget here should be under stf not stl
 

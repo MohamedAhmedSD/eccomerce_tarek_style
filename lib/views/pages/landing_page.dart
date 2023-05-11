@@ -1,8 +1,8 @@
-import 'package:day1/controllers/database_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../controllers/auth_controller.dart';
+import '../../controllers/database_controller.dart';
 import '../../services/auth.dart';
 import 'auth.dart';
 import 'bottom_navbar.dart';

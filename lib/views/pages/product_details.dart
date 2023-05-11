@@ -1,7 +1,8 @@
-import 'package:day1/controllers/database_controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../controllers/database_controller.dart';
 import '../../models/add_to_cart_model.dart';
 import '../../models/product.dart';
 import '../../utilities/constants.dart';

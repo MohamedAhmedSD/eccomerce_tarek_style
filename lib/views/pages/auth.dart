@@ -1,13 +1,13 @@
-import 'package:day1/controllers/auth_controller.dart';
-import 'package:day1/views/widgets/main_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../controllers/auth_controller.dart';
 import '../../utilities/assets.dart';
 import '../../utilities/enums.dart';
 import '../../utilities/routes.dart';
 import '../widgets/main_button.dart';
+import '../widgets/main_dialog.dart';
 import '../widgets/social_media_button.dart';
 
 //? same to login page => put we use our enum to use one page for both =>
@@ -38,19 +38,39 @@ class _AuthPageState extends State<AuthPage> {
   //* we connect btn method with password onFieldSubmitted after finish to
   //* call that method
   //?=============== validate functions ================
-  //! [ use function to back bool not simple trur or false]
-  // Define a boolean flag to keep track of password validity
+  //* [1] Define a boolean flags to keep track of email & password validity
   bool _isPasswordValid = false;
   bool _isEmailValid = false;
 
-  // Define a boolean flag to indicate password visibility
+  //* [2] Define a boolean flag to indicate password visibility
   bool _isPasswordVisible = false;
-  // Method to validate password based on certain criteria
+
+  //! read about regular expression in dart
+
+  //* [3] Method to validate email based on certain criteria
+  void _validateEmail() {
+    //! RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    // Check if email is at least 8 characters long
+    // and contains at least one uppercase, lowercase, and numeric character
+
+    //? custom email =>
+    //! use any lower case our upper case letters => [a-zA-Z]
+    RegExp regex = RegExp(r'^(?=.*?[@])(?=.*?[.])(?=.*?[a-zA-Z]).{10,}$');
+
+    bool isValid = regex.hasMatch(_emailController.text);
+    setState(() {
+      _isEmailValid = isValid;
+    });
+  }
+
+  //* [4] Method to validate password based on certain criteria
   void _validatePassword() {
+    //? custom password => height level
+    //! RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
     // Check if password is at least 8 characters long
     // and contains at least one uppercase, lowercase, and numeric character
-    // RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
-    // RegExp regex = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+
+    //? custom password => weak level
     RegExp regex = RegExp(r'^(?=.*?[a-zA-Z])(?=.*?[0-9]).{8,}$');
     bool isValid = regex.hasMatch(_passwordController.text);
     setState(() {
@@ -58,22 +78,7 @@ class _AuthPageState extends State<AuthPage> {
     });
   }
 
-  // read about regular expression
-  // Method to validate password based on certain criteria
-  void _validateEmail() {
-    // Check if password is at least 8 characters long
-    // and contains at least one uppercase, lowercase, and numeric character
-    // RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    // RegExp regex = RegExp(r'^(?=.*?[.])(?=.*?[a-z])(?=.*?[@]).{8,}$');
-    // use any lower case our upper case letters => [a-zA-Z]
-    RegExp regex = RegExp(r'^(?=.*?[.])(?=.*?[a-zA-Z])(?=.*?[@]).{8,}$');
-    bool isValid = regex.hasMatch(_emailController.text);
-    setState(() {
-      _isEmailValid = isValid;
-    });
-  }
-
-  // Method to toggle password visibility
+  //* [5] Method to toggle password visibility
   void _togglePasswordVisibility() {
     setState(() {
       _isPasswordVisible = !_isPasswordVisible;
@@ -91,26 +96,33 @@ class _AuthPageState extends State<AuthPage> {
   //* use dispose to close controller after finish from them
   @override
   void dispose() {
+    //?===[ controller] =====
     _emailController.dispose();
     _passwordController.dispose();
-    //?======================
+    //?===[ focus node] =====
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
     super.dispose();
   }
 
-  //? ============ reset & submit =====================
+  //? ============ reset =====================
+  //* [1] clear
   void clearTFF() {
     _emailController.clear();
     _passwordController.clear();
   }
 
+  //* [2] assign to empty String
   void clearTFFSecondWay() {
     _emailController.text = "";
     _passwordController.text = "";
   }
 
-  Future<void> _submit(AuthController model) async {
+  //*[3] try make reset through currentformstate
+
+  //? ============  submit =====================
+
+  Future<void> _submitAuth(AuthController model) async {
     try {
       clearTFF(); //! I add it to clear fields after submit
       await model.submit();
@@ -136,6 +148,15 @@ class _AuthPageState extends State<AuthPage> {
   //? ============ UI =====================
   @override
   Widget build(BuildContext context) {
+    //* what is myscreen size by MQ
+    var h = MediaQuery.of(context).size.height;
+    var w = MediaQuery.of(context).size.width;
+    if (kDebugMode) {
+      print(
+          "My current device height ${h.toString()} and width is ${w.toString()}");
+    }
+    //! === [My current device height 640.0 and width is 360.0]
+    //? ==========================================
     //* use MQ is difficult on big apps
     //* May use dimensions class that you make with get.
     //![2] >>>>>>>>>> how we make dimensions by provider >>>>>>>>>>>>
@@ -251,8 +272,8 @@ class _AuthPageState extends State<AuthPage> {
                       focusNode: _passwordFocusNode,
                       onFieldSubmitted: (_) {
                         _passwordFocusNode.unfocus();
-                        // _loginPressed(); == _submit();
-                        _submit(model);
+                        // _loginPressed(); == _submitAuth();
+                        _submitAuth(model);
                       },
                       //! not add => onEditingComplete, textInputAction
                       // validator: (val) =>
@@ -344,7 +365,7 @@ class _AuthPageState extends State<AuthPage> {
                           }
 
                           //! use model by this way not login
-                          //? difference between submit && _submit
+                          //? difference between submit && _submitAuth
 
                           // model.submit();
 
@@ -352,7 +373,7 @@ class _AuthPageState extends State<AuthPage> {
                           //! and pass model as its parameter
 
                           //? ============ submit =====================
-                          _submit(model);
+                          _submitAuth(model);
 
                           // how we navigate
                           //! [1] not good way
@@ -408,17 +429,17 @@ class _AuthPageState extends State<AuthPage> {
                           style: Theme.of(context).textTheme.labelSmall,
                         )),
                     const SizedBox(height: 16.0),
-                    //? ============ docial icons =====================
+                    //? ============ social icons =====================
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SocialMediaButton(
-                          iconName: AppAssets.facebookIcon,
+                          iconName: AppAssets.googleIcon,
                           onPress: () {},
                         ),
                         const SizedBox(width: 16.0),
                         SocialMediaButton(
-                          iconName: AppAssets.googleIcon,
+                          iconName: AppAssets.facebookIcon,
                           onPress: () {},
                         ),
                       ],

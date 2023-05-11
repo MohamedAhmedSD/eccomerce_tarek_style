@@ -1,10 +1,11 @@
 // stf
 // we wrap inside SafeArea to avoid space of bar even appBar or bottom bar
 
-import 'package:day1/utilities/assets.dart';
-import 'package:day1/views/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../utilities/assets.dart';
+import '../widgets/main_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
