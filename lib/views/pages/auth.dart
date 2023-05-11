@@ -22,16 +22,21 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   //? ============ formKey & TEC =====================
+  //* we use global key form state later to check if fields are valid
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   //? ============focusNode =====================
-  //! to go to next TFF when press on its button
+  //! to go to next TFF(focusNode) when press (enter) on TFF
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
 
   //![1] >>>>>>>>>>>> dose btn take FocusNode or recive FN from TFF >>>>>>>>>>>>
+  //?=========================================================
+  //* by using onFieldSubmitted with unfocus for both email && password
+  //* we connect btn method with password onFieldSubmitted after finish to
+  //* call that method
   //?=============== validate functions ================
   //! [ use function to back bool not simple trur or false]
   // Define a boolean flag to keep track of password validity
@@ -84,6 +89,9 @@ class _AuthPageState extends State<AuthPage> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    //?======================
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
     super.dispose();
   }
 
@@ -182,7 +190,12 @@ class _AuthPageState extends State<AuthPage> {
                       obscureText: false,
                       //* to use it later
                       focusNode: _emailFocusNode,
+                      onFieldSubmitted: (_) {
+                        _emailFocusNode.unfocus();
+                        FocusScope.of(context).requestFocus(_passwordFocusNode);
+                      },
                       //* when end use TFF
+
                       onEditingComplete: () =>
                           //? as navigator
                           // how we go from one node to another
@@ -232,6 +245,11 @@ class _AuthPageState extends State<AuthPage> {
                       obscureText: !_isPasswordVisible,
                       controller: _passwordController,
                       focusNode: _passwordFocusNode,
+                      onFieldSubmitted: (_) {
+                        _passwordFocusNode.unfocus();
+                        // _loginPressed(); == _submit();
+                        _submit(model);
+                      },
                       //! not add => onEditingComplete, textInputAction
                       // validator: (val) =>
                       //     val!.isEmpty ? 'Please enter your password!' : null,
