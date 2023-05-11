@@ -125,11 +125,13 @@ class _AuthPageState extends State<AuthPage> {
 
   Future<void> _submitAuth(AuthController model) async {
     try {
-      clearTFF(); //! I add it to clear fields after submit
+      //! I add it to clear fields after submit
+      clearTFF();
       await model.submit();
-
-      //* if we need nav to page we need mount them first
-      //* to avoid context problem with build
+      //*================================================================
+      //* if we need nav to page we need to mount them first
+      //* to avoid context problem with build =>  if (!mounted) return;
+      //*================================================================
 
       if (!mounted) return;
       Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
@@ -163,6 +165,7 @@ class _AuthPageState extends State<AuthPage> {
     //![2] >>>>>>>>>> how we make dimensions by provider >>>>>>>>>>>>
 
     final size = MediaQuery.of(context).size;
+
     //! access to our provider
     //? ask parents on widget tree , till find generic class, then assign it to variable => auth
     // final auth = Provider.of<AuthBase>(context);  //? it able edit UI
@@ -175,8 +178,10 @@ class _AuthPageState extends State<AuthPage> {
     return Consumer<AuthController>(builder: (_, model, __) {
       // consumer return widget to listen changes on it
       return Scaffold(
+        //*====================================================
         //! try to avoid KB problem, when keyboard open on phone
         resizeToAvoidBottomInset: true,
+        //*====================================================
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -198,11 +203,11 @@ class _AuthPageState extends State<AuthPage> {
                       model.authFormType == AuthFormType.login
                           ? 'Login'
                           : 'Register',
-                      // style: Theme.of(context).textTheme.headlineMedium,
+
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium!
-                          //! == [we use .copyWith to change them style]
+                          //! == [we use .copyWith to change them style] ===
                           .copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -217,46 +222,35 @@ class _AuthPageState extends State<AuthPage> {
                       //* to use it later
                       focusNode: _emailFocusNode,
                       onFieldSubmitted: (_) {
+                        //* when [ submit == press enter ] no need focus
                         _emailFocusNode.unfocus();
                         FocusScope.of(context).requestFocus(_passwordFocusNode);
                       },
                       //* when end use TFF
-
-                      onEditingComplete: () =>
-                          //? as navigator
-                          // how we go from one node to another
-                          // our current node request another focuse
-                          FocusScope.of(context)
-                              .requestFocus(_passwordFocusNode),
+                      //! it same job as onFieldSubmitted =====================
+                      // onEditingComplete: () =>
+                      //     //? as navigator
+                      //     // how we go from one node to another
+                      //     // our current node request another focuse
+                      //     FocusScope.of(context)
+                      //         .requestFocus(_passwordFocusNode),
+                      //! ======================================-==============
                       //* to change Done on KB into other word as next
                       textInputAction: TextInputAction.next,
-                      //:::::::::::::::::::::::
-                      // add simple validator to ensure field is n't empty
-                      // we need add proberty to accept enter to confirm field
-                      // and go to next one ::::::::::::::::::::::::::::::::::
-                      // validator: (val) =>
-                      //     val!.isEmpty ? 'Please enter your email!' : null,
 
-                      // validator: (value) {
-                      //   if (value!.isNotEmpty && value.length > 7) {
-                      //     return null;
-                      //   } else {
-                      //     return 'Please enter your email!, It should be more than 7';
-                      //   }
-                      // },
-                      // //:::::::::::::::::::::::::: use on changed
-                      // // it give us update to happen
-                      // // access method => model == AuthController model
-                      // onChanged: model.updateEmail,
-                      //* val => what I received
+                      //?:::::::::::::::::::::::::::::::::::::::::::::::::::::
+                      //* value => what I received on from TFF
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter an Email address';
                         } else if (!_isEmailValid) {
                           return 'Please enter a valid email';
                         }
+                        //? when enter a valid email, no error message
                         return null;
                       },
+                      //? back and read controller for it use ================
+                      // onChanged: model.updateEmail,
                       onChanged: (_) => _formKey.currentState!.validate(),
                       decoration: const InputDecoration(
                         labelText: "Email",
@@ -274,22 +268,11 @@ class _AuthPageState extends State<AuthPage> {
                       focusNode: _passwordFocusNode,
                       onFieldSubmitted: (_) {
                         _passwordFocusNode.unfocus();
-                        // _loginPressed(); == _submitAuth();
+                        //* call function that used by auth/btn == _submitAuth();
                         _submitAuth(model);
                       },
                       //! not add => onEditingComplete, textInputAction
-                      // validator: (val) =>
-                      //     val!.isEmpty ? 'Please enter your password!' : null,
 
-                      // validator: (value) {
-                      //   if (value!.isNotEmpty && value.length > 7) {
-                      //     return null;
-                      //   } else {
-                      //     return 'Passwordshould be more than 7';
-                      //   }
-                      // },
-                      // // on changed
-                      // onChanged: model.updatePassword,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter a password';
@@ -298,12 +281,9 @@ class _AuthPageState extends State<AuthPage> {
                         }
                         return null;
                       },
+                      //? back and read controller for it use ================
+                      // onChanged: model.updatePassword,
                       onChanged: (_) => _formKey.currentState!.validate(),
-
-                      // decoration: const InputDecoration(
-                      //   labelText: 'Password',
-                      //   hintText: 'Enter your pasword!',
-                      // ),
                       decoration: InputDecoration(
                         labelText: 'Password',
                         suffixIcon: IconButton(
@@ -327,18 +307,20 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                     ),
                     SizedBox(height: AppMediaQuery.getHeight(context, 16.0)),
-                    //* if we on login page appear to user certain text
-                    // Forgot your password?
-                    // if (_authType == AuthFormType.login)
-                    // use from model not from local variable
                     //? ============ forget pw =====================
+                    //* if we on login page appear to user certain text
+                    //* Forgot your password?
+                    //? if (_authType == AuthFormType.login)
+                    //* we use from model not from local variable
+
+                    //! == [ apear only when auth == login ]==
                     if (model.authFormType == AuthFormType.login)
                       Align(
                         alignment: Alignment.topRight,
                         child: InkWell(
                           child: const Text('Forgot your password?'),
                           onTap: () {
-                            //! not add yet
+                            //! not add nav yet
                           },
                         ),
                       ),
@@ -390,24 +372,24 @@ class _AuthPageState extends State<AuthPage> {
                     //? ============ toggle =====================
                     Align(
                       alignment: Alignment.center,
-                      // also additional text
                       child: InkWell(
                         child: Text(
-                          // _authType == AuthFormType.login
                           model.authFormType == AuthFormType.login
-                              ? 'Don\'t have an account? Register' // login
-                              : 'Have an account? Login', // register
+                              ? 'Don\'t have an account? Register' //! login
+                              : 'Have an account? Login', //! register
                         ),
                         onTap: () {
                           //* every time you press on this text
-                          // your all date inside form will be deleted
-                          // then go to opposite [login or register]
+                          //! your all date inside form will be deleted
+                          // ?then go to opposite [login or register] page
+                          //*===========================================
 
-                          //! by using key not work
+                          //* [A] by using key not work
+                          // _formKey.currentState!.reset();
 
-                          //* [A] it work
-                          clearTFF();
                           //* [B] it work
+                          clearTFF();
+                          //* [C] it work
                           // clearTFFSecondWay();
 
                           //*::::::::: toggle == exchange ::::::::::::
@@ -418,7 +400,7 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                     ),
                     // const Spacer(),
-                    //* we use MQ instead of spacer, less problems
+                    //* === we use MQ instead of spacer, less problems =======
                     SizedBox(height: size.height * 0.09),
                     Align(
                         alignment: Alignment.center,
