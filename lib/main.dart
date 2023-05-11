@@ -6,7 +6,6 @@ import 'services/auth.dart';
 import 'utilities/router.dart';
 import 'utilities/routes.dart';
 import 'utilities/theme.dart';
-import 'views/pages/authold.dart';
 
 //? we are on day 9
 

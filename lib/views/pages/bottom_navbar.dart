@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import '../../utilities/constants.dart';
-import 'cart_page.dart';
-import 'home_page.dart';
-import 'profle_page.dart';
+import 'bttom_nav_bar_pages/cart_page.dart';
+import 'bttom_nav_bar_pages/home_page.dart';
+import 'bttom_nav_bar_pages/profle_page.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);

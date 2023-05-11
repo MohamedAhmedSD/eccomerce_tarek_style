@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../controllers/database_controller.dart';
 import '../../models/product.dart';
+import '../../utilities/dimenssions.dart';
 import '../../utilities/routes.dart';
 
 class ListItemHome extends StatelessWidget {
@@ -50,28 +51,34 @@ class ListItemHome extends StatelessWidget {
           Stack(
             children: [
               //? =========== build card of project ======================
-              //* =========== Imagw =====================================
+              //* =========== Image =====================================
               ClipRRect(
-                borderRadius: BorderRadius.circular(12.0),
+                borderRadius:
+                    BorderRadius.circular(AppMediaQuery.getHeight(context, 4)),
                 child: Image.network(
                   product.imgUrl,
-                  width: 200,
-                  height: 200,
+                  // width: 200,
+                  // height: 200,
+                  width: AppMediaQuery.getWidth(context, 140),
+                  height: AppMediaQuery.getHeight(context, 160),
                   fit: BoxFit.cover,
+                  color: Colors.grey,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(AppMediaQuery.getHeight(context, 8)),
                 child: SizedBox(
-                  width: 50,
-                  height: 25,
+                  width: AppMediaQuery.getWidth(context, 40),
+                  height: AppMediaQuery.getHeight(context, 20),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.0),
+                      borderRadius: BorderRadius.circular(
+                          AppMediaQuery.getHeight(context, 16)),
                       color: isNew ? Colors.black : Colors.red,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(4.0),
+                      padding:
+                          EdgeInsets.all(AppMediaQuery.getHeight(context, 2)),
                       child: Center(
                         child: Text(
                           //* ========== New or have discount ================
@@ -90,28 +97,30 @@ class ListItemHome extends StatelessWidget {
           ),
           //? =========== add to favorite =====================================
           Positioned(
-            left: size.width * 0.30, // 38
-            bottom: size.height * 0.18, //12
+            // left: size.width * 0.29,
+            // bottom: size.height * 0.1,
+            left: AppMediaQuery.getWidth(context, 104.4),
+            bottom: AppMediaQuery.getHeight(context, 64.0),
             child: Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    blurRadius: 5,
+                    blurRadius: AppMediaQuery.getHeight(context, 5),
                     color: Colors.grey,
-                    spreadRadius: 2,
+                    spreadRadius: AppMediaQuery.getHeight(context, 2),
                   )
                 ],
               ),
               //! add to favorite
               child: CircleAvatar(
                 backgroundColor: Colors.white,
-                radius: 20.0,
+                radius: AppMediaQuery.getHeight(context, 16),
                 child: InkWell(
                   onTap: addToFavorites,
                   child: Icon(
                     isFavorite ? Icons.favorite : Icons.favorite_outline,
-                    size: 20.0,
+                    size: AppMediaQuery.getHeight(context, 16),
                     color: isFavorite ? Colors.red : Colors.grey,
                   ),
                 ),
@@ -120,7 +129,8 @@ class ListItemHome extends StatelessWidget {
           ),
           //? =========== rating =====================================
           Positioned(
-            bottom: 5,
+            // bottom: AppMediaQuery.getHeight(context, 5),
+            bottom: AppMediaQuery.getHeight(context, 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -129,7 +139,7 @@ class ListItemHome extends StatelessWidget {
                     //? =========== rating, price & details ===================
                     //! how we use rating bar
                     RatingBarIndicator(
-                      itemSize: 25.0,
+                      itemSize: AppMediaQuery.getHeight(context, 14),
                       //! its duble not int
                       rating: product.rate?.toDouble() ?? 4.0,
                       itemBuilder: (context, _) => const Icon(
@@ -138,36 +148,38 @@ class ListItemHome extends StatelessWidget {
                       ),
                       direction: Axis.horizontal,
                     ),
-                    const SizedBox(width: 4.0),
                     Text(
                       '(100)',
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             color: Colors.grey,
+                            fontSize: AppMediaQuery.getHeight(context, 10),
                           ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 8.0),
                 Text(
                   product.category,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: Colors.grey,
+                        fontSize: AppMediaQuery.getHeight(context, 10),
                       ),
                 ),
-                const SizedBox(height: 6.0),
+                // const SizedBox(height: 4.0),
                 Text(
                   product.title,
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w900,
+                        fontSize: AppMediaQuery.getHeight(context, 14),
+                        letterSpacing: AppMediaQuery.getHeight(context, 1),
                       ),
                 ),
-                const SizedBox(height: 6.0),
+                // const SizedBox(height: 4.0),
                 isNew
                     ? Text(
                         '${product.price}\$',
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                              color: Colors.grey,
-                            ),
+                            color: Colors.grey,
+                            fontSize: AppMediaQuery.getHeight(context, 10)),
                       )
                     : Text.rich(
                         TextSpan(

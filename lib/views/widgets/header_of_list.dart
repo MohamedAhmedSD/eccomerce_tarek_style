@@ -1,3 +1,4 @@
+import 'package:day1/utilities/dimenssions.dart';
 import 'package:flutter/material.dart';
 
 class HeaderOfList extends StatelessWidget {
@@ -25,13 +26,18 @@ class HeaderOfList extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
+                    fontSize: AppMediaQuery.getHeight(context, 28),
+                    letterSpacing: 2,
                   ),
             ),
             InkWell(
               onTap: onTap,
               child: Text(
                 'View All',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(fontSize: AppMediaQuery.getHeight(context, 12)),
               ),
             ),
           ],
@@ -41,6 +47,7 @@ class HeaderOfList extends StatelessWidget {
           description,
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 color: Colors.grey,
+                fontSize: AppMediaQuery.getHeight(context, 12),
               ),
         ),
       ],

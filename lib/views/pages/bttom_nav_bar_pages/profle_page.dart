@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import '../../controllers/auth_controller.dart';
-import '../widgets/main_button.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../widgets/main_button.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);

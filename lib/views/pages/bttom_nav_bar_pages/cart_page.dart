@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import '../../controllers/database_controller.dart';
-import '../../models/add_to_cart_model.dart';
-import '../widgets/cart_list_item.dart';
-import '../widgets/main_button.dart';
+import '../../../controllers/database_controller.dart';
+import '../../../models/add_to_cart_model.dart';
+import '../../widgets/cart_list_item.dart';
+import '../../widgets/main_button.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
