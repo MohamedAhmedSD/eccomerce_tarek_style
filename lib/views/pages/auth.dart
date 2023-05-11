@@ -23,8 +23,8 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage> {
   //? ============ formKey & TEC =====================
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   //? ============focusNode =====================
   //! to go to next TFF when press on its button
@@ -32,12 +32,50 @@ class _AuthPageState extends State<AuthPage> {
   final _passwordFocusNode = FocusNode();
 
   //![1] >>>>>>>>>>>> dose btn take FocusNode or recive FN from TFF >>>>>>>>>>>>
+  //?=============== validate functions ================
+  //! [ use function to back bool not simple trur or false]
+  // Define a boolean flag to keep track of password validity
+  bool _isPasswordValid = false;
+  bool _isEmailValid = false;
+
+  // Define a boolean flag to indicate password visibility
+  bool _isPasswordVisible = false;
+  // Method to validate password based on certain criteria
+  void _validatePassword() {
+    // Check if password is at least 8 characters long
+    // and contains at least one uppercase, lowercase, and numeric character
+    // RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    RegExp regex = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    bool isValid = regex.hasMatch(_passwordController.text);
+    setState(() {
+      _isPasswordValid = isValid;
+    });
+  }
+
+  // Method to validate password based on certain criteria
+  void _validateEmail() {
+    // Check if password is at least 8 characters long
+    // and contains at least one uppercase, lowercase, and numeric character
+    // RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    RegExp regex = RegExp(r'^(?=.*?[.])(?=.*?[a-z])(?=.*?[@]).{8,}$');
+    bool isValid = regex.hasMatch(_emailController.text);
+    setState(() {
+      _isEmailValid = isValid;
+    });
+  }
+
+  // Method to toggle password visibility
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
 
   //? ============ init & dispose TEC =====================
   @override
   void initState() {
-    _emailController;
-    _passwordController;
+    _passwordController.addListener(_validatePassword);
+    _emailController.addListener(_validateEmail);
     super.initState();
   }
 
@@ -108,8 +146,10 @@ class _AuthPageState extends State<AuthPage> {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 60.0,
-              horizontal: 32.0,
+              // vertical: 60.0,
+              // horizontal: 32.0,
+              vertical: 32.0,
+              horizontal: 16.0,
             ),
             child: Form(
               key: _formKey,
@@ -124,9 +164,18 @@ class _AuthPageState extends State<AuthPage> {
                       model.authFormType == AuthFormType.login
                           ? 'Login'
                           : 'Register',
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      // style: Theme.of(context).textTheme.headlineMedium,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          //! == [we use .copyWith to change them style]
+                          .copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 32),
                     ),
-                    const SizedBox(height: 80.0),
+                    // const SizedBox(height: 80.0),
+                    const SizedBox(height: 50.0),
                     //? ============ email =====================
                     TextFormField(
                       controller: _emailController,
@@ -149,45 +198,87 @@ class _AuthPageState extends State<AuthPage> {
                       // validator: (val) =>
                       //     val!.isEmpty ? 'Please enter your email!' : null,
 
+                      // validator: (value) {
+                      //   if (value!.isNotEmpty && value.length > 7) {
+                      //     return null;
+                      //   } else {
+                      //     return 'Please enter your email!, It should be more than 7';
+                      //   }
+                      // },
+                      // //:::::::::::::::::::::::::: use on changed
+                      // // it give us update to happen
+                      // // access method => model == AuthController model
+                      // onChanged: model.updateEmail,
+                      //* val => what I received
                       validator: (value) {
-                        if (value!.isNotEmpty && value.length > 7) {
-                          return null;
-                        } else {
-                          return 'Please enter your email!, It should be more than 7';
+                        if (value!.isEmpty) {
+                          return 'Please enter an Email address';
+                        } else if (!_isEmailValid) {
+                          return 'Please enter a valid email';
                         }
+                        return null;
                       },
-                      //:::::::::::::::::::::::::: use on changed
-                      // it give us update to happen
-                      // access method => model == AuthController model
-                      onChanged: model.updateEmail,
+                      onChanged: (_) => _formKey.currentState!.validate(),
                       decoration: const InputDecoration(
-                        labelText: 'Email',
-                        hintText: 'Enter your email!',
+                        labelText: "Email",
+                        hintText: "Enter your email",
+                        //! ======[ how fix label text inside TFF ]============
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
                       ),
                     ),
                     const SizedBox(height: 24.0),
                     //? ============ pw =====================
                     TextFormField(
-                      obscureText: true,
+                      obscureText: !_isPasswordVisible,
                       controller: _passwordController,
                       focusNode: _passwordFocusNode,
                       //! not add => onEditingComplete, textInputAction
                       // validator: (val) =>
                       //     val!.isEmpty ? 'Please enter your password!' : null,
 
+                      // validator: (value) {
+                      //   if (value!.isNotEmpty && value.length > 7) {
+                      //     return null;
+                      //   } else {
+                      //     return 'Passwordshould be more than 7';
+                      //   }
+                      // },
+                      // // on changed
+                      // onChanged: model.updatePassword,
                       validator: (value) {
-                        if (value!.isNotEmpty && value.length > 7) {
-                          return null;
-                        } else {
-                          return 'Passwordshould be more than 7';
+                        if (value!.isEmpty) {
+                          return 'Please enter a password';
+                        } else if (!_isPasswordValid) {
+                          return 'Please enter a valid password';
                         }
+                        return null;
                       },
-                      // on changed
-                      onChanged: model.updatePassword,
+                      onChanged: (_) => _formKey.currentState!.validate(),
 
-                      decoration: const InputDecoration(
+                      // decoration: const InputDecoration(
+                      //   labelText: 'Password',
+                      //   hintText: 'Enter your pasword!',
+                      // ),
+                      decoration: InputDecoration(
                         labelText: 'Password',
-                        hintText: 'Enter your pasword!',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
+                          onPressed: _togglePasswordVisibility,
+                        ),
+                        suffix: SizedBox(
+                          width: 24.0,
+                          height: 24.0,
+                          child: _isPasswordValid
+                              ? const Icon(
+                                  Icons.check,
+                                  color: Colors.green,
+                                )
+                              : null,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 16.0),
@@ -210,6 +301,7 @@ class _AuthPageState extends State<AuthPage> {
                     // also here about what written on button
                     //? ============ login or register  =====================
                     MainButton(
+                      hasCircularBorder: true,
                       // text: _authType == AuthFormType.login
                       text: model.authFormType == AuthFormType.login
                           ? 'Login'

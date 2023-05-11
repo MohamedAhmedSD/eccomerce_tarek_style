@@ -135,8 +135,8 @@ class MyApp extends StatelessWidget {
         //* we not need any parameter here. we used that come from router
         //*! use only one home or initialRoute, here we better use initialRoute
         //* our app start from landingPage
-        // initialRoute: AppRoutes.landingPageRoute,
-        home: const LoginPage(),
+        initialRoute: AppRoutes.landingPageRoute,
+        // home: const LoginPage(),
       ),
     );
   }

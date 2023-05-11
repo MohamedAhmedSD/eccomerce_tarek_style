@@ -16,8 +16,10 @@ class SocialMediaButton extends StatelessWidget {
       onTap: onPress,
       child: Container(
         //* container = Svg.P * 2
-        height: 80,
-        width: 80,
+        // height: 80,
+        // width: 80,
+        height: 60,
+        width: 60,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
           color: Colors.white,
