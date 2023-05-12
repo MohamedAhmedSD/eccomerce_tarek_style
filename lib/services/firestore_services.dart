@@ -30,63 +30,91 @@ class FirestoreServices {
   //! =============== [ Now we use _fireStore on all processes ] ==============
   //? =========================================================================
 
-  //* [1] set => add and edit certain data
+  //? ====================[ A: DOC] =======================
+  //* [1] set => add and edit certain data on doc
+  //*================================================================
+
   Future<void> setData({
-    required String path, // where we save data
-    required Map<String, dynamic> data, // data I want to save it =>
-    // it must ba as map<>, not object
+    //* where we save data => doc not collection => so must write path till doc
+    required String path,
+    //? data I want to save it =>
+    //* it must ba as map<>, not object
+    required Map<String, dynamic> data,
   }) async {
-    // call FirebaseFirestore
-    // we save data under doc
+    //* call FirebaseFirestore
     //? [a] save data, inside doc
+    //* reference == DocumentReference
     final reference = _fireStore.doc(path);
-    //? test
+    //? =========== test ===========
     debugPrint('Request Data: $data'); // data == map , not path
-    //? [set it == send]
+    //? [b] [set it] => why not use update ?? may not create it if not exists doc
+    //* test is set delete all data wwhen update that I edit them
+
     //? set here make both add if new data or edit if old data
     //! we need deal with reference of doc
     await reference.set(data);
   }
 
-  //* [2] delete, just need where data saved
+  //* [2] delete, just need where data saved, no need to pass data as parameter
+  //*================================================================
+
   Future<void> deleteData({required String path}) async {
-    final reference = _fireStore.doc(path); // doc
-    debugPrint('Path: $path'); // path not data
+    final reference = _fireStore.doc(path);
+    debugPrint('Path: $path');
     await reference.delete();
   }
 
+  //? ====================[ B: DOC && COLLECTION] =======================
   //! streams for both doc && collection
-  // *[3]
-  //? data come from doc make us deal with multiple different data types
+  //* as users model or product model....
+
+  // *[3] documentsStream
+  //? data come from doc [different accoding our project as (User, Product)]
+  //? make us deal with multiple different data types
+
   //* <T> == I await => data type according that send on using time,
-  // !not need here deal with query
+  //! not need here deal with query
+  //*================================================================
+
   Stream<T> documentsStream<T>({
+    //? Doc can contain data or collection
     // I need bring data
-    // [a]so I need path & after reach to its place
-    // [b]we back collection inside docs not its data
+    //* [a] so I need path & after reach to its place
     required String path,
+
+    //* [b] we back collection inside docs not its data
     // make function that take data model == T
     // and make builder to make object from it
     // to get data from snapshot when return it
     // this function apply on doc stream
 
     //! == fromMap ==  T Function
-    //* we make our builder
-    //? don't forget ?
+    //* we make our builder function that back T and need two arguments:-
+    //* (Map<String, dynamic>? data, String documentId
+    
+    //? don't forget [?] => Map<String, dynamic>? data
     required T Function(Map<String, dynamic>? data, String documentId) builder,
   }) {
+    //* a.
     final reference = _fireStore.doc(path);
-    final snapshots =
-        reference.snapshots(); //*[b] it brings colection inside docs
-    // we need back stream
+    //* b. it brings colection inside docs
     //? snapshot == DocumentSnapshot<Map<String, dynamic>>
-    //* we need back snapshot.data( => as data model on stream
+    final snapshots = reference.snapshots();
+
+    //? === we need use the snapshot to extract data from it as below ===
+    //! don't forget they are a map
+    //* we need back snapshot.data()=> to recive our data,
+    //* snapshot.data() == <Map<String, dynamic>
+    //* as data model we make and passed through stream
+
     return snapshots.map((snapshot) => builder(snapshot.data(), snapshot.id));
   }
 
-  //* [4]
+  //* [4] collectionsStream
   //! stream of docs inside collections
   //? becarful stream of List<T> not T
+  //*================================================================
+
   Stream<List<T>> collectionsStream<T>({
     // as docs above + 2 parameters
     // where
