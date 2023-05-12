@@ -23,8 +23,8 @@ class ListItemHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // MQ
-    final size = MediaQuery.of(context).size;
+    //* MQ
+    // final size = MediaQuery.of(context).size;
     final database = Provider.of<Database>(context);
 
     //* able to click

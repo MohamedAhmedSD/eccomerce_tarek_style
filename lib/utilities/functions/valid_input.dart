@@ -29,8 +29,6 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController controller = TextEditingController();
   bool success = false;
 
-  
-
 /////////////////////////////////////
 //@CodeWithFlexz on Instagram
 //

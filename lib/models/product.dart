@@ -1,7 +1,8 @@
 import '../utilities/assets.dart';
-//! MVC
+
+//! ============================ MVC ==================================
 //* models is class contain parameters to deal with data come from outside
-//? service it to communicate with outer
+//? service it to communicate with what come from out
 //* controller our statemanagnent we used=> it found in middel between outer data and date used by user
 //? views => our presentation data
 
@@ -14,8 +15,9 @@ class Product {
   final int price;
   final String imgUrl;
   final int? discountValue;
+  //! if we use double => data not work when bring it from firestore
   final String category;
-  // final double? rate; //! if we use double => data not work when bring it from firestore
+  // final double? rate;
   final int? rate;
   // constructor
   Product({
@@ -29,9 +31,13 @@ class Product {
   });
 
   //! create toMap && formMap
-  // https://www.educative.io/answers/how-can-we-convert-an-object-to-a-json-string-in-dart
+  //? https://www.educative.io/answers/how-can-we-convert-an-object-to-a-json-string-in-dart
+  // *or use website as => https://javiercbk.github.io/json_to_dart/
+  //* we should use "" on website not '' also not use [,] after last item
+
   //? when I need pass data to firestore
   //* convert model into map
+
   Map<String, dynamic> toMap() {
     //? B. for alot of data
     //! return unnamed map => in form of keys && values
@@ -46,7 +52,7 @@ class Product {
     };
   }
 
-  //! named constructor
+  //! named constructor [ to send data to FBFS]
   //? data come from firestore, it come as map
   //* we need access to certain data
   //! I need pass => String documentId, it write with defferent way
@@ -70,7 +76,55 @@ class Product {
   }
 }
 
+//!=========================================================
+//!================ by using website ========================
+//!=========================================================
+
+class ProductByWeb {
+  String? id;
+  String? title;
+  String? price;
+  String? imgUrl;
+  String? discountValue;
+  String? category;
+  String? rate;
+
+  ProductByWeb(
+      {this.id,
+      this.title,
+      this.price,
+      this.imgUrl,
+      this.discountValue,
+      this.category,
+      this.rate});
+
+  ProductByWeb.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+    price = json['price'];
+    imgUrl = json['imgUrl'];
+    discountValue = json['discountValue'];
+    category = json['category'];
+    rate = json['rate'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['price'] = price;
+    data['imgUrl'] = imgUrl;
+    data['discountValue'] = discountValue;
+    data['category'] = category;
+    data['rate'] = rate;
+    return data;
+  }
+}
+
+//!=========================================================
 //! list of our proudcts == dummy data, not from outter API
+//!=========================================================
+
 //? it is a global variables, not good
 //* here we make a litlle data to test our app inside
 //* a list from Product class object

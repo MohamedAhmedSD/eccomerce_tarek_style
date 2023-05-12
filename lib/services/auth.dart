@@ -20,6 +20,7 @@ abstract class AuthBase {
   ///* When a stream has emitted all its events, a single "done" event
   ///*  notifies the listener that the end has been reached.
 
+  //? ===== we may back null User value => when there are an error
   Stream<User?> authStateChanges(); //! User?
 
   //* authStateChanges => method wait data may back on future
@@ -60,9 +61,10 @@ class Auth implements AuthBase {
   @override
   Future<User?> loginWithEmailAndPassword(String email, String password) async {
     //* Attempts to sign in a user with the given email address and password.
-    final userAuth = await _firebaseAuth.signInWithEmailAndPassword(
+    final UserCredential userAuth = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
-    //* UserCredential userAuth
+     //! we need return => User?
+    //* reach it through => UserCredential.user == User
     return userAuth.user; //! User? get user
   }
 
@@ -72,16 +74,20 @@ class Auth implements AuthBase {
   Future<User?> signUpWithEmailAndPassword(
       String email, String password) async {
     //* Tries to create a new user account with the given email address and password.
-    final userAuth = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
-    return userAuth.user; //! User? get user
+    final UserCredential userAuth = await _firebaseAuth
+        .createUserWithEmailAndPassword(email: email, password: password);
+
+    //! we need return => User?
+    //* reach it through => UserCredential.user == User
+    return userAuth.user;
   }
 
   //? =========== authState =====================
 
 //! stream == back realtime data
-//* make stream => to back current status of auth
-// authStateChanges() => Stream<User?> Function()
+//* make stream => to back current status of auth login or logout, delete account...
+//* authStateChanges() => it Stream of Users => Stream<User?> Function()
+
   @override
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
   //* Notifies about changes to the user's sign-in state (such as sign-in or sign-out).

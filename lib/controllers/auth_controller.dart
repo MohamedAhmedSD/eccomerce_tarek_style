@@ -6,14 +6,14 @@ import '../services/auth.dart';
 import '../utilities/enums.dart';
 
 //* we use ChangeNotifier with our controller to access them && rebuild
-//* ChangeNotifier => mixins, make it easy use multible inheritence
+//* ChangeNotifier => mixins, make it easy use multible inheritence classes
 
 class AuthController with ChangeNotifier {
 // class AuthController extends ChangeNotifier {
 
   //! use controller to :-
   //* 1. what things I need control on them
-  //* 2. also we need move busisnece logic
+  //* 2. also we need move busisnece logic here
 
   //? ========= [A] variables of your Model =========================
   //* make an object from service => AuthBase
@@ -27,7 +27,7 @@ class AuthController with ChangeNotifier {
   //! for test purpose && not good practise, set value FSDB == 123
   final Database database = FirestoreDatabase("123"); //? call from abstract
 
-  //? our constructor
+  //? our constructor, it start as empty fields on login page
   AuthController({
     required this.auth,
     this.email = '', //* default value or initilized a value
@@ -35,8 +35,9 @@ class AuthController with ChangeNotifier {
     this.authFormType = AuthFormType.login,
   });
 
-  //? ========= [B] functions of your Model =========================
-  //? ========= copyWith && use it to update email & PW =========
+  //? ========= [B] functions of your Model ==================================
+  //? ========= copyWith && use it to update email & PW & AuthFormType =======
+
 //* [1] update changes
 //? dart data class plugin => ctrl + n => copy
 //* make it back void when I want only used inside our class
@@ -62,10 +63,16 @@ class AuthController with ChangeNotifier {
 
     //! need it to update our provider
     notifyListeners();
+    //* so we use copyWith to build updateEmail & updatePassword methods
   }
 
+//?======================================
 //? we need controller talk to service ==
 //?======================================
+
+//*******************************************************************
+//* so we use copyWith to build updateEmail & updatePassword methods
+//*******************************************************************
 
 //? we need both [2 + 3] to send our entry to firebase
 //* [2] change my email only by call copyWith to change that on controller
