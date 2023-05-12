@@ -6,6 +6,7 @@ import '../../controllers/auth_controller.dart';
 import '../../utilities/assets.dart';
 import '../../utilities/dimenssions.dart';
 import '../../utilities/enums.dart';
+import '../../utilities/routes.dart';
 import '../widgets/main_button.dart';
 import '../widgets/main_dialog.dart';
 import '../widgets/social_media_button.dart';
@@ -133,17 +134,20 @@ class _AuthPageState extends State<AuthPage> {
       //* to avoid context problem with build =>  if (!mounted) return;
       //*================================================================
 
+      //* ======= [ when enter valid data ] =====
       if (!mounted) return;
-      // Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
-      //? on it we deal with date to make our choice
+      Navigator.of(context).pushNamed(AppRoutes.landingPageRoute);
+      //? landing page == on it we deal with date to make our choice
     }
-    //! I use catched error as my content
+
+    //* ======= [ when enter invalid data ] =====
+    //! I use catched error to display on content proberty
     catch (e) {
       MainDialog(
         context: context,
         title: 'Error',
-        content: e.toString(),
-        // content: "Please Re Enter a Correct Data ",
+        // content: e.toString(),
+        content: "Please Re Enter a Correct Data ",
       ).showAlertDialog();
     }
   }
@@ -166,15 +170,18 @@ class _AuthPageState extends State<AuthPage> {
 
     final size = MediaQuery.of(context).size;
 
-    //! access to our provider
-    //? ask parents on widget tree , till find generic class, then assign it to variable => auth
-    // final auth = Provider.of<AuthBase>(context);  //? it able edit UI
-    //* on main page we assign Provider to Material root so we able to Use => Consumer here
-    //! base of tree
-    //? where we apply it by consumer
-    //* required Widget Function(BuildContext, AuthController, Widget?) builder,
+    //! ================= access to our provider =============================
+    //* on main page we assign Provider to Material root so we able to Use =>
+    //* Consumer here, but must call Provider of context first
+    //* may call Provider of context on landing page
+    //* that must be called before this page to make it work
+
+    //? it able edit UI
+    // final auth = Provider.of<AuthBase>(context);
 
     //? ============ Consumer & form =====================
+    //? where we apply it by consumer =? on widget that need to listen to model
+    //* required Widget Function(BuildContext, AuthController, Widget?) builder,
     return Consumer<AuthController>(builder: (_, model, __) {
       // consumer return widget to listen changes on it
       return Scaffold(
