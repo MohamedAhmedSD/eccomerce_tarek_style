@@ -4,17 +4,31 @@ import 'package:flutter/foundation.dart';
 //! all basic functions and streams you need to deal with firestore
 
 class FirestoreServices {
-  //? singeltoon constructor is privet
+  //?==========[  singeltoon ] ========
+  //? singeltoon to make constructor of class privit
   //* hide constructor == privit =>
   //* and give you certain object to access by it from out file
-  //! so we build object inside firestore services and give you objdct to access into it
+
+  //! so we build object inside firestore services
+  //! and give you objdct to access into it
+
+  //? steps to write singelton object
+  //* classname + ._();
   FirestoreServices._();
 
-  //? then save its constructor as final
+  //? then save singelton object on certain variable == instance
+  //* static final = singelton object
   static final instance = FirestoreServices._();
+
+  //? ======== [now to use object from class we should use instance variable] ==
+  //* === [ our instance it part from _fireStore variable now ] =======
 
   //! short your code => make instance from firestore
   final _fireStore = FirebaseFirestore.instance;
+
+  //? =========================================================================
+  //! =============== [ Now we use _fireStore on all processes ] ==============
+  //? =========================================================================
 
   //* [1] set => add and edit certain data
   Future<void> setData({

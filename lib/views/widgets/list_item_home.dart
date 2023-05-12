@@ -141,9 +141,10 @@ class ListItemHome extends StatelessWidget {
                     RatingBarIndicator(
                       itemSize: AppMediaQuery.getHeight(context, 14),
                       //! its double not int
-                      // rating: product.rate?.toDouble() ?? 4.0,
+                      rating: product.rate?.toDouble() ?? 4.0,
+                      // rating: 4.0,
                       itemCount: 5, //* it default 5
-                      rating: 4.0,
+
                       //! we cann't change icon color if not choose unrated color
                       unratedColor: Colors.grey,
                       itemBuilder: (context, _) => const Icon(
