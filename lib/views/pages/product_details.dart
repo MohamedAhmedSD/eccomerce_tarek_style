@@ -1,4 +1,4 @@
-
+import 'package:day1/utilities/dimenssions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -58,21 +58,28 @@ class _ProductDetailsState extends State<ProductDetails> {
 
     //?============= provider && MQ && appBar ============================
     return Scaffold(
+      //! how I can change icon of back when use navigation
       appBar: AppBar(
+        //* change appBar height
+        toolbarHeight: AppMediaQuery.getHeight(context, 35),
         //? we can change appBar background && opacity also from here
         title: Text(
           //! call arrgs that inject from constructor, from route page
           widget.product
               .title, //* when access through stf, you must start with widget.
           // product.title, //* when access through stl
-          style: Theme.of(context).textTheme.titleLarge,
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+              fontSize: AppMediaQuery.getHeight(context, 14),
+              fontWeight: FontWeight.bold),
         ),
+        centerTitle: true,
         //! we can edit appbar color from here or from main file
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               Icons.share,
+              size: AppMediaQuery.getHeight(context, 20),
             ),
           ),
         ],
@@ -84,39 +91,59 @@ class _ProductDetailsState extends State<ProductDetails> {
             Image.network(
               widget.product.imgUrl,
               width: double.infinity,
-              height: size.height * 0.8, // 0.55
-              fit: BoxFit.cover,
-              // fit: BoxFit.fill,
+              height: size.height * 0.4, // 0.55
+              // fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
             const SizedBox(height: 8.0),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16.0,
-                vertical: 8.0,
+                vertical: 2.0,
               ),
               //?============= sizes , favorite btn ============================
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       //*============= sizes ============================
-                      Expanded(
-                        child: SizedBox(
-                          height: 60,
-                          child: DropDownMenuComponent(
-                            items: const ['S', 'M', 'L', 'XL', 'XXL'],
-                            hint: 'Size',
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                              });
-                            },
-                          ),
+                      DropDownMenuComponent(
+                        items: const ['S', 'M', 'L', 'XL', 'XXL'],
+                        hint: 'Size',
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValue = newValue!;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      //*============= colors ============================
+                      SizedBox(
+                        height: 30,
+                        width: 130,
+                        child: DropDownMenuComponent(
+                          items: const [
+                            'black',
+                            'yellow',
+                            'blue',
+                            'white',
+                            'grey'
+                          ],
+                          hint: 'colors',
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownValue = newValue!;
+                            });
+                          },
                         ),
                       ),
                       const Spacer(),
+
                       //*============= favorie btn ============================
                       InkWell(
                         onTap: () {
@@ -126,15 +153,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                           });
                         },
                         child: SizedBox(
-                          height: 60,
-                          width: 60,
+                          height: 30,
+                          width: 30,
                           child: DecoratedBox(
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               color: Colors.white,
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            child: Center(
                               child: Icon(
                                 isFavorite
                                     ? Icons.favorite
@@ -142,7 +168,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 color: isFavorite
                                     ? Colors.redAccent
                                     : Colors.black45,
-                                size: 30,
+                                size: 20,
                               ),
                             ),
                           ),
@@ -150,7 +176,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 24.0),
+                  const SizedBox(height: 8.0),
                   //?============= title && price ============================
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -160,6 +186,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         style:
                             Theme.of(context).textTheme.headlineSmall!.copyWith(
                                   fontWeight: FontWeight.w600,
+                                  fontSize: 16,
                                 ),
                       ),
                       Text(
@@ -167,11 +194,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                         style:
                             Theme.of(context).textTheme.headlineSmall!.copyWith(
                                   fontWeight: FontWeight.w600,
+                                  fontSize: 16,
                                 ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 2.0),
                   //?============= category && details ============================
                   Text(
                     widget.product.category,
@@ -179,12 +207,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                           color: Colors.black54,
                         ),
                   ),
-                  const SizedBox(height: 16.0),
+                  const SizedBox(height: 8.0),
                   Text(
                     'This is a dummy description for this product! I think we will add it in the future! I need to add more lines, so I add these words just to have more than two lines!',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  const SizedBox(height: 24.0),
+                  const SizedBox(height: 80.0),
+
                   //?============= add btn ============================
                   MainButton(
                     text: 'Add to cart',
