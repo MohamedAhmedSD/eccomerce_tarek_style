@@ -149,6 +149,7 @@ class HomePage extends StatelessWidget {
                               child: ListItemHome(
                                 product: products[index],
                                 isNew: true,
+                                // isNew: false,
                               ),
                             ),
                           );

@@ -91,7 +91,7 @@ class FirestoreServices {
     //! == fromMap ==  T Function
     //* we make our builder function that back T and need two arguments:-
     //* (Map<String, dynamic>? data, String documentId
-    
+
     //? don't forget [?] => Map<String, dynamic>? data
     required T Function(Map<String, dynamic>? data, String documentId) builder,
   }) {
@@ -107,61 +107,78 @@ class FirestoreServices {
     //* snapshot.data() == <Map<String, dynamic>
     //* as data model we make and passed through stream
 
+    //? now it ready to use fromMap to call it later
     return snapshots.map((snapshot) => builder(snapshot.data(), snapshot.id));
   }
 
   //* [4] collectionsStream
-  //! stream of docs inside collections
+  //! == stream of docs inside collections ===
   //? becarful stream of List<T> not T
   //*================================================================
 
   Stream<List<T>> collectionsStream<T>({
-    // as docs above + 2 parameters
-    // where
+    //* as docs above + 2 parameters to [ filter and sort ]
+    //* a.
     required String path,
+
+    //* b.
     //! fromMap
     required T Function(Map<String, dynamic>? data, String documentId)
         builder, //? function name == builder
+
+    //* c.
     //? may we need sort or filter our query
-    //* filter by Query
+    //* filter by Query, it function take and back Query
     Query Function(Query query)? queryBuilder,
+
+    //* d.
     //? sort funstion it back int
     //* sort need 2 elements == parameters, to sort according them
-    int Function(T lhs, T rhs)? sort, // lhs == left hand side
+    //? we use T => same data type come from model
+    //* lhs == left hand side, and right hand side
+    int Function(T lhs, T rhs)? sort,
   }) {
     //? access collection and save it on query
-    // it back data => collectionReference
-    // to be able deal with query from user, make it you make filter on it
+    //* it back data => collectionReference
+    //* to be able deal with query from user, make it you make filter on it
+
     Query query = _fireStore.collection(path);
-    // check is there data come from user request
+    //* check is there data come from user request
+    //* user make filter on it, due to queryBuilder
+    //* its better to make filter on FS level not inside our phone, performance
     if (queryBuilder != null) {
       // merge query
       query = queryBuilder(query);
     }
     //! stream of query
-    final snapshots = query.snapshots();
+    final snapshots =
+        query.snapshots(); //* now get reference of document inside collection
     // map them
-    // we can access into doc from snapshot also
+    //* we can access into doc from snapshot also
     return snapshots.map((snapshot) {
-      // result
-      final result = snapshot.docs
+      //! result::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+      final result = snapshot.docs //* access into doc from snapshot
           .map(
             (snapshot) => builder(
-              // avoid error by resive object as Map<>
+              //* avoid error by resive object as Map<>
               snapshot.data() as Map<String, dynamic>,
               snapshot.id, //
             ),
           )
-          // filter data on layer of firestore
-          // filtter only not null
+          //* filter data on layer of firestore services
+          //* filtter only values not null => using existing values to filter
           .where((value) => value != null)
-          // convert all into list
+          //! convert all into list::::::::::::::::::::::::::::::::::::::::::
           .toList();
-      //! sort
+      //! sort ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
       if (sort != null) {
+        //* List<T> result
         result.sort(sort);
       }
+      //* List<T> result
       return result;
     });
   }
 }
+
+//* now make your controller

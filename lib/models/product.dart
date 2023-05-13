@@ -56,6 +56,9 @@ class Product {
   //? data come from firestore, it come as map
   //* we need access to certain data
   //! I need pass => String documentId, it write with defferent way
+  //* because my collectionsStream => its builder need 2 parameters
+  //? Map<String, dynamic> map, String documentId
+  //* so we pass id => id: documentId => where it save the data
 
   factory Product.fromMap(Map<String, dynamic> map, String documentId) {
     //? return our class constructor

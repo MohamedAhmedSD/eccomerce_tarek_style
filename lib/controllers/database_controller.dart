@@ -27,7 +27,7 @@ abstract class Database {
 
 class FirestoreDatabase implements Database {
   //? ========== Services ================
-  //* call from singeltoon
+  //* call from singeltoon, that we make on our FirestoreServices file
   final _service = FirestoreServices.instance;
 
   //* to know every user and its certain data
@@ -42,17 +42,26 @@ class FirestoreDatabase implements Database {
   @override
   //? ========== streams ================
 
-  // List<>
+  //* List<>
   //! access collection, to bring data inside it as id, name
   Stream<List<Product>> salesProductsStream() => _service.collectionsStream(
-        // that of firestore
-        // number of / => even => 1,3...
-        // path: 'products/',
+        //* that of firestore
+        //? number of / => even => 1,3...
+        //* path: 'products/',
+
+        //* a.
         path: ApiPath.products(),
         // data not null
+
+        //* b.
         //! builder is function take 2 parameters
-        //* fromMap function on Product class
+        //* == fromMap function on our Product class ==
+        //* take data from FS and convert it to model we use it
+        // builder: (data, documentId) => Product.fromMap(data, documentId),
+        //* need => [!]
         builder: (data, documentId) => Product.fromMap(data!, documentId),
+
+        //* c.
         //? we can use queryBuilder to filter data before write it on view
         //* we choose for example => discountValue, to bring certain data into stream
         //? we can filter for many conditions on same time
