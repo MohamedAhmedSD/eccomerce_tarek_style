@@ -1,5 +1,6 @@
 import 'package:day1/utilities/dimenssions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/database_controller.dart';
@@ -91,7 +92,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             Image.network(
               widget.product.imgUrl,
               width: double.infinity,
-              height: size.height * 0.4, // 0.55
+              height: size.height * 0.50, // 0.55
               // fit: BoxFit.cover,
               fit: BoxFit.fill,
             ),
@@ -176,7 +177,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 10.0),
                   //?============= title && price ============================
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -205,14 +206,50 @@ class _ProductDetailsState extends State<ProductDetails> {
                     widget.product.category,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                           color: Colors.black54,
+                          fontSize: 14,
                         ),
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 2.0),
+                  Row(
+                    children: [
+                      //? =========== rating, price & details ===================
+                      //! how we use rating bar
+                      RatingBarIndicator(
+                        itemSize: AppMediaQuery.getHeight(context, 14),
+                        //! its double not int
+                        rating: widget.product.rate?.toDouble() ?? 4.0,
+                        // rating: 4.0,
+                        itemCount: 5, //* it default 5
+
+                        //! we cann't change icon color if not choose unrated color
+                        unratedColor: Colors.grey,
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          //* first use unrated color to apply changes to icon color
+                          color: Colors.amber,
+                        ),
+                        direction: Axis.horizontal,
+                      ),
+                      Text(
+                        // '(100)',
+                        widget.product.price.toString(),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              color: Colors.grey,
+                              fontSize: AppMediaQuery.getHeight(context, 10),
+                            ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Text(
                     'This is a dummy description for this product! I think we will add it in the future! I need to add more lines, so I add these words just to have more than two lines!',
                     style: Theme.of(context).textTheme.bodyLarge,
+                    maxLines: 4,
+                    // overflow: ,
                   ),
-                  const SizedBox(height: 80.0),
+                  const SizedBox(height: 20.0),
 
                   //?============= add btn ============================
                   MainButton(
@@ -221,7 +258,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     onTap: () => _addToCart(database),
                     hasCircularBorder: true,
                   ),
-                  const SizedBox(height: 32.0),
+                  const SizedBox(height: 20.0),
                 ],
               ),
             ),

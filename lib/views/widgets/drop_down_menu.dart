@@ -21,7 +21,9 @@ class DropDownMenuComponent extends StatelessWidget {
       //! cann't use both decoration && null on same time
       // color: Colors.white,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4), color: Colors.white),
+          border: Border.all(width: 1, color: Colors.grey),
+          borderRadius: BorderRadius.circular(4),
+          color: Colors.white),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: DropdownButton<String>(
