@@ -87,18 +87,18 @@ class FirestoreDatabase implements Database {
       );
 
   //? ========== streams ================
-
+  //* it void I want only edit data
   @override
   Future<void> setUserData(UserData userData) async =>
       await _service.setData(path: ApiPath.user(uid), data: userData.toMap());
 
   //? we can add features as add products or delete it
-  // void == I am not waiting response
-  // Future<void> setProduct(Product product) async =>
-  //     _service.setData(path: "products/${product.id}", data: product.toMap());
+  //* void == I am not waiting response
+  Future<void> setProduct(Product product) async =>
+      _service.setData(path: "products/${product.id}", data: product.toMap());
 
-  // Future<void> deleteProduct(Product product) async =>
-  //     _service.deleteData(path: "products/${product.id}");
+  Future<void> deleteProduct(Product product) async =>
+      _service.deleteData(path: "products/${product.id}");
 
   //? ========== streams ================
 
