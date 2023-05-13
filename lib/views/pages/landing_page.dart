@@ -73,12 +73,16 @@ class LandingPage extends StatelessWidget {
 
             //? ========= pass UID to another page ===================
             //! we need wrap BottomNavbar with => provider to reach db controller
+            //* not use CNP here, because it not extend from it
             child: Provider<Database>(
                 create: (_) =>
 
                     //? ===== call function that make UID on it ===============
                     FirestoreDatabase(user.uid), //? snapshot.data.uid
                 child: const BottomNavbar()),
+            //*==========================================================
+            //* we see that: BottomNavbar(), use both Provider ** CNP
+            //*==========================================================
           );
         }
 

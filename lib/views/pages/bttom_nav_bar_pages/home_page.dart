@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // final size = MediaQuery.of(context).size; // 30%
 
-    //* use stream
+    //* use provider of context => we should ensure we use Provider on previous page
     final database = Provider.of<Database>(context);
 
     return SingleChildScrollView(
@@ -108,7 +108,10 @@ class HomePage extends StatelessWidget {
                   height: AppMediaQuery.getHeight(context, 240),
                   //! wrap our product list with => StreamBuilder
                   child: StreamBuilder<List<Product>>(
+                       //?==============================================
+                      //* it show products that have discounts value
                       stream: database.salesProductsStream(),
+                      //?==============================================
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.active) {
@@ -176,7 +179,10 @@ class HomePage extends StatelessWidget {
                 SizedBox(
                   height: AppMediaQuery.getHeight(context, 240),
                   child: StreamBuilder<List<Product>>(
+                      //?==============================================
+                      //* it show all products 
                       stream: database.newProductsStream(),
+                      //?==============================================
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.active) {

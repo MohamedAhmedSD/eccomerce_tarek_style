@@ -61,7 +61,7 @@ class FirestoreDatabase implements Database {
         //* need => [!]
         builder: (data, documentId) => Product.fromMap(data!, documentId),
 
-        //* c.
+        //* c. it get only the product that => discountValue != 0
         //? we can use queryBuilder to filter data before write it on view
         //* we choose for example => discountValue, to bring certain data into stream
         //? we can filter for many conditions on same time
@@ -73,7 +73,7 @@ class FirestoreDatabase implements Database {
 
   //? ========== streams ================
 
-//! to call all products
+//! to call all products, so no need to use filter by query ::::::::::::::::::
   @override
   Stream<List<Product>> newProductsStream() => _service.collectionsStream(
         // that of firestore
