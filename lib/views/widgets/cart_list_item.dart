@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/add_to_cart_model.dart';
 
 class CartListItem extends StatelessWidget {
+  //* use it to get our cart data
   final AddToCartModel cartItem;
   const CartListItem({
     Key? key,
@@ -21,6 +22,7 @@ class CartListItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            //* ============== [image] =============
             ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16.0),
