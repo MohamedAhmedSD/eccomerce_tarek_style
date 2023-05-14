@@ -18,6 +18,24 @@ class _CartPageState extends State<CartPage> {
   //* our total price start from 0
   int totalAmount = 0;
 
+  //* it called after call build widget. recall with every update
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    //* use provider out to builder
+    //* listen to stream of list => inside it items of list
+    final myProducts = await Provider.of<Database>(context, listen: false)
+        .myProductsCart()
+        .first;
+    //* loop through them
+    for (var element in myProducts) {
+      //* updata prices part
+      setState(() {
+        totalAmount = element.price;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     //* use DB controller
@@ -84,6 +102,8 @@ class _CartPageState extends State<CartPage> {
                             //* I make widget accepting our cartItem data model
                             final cartItem = cartItems[i];
                             //* also update total price
+
+                            //! don't use setState inside builder or streamBuilder
                             // setState(() {
                             totalAmount = cartItem.price;
                             // });
@@ -98,6 +118,9 @@ class _CartPageState extends State<CartPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          //! we can use stream here to deal with price only
+                          //! you can call it with initstate => only once call
+                          //! our didChangeDependancies => with every rebuild recall
                           Text(
                             'Total Amount:',
                             style: Theme.of(context)
