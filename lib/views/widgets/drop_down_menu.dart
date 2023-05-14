@@ -53,6 +53,11 @@ class DropDownMenuComponent extends StatelessWidget {
             ),
           ),
           onChanged: onChanged,
+          elevation: 8,
+          //! to delete line that appear under the button
+          underline: Container(
+            color: Colors.transparent,
+          ),
 
           //* The current elements of this iterable modified by [toElement].
           items: items.map<DropdownMenuItem<String>>((String value) {
