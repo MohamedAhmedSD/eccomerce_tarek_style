@@ -113,7 +113,7 @@ class AuthController with ChangeNotifier {
         //* call login function
         await auth.loginWithEmailAndPassword(email, password);
       } else {
-        //* call register function
+        //* call register function and save new user on FBFS
         final user = await auth.signUpWithEmailAndPassword(email, password);
 
         //? ====== FS ======================================
@@ -124,7 +124,9 @@ class AuthController with ChangeNotifier {
         //     UserData(uid: documentIdFromLocalData(), email: email));
 
         //* ===== create collection on firestore + connect uid with cart ====
-        //! we need connect uid with cart
+        //! we need connect uid with cart later
+        //* use uid that get from authorized fb or make it randomlly by =?
+        //*  documentIdFromLocalData()
         await database.setUserData(UserData(
           uid: user?.uid ?? documentIdFromLocalData(),
           email: email,

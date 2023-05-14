@@ -100,19 +100,18 @@ class FirestoreDatabase implements Database {
   Future<void> deleteProduct(Product product) async =>
       _service.deleteData(path: "products/${product.id}");
 
-  //? ========== streams ================
+  //? =================== [ streams ] ==========================================
+  //? ================== [ add to cart ] =======================================
 
-  // add to cart
-
+  //* a.
   @override
   Future<void> addToCart(AddToCartModel product) async => _service.setData(
         path: ApiPath.addToCart(uid, product.id),
         data: product.toMap(),
       );
 
-  //? ========== streams ================
-
-  //! stream to add data to ui of cart
+  //* b.
+  //! stream to add data to ui of cart ==========
   //? becarfull with nullable
   @override
   Stream<List<AddToCartModel>> myProductsCart() => _service.collectionsStream(

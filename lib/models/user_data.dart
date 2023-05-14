@@ -1,5 +1,7 @@
 //! model to save User data => to firestore
-//* its id && email
+//? then you can add cart for every user inside this path
+
+//* its user id && email
 class UserData {
   final String uid;
   final String email;

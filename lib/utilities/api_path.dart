@@ -17,10 +17,10 @@ class ApiPath {
   //* make cart for every user and add item to it
   //! so we need Id for user && item == cart
 
-  //* 3. add to certain user on its cart
+  //* 3. add to certain user => a cart item
   static String addToCart(String uid, String addToCartId) =>
       'users/$uid/cart/$addToCartId';
 
-  //* 4. where its user cart
+  //* 4. where its user cart to disply items from it
   static String myProductsCart(String uid) => 'users/$uid/cart/';
 }

@@ -64,7 +64,8 @@ class DropDownMenuComponent extends StatelessWidget {
           underline: Container(
             color: Colors.transparent,
           ),
-
+          //! how we use it =========================
+          // itemHeight: 20,
           //* The current elements of this iterable modified by [toElement].
           items: items.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
