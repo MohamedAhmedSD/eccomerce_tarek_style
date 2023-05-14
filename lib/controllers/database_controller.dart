@@ -2,6 +2,7 @@ import 'package:day1/models/user_data.dart';
 import 'package:day1/utilities/api_path.dart';
 
 import '../models/add_to_cart_model.dart';
+import '../models/delivery_method.dart';
 import '../models/product.dart';
 import '../services/firestore_services.dart';
 
@@ -23,6 +24,9 @@ abstract class Database {
   // function of addtocart
   Future<void> addToCart(
       AddToCartModel product); //*product model with extra proberties
+
+        Stream<List<DeliveryMethod>> deliveryMethodsStream();
+
 }
 
 class FirestoreDatabase implements Database {
@@ -119,4 +123,11 @@ class FirestoreDatabase implements Database {
         builder: (data, documentId) =>
             AddToCartModel.fromMap(data!, documentId),
       );
+      
+       @override
+  Stream<List<DeliveryMethod>> deliveryMethodsStream() =>
+      _service.collectionsStream(
+          path: ApiPath.deliveryMethods(),
+          builder: (data, documentId) =>
+              DeliveryMethod.fromMap(data!, documentId));
 }
