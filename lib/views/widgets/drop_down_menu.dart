@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utilities/dimenssions.dart';
+
 class DropDownMenuComponent extends StatelessWidget {
   final void Function(String? value) onChanged;
   final List<String> items; //! we work on this list
@@ -16,16 +18,19 @@ class DropDownMenuComponent extends StatelessWidget {
     //* Creates a [DropdownButton] widget that is a [FormField], wrapped in an [InputDecorator].
     // return DropdownButtonFormField<String>(
     return Container(
-      height: 30,
-      width: 130,
+      height: AppMediaQuery.getHeight(context, 30),
+      width: AppMediaQuery.getWidth(context, 130),
       //! cann't use both decoration && null on same time
       // color: Colors.white,
       decoration: BoxDecoration(
-          border: Border.all(width: 1, color: Colors.grey),
+          border: Border.all(
+              width: AppMediaQuery.getWidth(context, 1), color: Colors.grey),
           borderRadius: BorderRadius.circular(4),
           color: Colors.white),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppMediaQuery.getHeight(context, 8),
+        ),
         child: DropdownButton<String>(
           menuMaxHeight:
               100, //! used to set max highest when opening menu of items
@@ -40,16 +45,17 @@ class DropDownMenuComponent extends StatelessWidget {
           //     filled: true,
           //     fillColor: Colors.white),
 
-          style: Theme.of(context)
-              .textTheme
-              .labelMedium!
-              .copyWith(fontWeight: FontWeight.bold, fontSize: 12),
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: AppMediaQuery.getHeight(context, 12)),
 
           //* Creates a widget that scales and positions its child within itself according to [fit].
           hint: SizedBox(
             child: Text(
               hint,
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: AppMediaQuery.getHeight(context, 12),
+                  fontWeight: FontWeight.bold),
             ),
           ),
           onChanged: onChanged,

@@ -96,11 +96,11 @@ class _ProductDetailsState extends State<ProductDetails> {
               // fit: BoxFit.cover,
               fit: BoxFit.fill,
             ),
-            const SizedBox(height: 8.0),
+            SizedBox(height: AppMediaQuery.getHeight(context, 20)),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 2.0,
+              padding: EdgeInsets.symmetric(
+                horizontal: AppMediaQuery.getWidth(context, 16),
+                vertical: AppMediaQuery.getHeight(context, 2),
               ),
               //?============= sizes , favorite btn ============================
               child: Column(
@@ -120,13 +120,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                           });
                         },
                       ),
-                      const SizedBox(
-                        width: 30,
+                      SizedBox(
+                        width: AppMediaQuery.getWidth(context, 30),
                       ),
                       //*============= colors ============================
                       SizedBox(
-                        height: 30,
-                        width: 130,
+                        height: AppMediaQuery.getHeight(context, 30),
+                        width: AppMediaQuery.getWidth(context, 130),
                         child: DropDownMenuComponent(
                           items: const [
                             'black',
@@ -154,8 +154,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                           });
                         },
                         child: SizedBox(
-                          height: 30,
-                          width: 30,
+                          height: AppMediaQuery.getHeight(context, 30),
+                          width: AppMediaQuery.getWidth(context, 30),
                           child: DecoratedBox(
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
@@ -169,7 +169,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 color: isFavorite
                                     ? Colors.redAccent
                                     : Colors.black45,
-                                size: 20,
+                                size: AppMediaQuery.getHeight(context, 20),
                               ),
                             ),
                           ),
@@ -177,39 +177,43 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10.0),
+                  SizedBox(height: AppMediaQuery.getHeight(context, 10)),
                   //?============= title && price ============================
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         widget.product.title,
-                        style:
-                            Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: AppMediaQuery.getHeight(context, 16),
+                            ),
                       ),
                       Text(
                         '\$${widget.product.price}',
-                        style:
-                            Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: AppMediaQuery.getHeight(context, 16),
+                            ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 2.0),
+                  SizedBox(height: AppMediaQuery.getHeight(context, 2)),
                   //?============= category && details ============================
                   Text(
                     widget.product.category,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                           color: Colors.black54,
-                          fontSize: 14,
+                          fontSize: AppMediaQuery.getHeight(context, 14),
                         ),
                   ),
-                  const SizedBox(height: 2.0),
+                  SizedBox(height: AppMediaQuery.getHeight(context, 2)),
                   Row(
                     children: [
                       //? =========== rating, price & details ===================
@@ -249,7 +253,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     maxLines: 4,
                     // overflow: ,
                   ),
-                  const SizedBox(height: 20.0),
+                  SizedBox(height: AppMediaQuery.getHeight(context, 20)),
 
                   //?============= add btn ============================
                   MainButton(
@@ -258,7 +262,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     onTap: () => _addToCart(database),
                     hasCircularBorder: true,
                   ),
-                  const SizedBox(height: 20.0),
+                  SizedBox(height: AppMediaQuery.getHeight(context, 20)),
                 ],
               ),
             ),
