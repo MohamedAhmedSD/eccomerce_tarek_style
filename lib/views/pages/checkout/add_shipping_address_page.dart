@@ -35,8 +35,11 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
     super.dispose();
   }
 
+  //* need parameter to DB
   Future<void> saveAddress(Database database) async {
     try {
+      //* trim == The string without any leading and trailing whitespace.
+
       if (_formKey.currentState!.validate()) {
         final address = ShippingAddress(
           id: documentIdFromLocalData(),
@@ -47,8 +50,10 @@ class _AddShippingAddressPageState extends State<AddShippingAddressPage> {
           state: _stateController.text.trim(),
           zipCode: _zipCodeController.text.trim(),
         );
+        //* save on db
         await database.saveAddress(address);
         if (!mounted) return;
+        //* exit to back into ckeckout page
         Navigator.of(context).pop();
       }
     } catch (e) {

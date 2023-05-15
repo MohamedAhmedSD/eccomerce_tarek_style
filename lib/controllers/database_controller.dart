@@ -30,9 +30,8 @@ abstract class Database {
   Stream<List<DeliveryMethod>> deliveryMethodsStream();
   //? ========= ShippingAddress
 
-    Stream<List<ShippingAddress>> getShippingAddresses();
+  Stream<List<ShippingAddress>> getShippingAddresses();
   Future<void> saveAddress(ShippingAddress address);
-
 }
 
 class FirestoreDatabase implements Database {
@@ -138,15 +137,16 @@ class FirestoreDatabase implements Database {
           builder: (data, documentId) =>
               DeliveryMethod.fromMap(data!, documentId));
   //? ======= [ ShippingAddresses ] =======
-    
-              @override
+  //* [1] userShippingAddress => bring all addresses
+  @override
   Stream<List<ShippingAddress>> getShippingAddresses() =>
       _service.collectionsStream(
         path: ApiPath.userShippingAddress(uid),
         builder: (data, documentId) =>
             ShippingAddress.fromMap(data!, documentId),
       );
-
+//* [2] saveAddress => show only one from list of addresses
+//* data that saved when user enter data on addaddress page
   @override
   Future<void> saveAddress(ShippingAddress address) => _service.setData(
         path: ApiPath.newAddress(

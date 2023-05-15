@@ -42,6 +42,7 @@ class CheckoutPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8.0),
+              //* we use StreamBuilder not good practice
               StreamBuilder<List<ShippingAddress>>(
                   stream: database.getShippingAddresses(),
                   builder: (context, snapshot) {
@@ -57,6 +58,7 @@ class CheckoutPage extends StatelessWidget {
                               InkWell(
                                 onTap: () => Navigator.of(context).pushNamed(
                                   AppRoutes.addShippingAddressRoute,
+                                  //* we must pass DB
                                   arguments: database,
                                 ),
                                 child: Text(
@@ -73,6 +75,7 @@ class CheckoutPage extends StatelessWidget {
                           ),
                         );
                       }
+                      //* display first list from stream
                       final shippingAddress = shippingAddresses.first;
                       return ShippingAddressComponent(
                           shippingAddress: shippingAddress);

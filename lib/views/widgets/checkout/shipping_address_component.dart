@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../models/shipping_address.dart';
 
 class ShippingAddressComponent extends StatelessWidget {
+  //* we need use ShippingAddress model 
   final ShippingAddress shippingAddress;
   const ShippingAddressComponent({
     Key? key,
