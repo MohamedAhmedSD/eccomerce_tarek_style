@@ -24,5 +24,13 @@ class ApiPath {
   //* 4. where its user cart to disply items from it
   static String myProductsCart(String uid) => 'users/$uid/cart/';
 
+  //* 5. deliveryMethods
   static String deliveryMethods() => 'deliveryMethods/';
+
+  //* 6. ShippingAddress
+  static String userShippingAddress(String uid) =>
+      'users/$uid/shippingAddresses/';
+
+  static String newAddress(String uid, String addressId) =>
+      'users/$uid/shippingAddresses/$addressId';
 }

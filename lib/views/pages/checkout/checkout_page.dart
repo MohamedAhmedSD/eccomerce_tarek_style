@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 
 import '../../../controllers/database_controller.dart';
 import '../../../models/delivery_method.dart';
+import '../../../models/shipping_address.dart';
+import '../../../utilities/routes.dart';
 import '../../widgets/checkout/checkout_order_details.dart';
 import '../../widgets/checkout/delivery_method_item.dart';
 import '../../widgets/checkout/payment_component.dart';
@@ -34,12 +36,51 @@ class CheckoutPage extends StatelessWidget {
             children: [
               //? ========== Shipping address ============
               //* if there items it show card if not don't show it
+
               Text(
                 'Shipping address',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8.0),
-              const ShippingAddressComponent(),
+              StreamBuilder<List<ShippingAddress>>(
+                  stream: database.getShippingAddresses(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.active) {
+                      final shippingAddresses = snapshot.data;
+                      if (shippingAddresses == null ||
+                          shippingAddresses.isEmpty) {
+                        return Center(
+                          child: Column(
+                            children: [
+                              const Text('No Shipping Addresses!'),
+                              const SizedBox(height: 6.0),
+                              InkWell(
+                                onTap: () => Navigator.of(context).pushNamed(
+                                  AppRoutes.addShippingAddressRoute,
+                                  arguments: database,
+                                ),
+                                child: Text(
+                                  'Add new one',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge!
+                                      .copyWith(
+                                        color: Colors.redAccent,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                      final shippingAddress = shippingAddresses.first;
+                      return ShippingAddressComponent(
+                          shippingAddress: shippingAddress);
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    );
+                  }),
               const SizedBox(height: 24.0),
               //? ========== Payment ============
               Row(

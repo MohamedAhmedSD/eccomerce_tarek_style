@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../controllers/database_controller.dart';
 import '../utilities/routes.dart';
+import '../views/pages/checkout/add_shipping_address_page.dart';
 import '../views/pages/checkout/checkout_page.dart';
 import '../views/pages/landing_page.dart';
 import '../views/pages/bottom_navbar.dart';
@@ -69,6 +70,17 @@ Route<dynamic> onGenerate(RouteSettings settings) {
         builder: (_) => Provider<Database>.value(
           value: database,
           child: ProductDetails(product: product),
+        ),
+        settings: settings,
+      );
+    //?################[ landingPageRoute ]###################################
+
+    case AppRoutes.addShippingAddressRoute:
+      final database = settings.arguments as Database;
+      return MaterialPageRoute(
+        builder: (_) => Provider<Database>.value(
+          value: database,
+          child: const AddShippingAddressPage(),
         ),
         settings: settings,
       );
