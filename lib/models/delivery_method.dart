@@ -1,4 +1,7 @@
-import 'dart:convert';
+//* we add deliveryMethods to firestore
+//? id, imgUrl,name,days == str,price =num
+//* then use as list iten on db controller
+//? Stream<List<DeliveryMethod>> deliveryMethodsStream();
 
 class DeliveryMethod {
   final String id;
@@ -17,13 +20,13 @@ class DeliveryMethod {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'id': id});
     result.addAll({'name': name});
     result.addAll({'days': days});
     result.addAll({'imgUrl': imgUrl});
     result.addAll({'price': price});
-  
+
     return result;
   }
 

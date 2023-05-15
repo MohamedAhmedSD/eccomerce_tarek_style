@@ -7,6 +7,7 @@ class PaymentComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //* just a row of img and text
     return Row(
       children: [
         DecoratedBox(
@@ -15,14 +16,15 @@ class PaymentComponent extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Image.network(
-              AppAssets.mastercardIcon,
+              AppAssets.mc,
+              // AppAssets.mastercardIcon,
               fit: BoxFit.cover,
               height: 30,
             ),
           ),
         ),
         const SizedBox(width: 16.0),
-        Text('**** **** **** 2718'),
+        const Text('**** **** **** 2718'),
       ],
     );
   }

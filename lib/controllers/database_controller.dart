@@ -25,8 +25,7 @@ abstract class Database {
   Future<void> addToCart(
       AddToCartModel product); //*product model with extra proberties
 
-        Stream<List<DeliveryMethod>> deliveryMethodsStream();
-
+  Stream<List<DeliveryMethod>> deliveryMethodsStream();
 }
 
 class FirestoreDatabase implements Database {
@@ -123,8 +122,9 @@ class FirestoreDatabase implements Database {
         builder: (data, documentId) =>
             AddToCartModel.fromMap(data!, documentId),
       );
-      
-       @override
+
+  //? ======= [ deliveryMethodsStream ] =======
+  @override
   Stream<List<DeliveryMethod>> deliveryMethodsStream() =>
       _service.collectionsStream(
           path: ApiPath.deliveryMethods(),

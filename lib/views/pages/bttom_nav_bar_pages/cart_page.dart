@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 
 import '../../../controllers/database_controller.dart';
 import '../../../models/add_to_cart_model.dart';
+import '../../../utilities/routes.dart';
 import '../../widgets/cart_list_item.dart';
 import '../../widgets/main_button.dart';
+import '../../widgets/order_summary_component.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -31,7 +33,7 @@ class _CartPageState extends State<CartPage> {
     for (var element in myProducts) {
       //* updata prices part
       setState(() {
-        totalAmount = element.price;
+        totalAmount += element.price;
       });
     }
   }
@@ -105,7 +107,7 @@ class _CartPageState extends State<CartPage> {
 
                             //! don't use setState inside builder or streamBuilder
                             // setState(() {
-                            totalAmount = cartItem.price;
+                            // totalAmount = cartItem.price;
                             // });
                             //* complete the widget
                             return CartListItem(
@@ -115,32 +117,45 @@ class _CartPageState extends State<CartPage> {
                         ),
                       const SizedBox(height: 24.0),
                       //? ================ total amount ==================
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          //! we can use stream here to deal with price only
-                          //! you can call it with initstate => only once call
-                          //! our didChangeDependancies => with every rebuild recall
-                          Text(
-                            'Total Amount:',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(
-                                  color: Colors.grey,
-                                ),
-                          ),
-                          Text(
-                            '$totalAmount\$',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ],
+                      //* [1]
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     //! we can use stream here to deal with price only
+                      //     //! you can call it with initstate => only once call
+                      //     //! our didChangeDependancies => with every rebuild recall
+                      //     Text(
+                      //       'Total Amount:',
+                      //       style: Theme.of(context)
+                      //           .textTheme
+                      //           .titleMedium!
+                      //           .copyWith(
+                      //             color: Colors.grey,
+                      //           ),
+                      //     ),
+                      //     Text(
+                      //       '$totalAmount\$',
+                      //       style: Theme.of(context).textTheme.titleLarge,
+                      //     ),
+                      //   ],
+                      // ),
+                      // const SizedBox(height: 32.0),
+
+                      //* [2]
+                      OrderSummaryComponent(
+                        title: 'Total Amount',
+                        value: totalAmount.toString(),
                       ),
                       const SizedBox(height: 32.0),
                       //? ================ checkout btn ==================
                       MainButton(
                         text: 'Checkout',
-                        onTap: () {},
+                        //* we use rootNavigator
+                        onTap: () => Navigator.of(context, rootNavigator: true)
+                            .pushNamed(
+                          AppRoutes.checkoutPageRoute,
+                          arguments: database,
+                        ),
                         hasCircularBorder: true,
                       ),
                       const SizedBox(height: 32.0),

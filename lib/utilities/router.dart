@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../controllers/database_controller.dart';
 import '../utilities/routes.dart';
+import '../views/pages/checkout/checkout_page.dart';
 import '../views/pages/landing_page.dart';
 import '../views/pages/bottom_navbar.dart';
 
@@ -21,6 +22,8 @@ Route<dynamic> onGenerate(RouteSettings settings) {
   //* according to settings.name we choose our route cases
   switch (settings.name) {
     //?:::::::: we make login and register on one as Auth
+    //?################[ loginPageRoute ]###################################
+
     case AppRoutes.loginPageRoute:
       //? we back MaterialPageRoute, need both builder && settings
       //! if path not take parameters make it const
@@ -35,7 +38,16 @@ Route<dynamic> onGenerate(RouteSettings settings) {
         builder: (_) => const BottomNavbar(),
         settings: settings,
       );
-    //?########################################################
+//?################[ checkoutPageRoute ]###################################
+    case AppRoutes.checkoutPageRoute:
+      //* pass Database, we use provider<>.value
+      final database = settings.arguments as Database;
+      return MaterialPageRoute(
+        builder: (_) => Provider<Database>.value(
+            value: database, child: const CheckoutPage()),
+        settings: settings,
+      );
+    //?################[ productDetailsRoute 1 ]###################################
     //! how we recive arrguments from navigation == constructor injection
     // case AppRoutes.productDetailsRoute:
     //* access to arrgs through seetings, and assign it with allile
@@ -46,7 +58,7 @@ Route<dynamic> onGenerate(RouteSettings settings) {
     //     settings: settings,
     //   );
     //! to solve provider error with add to cart
-    //?########################################################
+    //?################[ productDetailsRoute 2 ]###################################
     case AppRoutes.productDetailsRoute:
       //!!!!!!!!!!!!!!!!!!! [back here] !!!!!!!!!!!!!!!!!!!!!
       //* we need 3 ->
@@ -60,7 +72,7 @@ Route<dynamic> onGenerate(RouteSettings settings) {
         ),
         settings: settings,
       );
-    //?########################################################
+    //?################[ landingPageRoute ]###################################
     case AppRoutes.landingPageRoute:
 
     //? handle it with default route to catch any errors

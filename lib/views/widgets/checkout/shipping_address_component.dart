@@ -5,6 +5,8 @@ class ShippingAddressComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //* we use card to display name nd address
+    //* we can make another page to add these data
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       child: Padding(
@@ -17,7 +19,7 @@ class ShippingAddressComponent extends StatelessWidget {
               children: [
                 Text(
                   'Tarek Alabd',
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                 ),
@@ -25,7 +27,7 @@ class ShippingAddressComponent extends StatelessWidget {
                   onTap: () {},
                   child: Text(
                     'Change',
-                    style: Theme.of(context).textTheme.button!.copyWith(
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           color: Colors.redAccent,
                         ),
                   ),
@@ -35,11 +37,11 @@ class ShippingAddressComponent extends StatelessWidget {
             const SizedBox(height: 8.0),
             Text(
               '13 Mossaddak Street',
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             Text(
               'Dokki, Giza, Egypt',
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ],
         ),

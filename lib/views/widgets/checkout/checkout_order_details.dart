@@ -7,6 +7,7 @@ class CheckoutOrderDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //* to make bottom part of the checkout page
     return Column(
       children: const [
         OrderSummaryComponent(title: 'Order', value: '125\$'),

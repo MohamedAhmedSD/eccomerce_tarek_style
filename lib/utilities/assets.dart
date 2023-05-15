@@ -16,7 +16,12 @@ class AppAssets {
   static const facebookIcon = 'assets/facebook-svgrepo-com.svg';
   static const googleIcon = 'assets/google-svgrepo-com.svg';
 
-  /// Checkout Images
+  //! Checkout Images
   static const mastercardIcon =
       'https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png';
+
+  static const mc =
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHw5oGZeCP70vx9Q7ADZfKIAH8oSobdkHvxRlpO4vJVA&s";
+
+  //! add DeliveryMethod images inside firestore
 }

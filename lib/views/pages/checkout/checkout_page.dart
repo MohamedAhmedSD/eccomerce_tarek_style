@@ -32,6 +32,8 @@ class CheckoutPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              //? ========== Shipping address ============
+              //* if there items it show card if not don't show it
               Text(
                 'Shipping address',
                 style: Theme.of(context).textTheme.titleLarge,
@@ -39,6 +41,7 @@ class CheckoutPage extends StatelessWidget {
               const SizedBox(height: 8.0),
               const ShippingAddressComponent(),
               const SizedBox(height: 24.0),
+              //? ========== Payment ============
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -60,15 +63,18 @@ class CheckoutPage extends StatelessWidget {
               const SizedBox(height: 8.0),
               const PaymentComponent(),
               const SizedBox(height: 24.0),
+              //? ========== Delivery method ============
               Text(
                 'Delivery method',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8.0),
+              //? =======[ deliveryMethods Stream] ===========
               StreamBuilder<List<DeliveryMethod>>(
                   stream: database.deliveryMethodsStream(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.active) {
+                      //* deliveryMethods == List<DeliveryMethod>? deliveryMethods
                       final deliveryMethods = snapshot.data;
                       if (deliveryMethods == null || deliveryMethods.isEmpty) {
                         return const Center(
@@ -79,6 +85,7 @@ class CheckoutPage extends StatelessWidget {
                         height: size.height * 0.13,
                         child: ListView.builder(
                           itemCount: deliveryMethods.length,
+                          //* scrollable
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (_, i) => Padding(
                             padding: const EdgeInsets.all(8.0),
