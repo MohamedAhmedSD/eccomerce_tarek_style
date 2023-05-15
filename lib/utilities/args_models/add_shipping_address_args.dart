@@ -1,5 +1,5 @@
-import 'package:flutter_ecommerce/controllers/database_controller.dart';
-import 'package:flutter_ecommerce/models/shipping_address.dart';
+import '../../controllers/database_controller.dart';
+import '../../models/shipping_address.dart';
 
 class AddShippingAddressArgs {
   final Database database;

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../controllers/database_controller.dart';
 import '../../../models/shipping_address.dart';
+import '../../../utilities/routes.dart';
 
 class ShippingAddressComponent extends StatelessWidget {
-  //* we need use ShippingAddress model 
+  //* we need use ShippingAddress model
   final ShippingAddress shippingAddress;
   const ShippingAddressComponent({
     Key? key,
@@ -12,6 +15,8 @@ class ShippingAddressComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final database = Provider.of<Database>(context);
+
     //* we use card to display name nd address
     //* we can make another page to add these data
     return Card(
@@ -31,7 +36,10 @@ class ShippingAddressComponent extends StatelessWidget {
                       ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () => Navigator.of(context).pushNamed(
+                    AppRoutes.shippingAddressesRoute,
+                    arguments: database,
+                  ),
                   child: Text(
                     'Change',
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
