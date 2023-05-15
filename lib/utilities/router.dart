@@ -5,11 +5,13 @@ import '../controllers/database_controller.dart';
 import '../utilities/routes.dart';
 import '../views/pages/checkout/add_shipping_address_page.dart';
 import '../views/pages/checkout/checkout_page.dart';
+import '../views/pages/checkout/shipping_addresses_page.dart';
 import '../views/pages/landing_page.dart';
 import '../views/pages/bottom_navbar.dart';
 
 import '../views/pages/auth.dart';
 import '../views/pages/product_details.dart';
+import 'args_models/add_shipping_address_args.dart';
 
 //! read => https://dev.to/geekpius/how-to-use-on-generate-route-in-flutter-4kml
 
@@ -73,14 +75,28 @@ Route<dynamic> onGenerate(RouteSettings settings) {
         ),
         settings: settings,
       );
-    //?################[ landingPageRoute ]###################################
+    //?################[ ShippingAddress && addShippingAddressRoute ]###################################
 
-    case AppRoutes.addShippingAddressRoute:
+    case AppRoutes.shippingAddressesRoute:
       final database = settings.arguments as Database;
       return MaterialPageRoute(
         builder: (_) => Provider<Database>.value(
           value: database,
-          child: const AddShippingAddressPage(),
+          child: const ShippingAddressesPage(),
+        ),
+        settings: settings,
+      );
+    case AppRoutes.addShippingAddressRoute:
+      final args = settings.arguments as AddShippingAddressArgs;
+      final database = args.database;
+      final shippingAddress = args.shippingAddress;
+
+      return MaterialPageRoute(
+        builder: (_) => Provider<Database>.value(
+          value: database,
+          child: AddShippingAddressPage(
+            shippingAddress: shippingAddress,
+          ),
         ),
         settings: settings,
       );

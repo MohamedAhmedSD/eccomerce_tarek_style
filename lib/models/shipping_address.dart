@@ -21,7 +21,7 @@ class ShippingAddress {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'id': id});
     result.addAll({'fullName': fullName});
     result.addAll({'country': country});
@@ -30,7 +30,7 @@ class ShippingAddress {
     result.addAll({'state': state});
     result.addAll({'zipCode': zipCode});
     result.addAll({'isDefault': isDefault});
-  
+
     return result;
   }
 
@@ -44,6 +44,29 @@ class ShippingAddress {
       state: map['state'] ?? '',
       zipCode: map['zipCode'] ?? '',
       isDefault: map['isDefault'] ?? false,
+    );
+  }
+
+  //* to edit them we use copyWith method
+  ShippingAddress copyWith({
+    String? id,
+    String? fullName,
+    String? country,
+    String? address,
+    String? city,
+    String? state,
+    String? zipCode,
+    bool? isDefault,
+  }) {
+    return ShippingAddress(
+      id: id ?? this.id,
+      fullName: fullName ?? this.fullName,
+      country: country ?? this.country,
+      address: address ?? this.address,
+      city: city ?? this.city,
+      state: state ?? this.state,
+      zipCode: zipCode ?? this.zipCode,
+      isDefault: isDefault ?? this.isDefault,
     );
   }
 }
